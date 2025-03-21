@@ -5,9 +5,6 @@ class State:
 	func _init(name: String, color: Color) -> void:
 		self.name = name
 		self.color = color
-			
-
-
 
 var states = {"LISTENING": State.new("Listening", Color(1,1,1)),
 			"BLOCKED": State.new("Blocked", Color(1,1,1)),
@@ -54,18 +51,16 @@ func _input_window_leave():
 	if state == states["LISTENING"] or state == states["MISSED"]:
 		change_state("BLOCKED")
 	if state == states["ORDERED"]:
-		change_state("PRE-MOVE")
+		action_timer.start()
+		current_action.perform_action(self)
+		change_state("ACTION")
 
 func _stop_action():
 	current_action.end_action(self)
 	change_state("BLOCKED")
 
 func _on_beat():
-	if state == states["PRE-MOVE"]:
-		action_timer.start()
-		current_action.perform_action(self)
-		change_state("ACTION")
-		dir *= -1
+	pass
 
 func perform_action(action):
 	change_state("ORDERED")
@@ -78,6 +73,7 @@ func _process(delta: float) -> void:
 	##Action1 is pressed on-beat
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_1"):
 		perform_action(Action1)
+	##Action2 is pressed on-beat
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_2"):
 		perform_action(Action2)
 	##Action is pressed off-beat

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=8 format=3 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://cmgiii01a3n8" path="res://character_body_2d.gd" id="3_7jktm"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://global_clock.gd" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://p5sxrhhq18cw" path="res://move_action.gd" id="5_7jktm"]
 [ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://move_action_2.gd" id="6_ryrav"]
+[ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://character_instant.gd" id="7_eow3j"]
 
 [node name="Game" type="Node2D"]
 
@@ -44,4 +45,22 @@ one_shot = true
 script = ExtResource("5_7jktm")
 
 [node name="MoveLeftAction" type="Node" parent="CharacterCD/Actions"]
+script = ExtResource("6_ryrav")
+
+[node name="CharacterInstant" type="CharacterBody2D" parent="."]
+script = ExtResource("7_eow3j")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterInstant"]
+position = Vector2(811, 281)
+texture = ExtResource("2_fc0e3")
+
+[node name="ActionTimer" type="Timer" parent="CharacterInstant"]
+one_shot = true
+
+[node name="Actions" type="Node" parent="CharacterInstant"]
+
+[node name="MoveRightAction" type="Node" parent="CharacterInstant/Actions"]
+script = ExtResource("5_7jktm")
+
+[node name="MoveLeftAction" type="Node" parent="CharacterInstant/Actions"]
 script = ExtResource("6_ryrav")
