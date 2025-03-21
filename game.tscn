@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxviel6md8neh"]
+
+[ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="2_fc0e3"]
+[ext_resource type="Script" uid="uid://cmgiii01a3n8" path="res://character_body_2d.gd" id="3_7jktm"]
+[ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://visual_clock.gd" id="3_feb5d"]
+[ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://global_clock.gd" id="4_fc0e3"]
+
+[node name="Game" type="Node2D"]
+
+[node name="GlobalClock" type="Node" parent="."]
+script = ExtResource("4_fc0e3")
+
+[node name="MainBeat" type="Timer" parent="GlobalClock"]
+wait_time = 0.75
+autostart = true
+
+[node name="VisualClock" type="Sprite2D" parent="."]
+script = ExtResource("3_feb5d")
+
+[node name="beat" type="Timer" parent="VisualClock"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="VisualClock"]
+position = Vector2(509, 350)
+scale = Vector2(1.42969, 0.296875)
+texture = ExtResource("2_fc0e3")
+
+[node name="Character_coldown" type="CharacterBody2D" parent="."]
+script = ExtResource("3_7jktm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Character_coldown"]
+position = Vector2(452, 119)
+texture = ExtResource("2_fc0e3")
+
+[node name="ActionTimer" type="Timer" parent="Character_coldown"]
+one_shot = true
