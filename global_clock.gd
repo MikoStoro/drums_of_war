@@ -26,10 +26,8 @@ func beat_event():
 func _process(delta: float) -> void:
 	if in_input_window() && input_window_flag == false:
 		input_window_flag = true
-		print("input_window_enter")
 		input_window_enter.emit()
 		
 	if !in_input_window() && input_window_flag == true:
 		input_window_flag = false
-		print("input_window_leave")
 		input_window_leave.emit()
