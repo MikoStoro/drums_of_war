@@ -3,6 +3,7 @@ extends Node
 signal beat
 signal input_window_enter
 signal input_window_leave
+signal board_update
 
 var clock
 @export var beat_time : float
@@ -31,3 +32,4 @@ func _process(delta: float) -> void:
 	if !in_input_window() && input_window_flag == true:
 		input_window_flag = false
 		input_window_leave.emit()
+		board_update.emit()

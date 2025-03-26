@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=10 format=3 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="2_fc0e3"]
 [ext_resource type="Script" uid="uid://cmgiii01a3n8" path="res://character_cd.gd" id="3_7jktm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://move_action_2.gd" id="6_ryrav"]
 [ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://character_instant.gd" id="7_eow3j"]
 [ext_resource type="Script" uid="uid://d03binxqo5nfy" path="res://move_mouse_action.gd" id="7_j5wjh"]
+[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://board.gd" id="9_vef74"]
 
 [node name="Game" type="Node2D"]
 
@@ -71,3 +72,6 @@ script = ExtResource("5_7jktm")
 
 [node name="MoveLeftAction" type="Node" parent="CharacterInstant/Actions"]
 script = ExtResource("6_ryrav")
+
+[node name="Board" type="Node" parent="."]
+script = ExtResource("9_vef74")
