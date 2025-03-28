@@ -8,12 +8,12 @@ class Coordinates:
 		self.y = y
 class BoardEntity:
 	var coordinates : Coordinates = Coordinates.new(0,0)
-	var move_dir : Coordinates = Coordinates.new(0,0)
+	var move_direction : Coordinates = Coordinates.new(0,0)
 	var move_distance : int = 0
 	var debug_display : String = "A"
 	func invert_direction():
-		self.move_dir.x *= -1
-		self.move_dir.y *= -1
+		self.move_direction.x *= -1
+		self.move_direction.y *= -1
 	func collide():
 		self.invert_direction()
 		self.move_distance = 1
@@ -42,11 +42,13 @@ func _ready() -> void:
 			var f = Field.new()
 			f.x = i
 			f.y = j
-			f.content = null
 			row.append(f)
 		fields.append(row)
+	place_starting_entities()
 
 func update():
+	print("TURN START")
+	print_board()
 	var move_performed = true
 	while move_performed: ## will loop until there are no more moves to perform
 		move_performed = false
@@ -57,14 +59,17 @@ func update():
 		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
 			if len(get_field(e.coordinates).entities) > 1:
 				e.collide() ## if collisions are detected, run collide() method of board entity
-	print_board() 
+		print_board()
+		print("xxxxxxxxxxxx")
+	
+
 
 func get_field(coordinates: Coordinates) -> Field:
 	return(fields[coordinates.x][coordinates.y])
 
 func move_entity(entity : BoardEntity) -> void:
-	var dir = entity.move_dir
-	var new_coords = Coordinates.new(entity.coordinates + dir.x, entity.coordinates.y+dir.y)
+	var dir = entity.move_direction
+	var new_coords = Coordinates.new(entity.coordinates.x + dir.x, entity.coordinates.y + dir.y)
 	get_field(entity.coordinates).entities.erase(entity)
 	entity.coordinates = new_coords
 	get_field(entity.coordinates).entities.append(entity)
@@ -72,12 +77,13 @@ func move_entity(entity : BoardEntity) -> void:
 	
 func place_entity(entity: BoardEntity) -> void: ##DEBUG
 	get_field(entity.coordinates).entities.append(entity)
+	entities.append(entity)
 	
 func print_board():
 	var print_string = ""
 	for i in width:
 		for j in height:
-			print_string += fields[i][i].debug_description + ' '
+			print_string += fields[i][j].get_debug_display() + ' '
 		print_string += "\n"
 	print(print_string)
 
@@ -86,3 +92,14 @@ func _process(delta: float) -> void:
 	pass
 	
 func place_starting_entities(): ##DEBUG
+	var e1 = BoardEntity.new()
+	e1.move_distance = 1
+	e1.move_direction = Coordinates.new(1,0)
+	e1.coordinates = Coordinates.new(2,2)
+	place_entity(e1)
+	var e2 = BoardEntity.new()
+	e2.debug_display = "B"
+	e2.move_distance = 1
+	e2.move_direction = Coordinates.new(-1,0)
+	e2.coordinates = Coordinates.new(3,2)
+	place_entity(e2)

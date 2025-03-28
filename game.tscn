@@ -16,7 +16,7 @@
 script = ExtResource("4_fc0e3")
 
 [node name="MainBeat" type="Timer" parent="GlobalClock"]
-wait_time = 0.75
+wait_time = 3.0
 autostart = true
 
 [node name="VisualClock" type="Sprite2D" parent="."]
