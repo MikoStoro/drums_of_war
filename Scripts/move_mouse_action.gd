@@ -1,19 +1,20 @@
-extends Node
+extends BaseAction
 
-var action_name = "Move Right"
-
-const SPEED = 400
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	action_name = "Move To Mouse"
+	SPEED = 200
+	
 func perform_action(character):
-	character.dir = 1
-	character.velocity.x = character.dir * SPEED
+	var direction = character.get_relative_mouse_position().normalized()
+	print(direction)
+	character.velocity.x = direction.x * SPEED
+	character.velocity.y = direction.y * SPEED
 
 func end_action(character):
 	character.velocity.x = 0
+	character.velocity.y = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

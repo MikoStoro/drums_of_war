@@ -33,7 +33,7 @@ var last_state : State = states["BLOCKED"]
 const SPEED = 300.0
 var dir = 1
 
-var current_action = null
+var current_action: BaseAction = null
 
 func _ready() -> void:
 	action_timer.wait_time = clock.beat_time * 0.4

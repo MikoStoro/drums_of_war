@@ -1,26 +1,26 @@
 [gd_scene load_steps=10 format=3 uid="uid://dxviel6md8neh"]
 
-[ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="2_fc0e3"]
-[ext_resource type="Script" uid="uid://cmgiii01a3n8" path="res://character_cd.gd" id="3_7jktm"]
-[ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://visual_clock.gd" id="3_feb5d"]
-[ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://global_clock.gd" id="4_fc0e3"]
-[ext_resource type="Script" uid="uid://p5sxrhhq18cw" path="res://move_action.gd" id="5_7jktm"]
-[ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://move_action_2.gd" id="6_ryrav"]
-[ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://character_instant.gd" id="7_eow3j"]
-[ext_resource type="Script" uid="uid://d03binxqo5nfy" path="res://move_mouse_action.gd" id="7_j5wjh"]
-[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://board.gd" id="9_vef74"]
+[ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/global_clock.gd" id="1_h4fw4"]
+[ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/visual_clock.gd" id="2_ldgsr"]
+[ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="3_o5yvi"]
+[ext_resource type="Script" uid="uid://cmgiii01a3n8" path="res://Scripts/character_cd.gd" id="4_rku1e"]
+[ext_resource type="Script" uid="uid://p5sxrhhq18cw" path="res://Scripts/move_action.gd" id="5_rfjv2"]
+[ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://Scripts/move_action_2.gd" id="6_1phco"]
+[ext_resource type="Script" uid="uid://d03binxqo5nfy" path="res://Scripts/move_mouse_action.gd" id="7_nb51f"]
+[ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://Scripts/character_instant.gd" id="8_nnt18"]
+[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/board.gd" id="9_ewbju"]
 
 [node name="Game" type="Node2D"]
 
 [node name="GlobalClock" type="Node" parent="."]
-script = ExtResource("4_fc0e3")
+script = ExtResource("1_h4fw4")
 
 [node name="MainBeat" type="Timer" parent="GlobalClock"]
 wait_time = 0.75
 autostart = true
 
 [node name="VisualClock" type="Sprite2D" parent="."]
-script = ExtResource("3_feb5d")
+script = ExtResource("2_ldgsr")
 
 [node name="beat" type="Timer" parent="VisualClock"]
 wait_time = 0.1
@@ -29,16 +29,16 @@ one_shot = true
 [node name="Sprite2D" type="Sprite2D" parent="VisualClock"]
 position = Vector2(509, 350)
 scale = Vector2(1.42969, 0.296875)
-texture = ExtResource("2_fc0e3")
+texture = ExtResource("3_o5yvi")
 
 [node name="CharacterCD" type="CharacterBody2D" parent="."]
 position = Vector2(270, 139)
 rotation = 0.0041771
-script = ExtResource("3_7jktm")
+script = ExtResource("4_rku1e")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterCD"]
 position = Vector2(1375.4, 388.833)
-texture = ExtResource("2_fc0e3")
+texture = ExtResource("3_o5yvi")
 offset = Vector2(-1375.97, -392.376)
 
 [node name="ActionTimer" type="Timer" parent="CharacterCD"]
@@ -47,20 +47,20 @@ one_shot = true
 [node name="Actions" type="Node" parent="CharacterCD"]
 
 [node name="MoveRightAction" type="Node" parent="CharacterCD/Actions"]
-script = ExtResource("5_7jktm")
+script = ExtResource("5_rfjv2")
 
 [node name="MoveLeftAction" type="Node" parent="CharacterCD/Actions"]
-script = ExtResource("6_ryrav")
+script = ExtResource("6_1phco")
 
 [node name="MoveMouseAction" type="Node" parent="CharacterCD/Actions"]
-script = ExtResource("7_j5wjh")
+script = ExtResource("7_nb51f")
 
 [node name="CharacterInstant" type="CharacterBody2D" parent="."]
 position = Vector2(776, 196)
-script = ExtResource("7_eow3j")
+script = ExtResource("8_nnt18")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterInstant"]
-texture = ExtResource("2_fc0e3")
+texture = ExtResource("3_o5yvi")
 
 [node name="ActionTimer" type="Timer" parent="CharacterInstant"]
 one_shot = true
@@ -68,10 +68,10 @@ one_shot = true
 [node name="Actions" type="Node" parent="CharacterInstant"]
 
 [node name="MoveRightAction" type="Node" parent="CharacterInstant/Actions"]
-script = ExtResource("5_7jktm")
+script = ExtResource("5_rfjv2")
 
 [node name="MoveLeftAction" type="Node" parent="CharacterInstant/Actions"]
-script = ExtResource("6_ryrav")
+script = ExtResource("6_1phco")
 
 [node name="Board" type="Node" parent="."]
-script = ExtResource("9_vef74")
+script = ExtResource("9_ewbju")
