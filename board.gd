@@ -1,20 +1,35 @@
 class_name Board
 extends Node
-
+class Coordinates: 
+	var x : int = 0
+	var y : int = 0
+	func _init(x : int, y: int) -> void:
+		self.x = x
+		self.y = y
+class BoardEntity:
+	var coordinates : Coordinates = Coordinates.new(0,0)
+	var move_dir : Coordinates = Coordinates.new(0,0)
+	var move_distance : int = 0
+	var debug_display : String = "A"
+	func invert_direction():
+		self.move_dir.x *= -1
+		self.move_dir.y *= -1
+	func collide():
+		self.invert_direction()
+		self.move_distance = 1
 class Field:
 	var x : int
 	var y : int
-	var content : Node = null
-	var debug_description : String = "x"
-class Move:
-	var start: Field
-	var end: Field
-class Attack:
-	var target: Field
+	var entities : Array[BoardEntity] = []
+	func get_debug_display() -> String:
+		if len(entities) == 0: return "_"
+		else: if len(entities) > 1: return "!"
+		else: return entities[0].debug_display
 
 const width = 5
 const height = 5
 var fields = Array()
+var entities : Array[BoardEntity] = []
 @onready var clock = $"../GlobalClock"
 
 # Called when the node enters the scene tree for the first time.
@@ -32,7 +47,31 @@ func _ready() -> void:
 		fields.append(row)
 
 func update():
-	print_board()
+	var move_performed = true
+	while move_performed: ## will loop until there are no more moves to perform
+		move_performed = false
+		for e in entities: ## perform moves
+			if e.move_distance > 0:
+				move_performed = true
+				move_entity(e)
+		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
+			if len(get_field(e.coordinates).entities) > 1:
+				e.collide() ## if collisions are detected, run collide() method of board entity
+	print_board() 
+
+func get_field(coordinates: Coordinates) -> Field:
+	return(fields[coordinates.x][coordinates.y])
+
+func move_entity(entity : BoardEntity) -> void:
+	var dir = entity.move_dir
+	var new_coords = Coordinates.new(entity.coordinates + dir.x, entity.coordinates.y+dir.y)
+	get_field(entity.coordinates).entities.erase(entity)
+	entity.coordinates = new_coords
+	get_field(entity.coordinates).entities.append(entity)
+	entity.move_distance -= 1
+	
+func place_entity(entity: BoardEntity) -> void: ##DEBUG
+	get_field(entity.coordinates).entities.append(entity)
 	
 func print_board():
 	var print_string = ""
@@ -45,3 +84,5 @@ func print_board():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+func place_starting_entities(): ##DEBUG
