@@ -1,3 +1,4 @@
+##SPIRIT REALM
 class_name Board
 extends Node
 class Coordinates: 
@@ -11,25 +12,49 @@ class BoardEntity:
 	var move_direction : Coordinates = Coordinates.new(0,0)
 	var move_distance : int = 0
 	var debug_display : String = "A"
+	var able_to_collide : bool = false
 	func invert_direction():
 		self.move_direction.x *= -1
 		self.move_direction.y *= -1
+	func turn_setup():
+		able_to_collide = true
 	func collide():
 		self.invert_direction()
 		self.move_distance = 1
+	func junction_collide():
+		self.able_to_collide = false
+		self.collide()
 class Field:
 	var x : int
 	var y : int
 	var entities : Array[BoardEntity] = []
+
 	func get_debug_display() -> String:
 		if len(entities) == 0: return "_"
 		else: if len(entities) > 1: return "!"
 		else: return entities[0].debug_display
 
+	func count_colliding_entities():
+		var count = 0
+		for e in entities:
+			if e.able_to_collide: count += 1
+		return count
+
+class Junction:
+	var entities : Array[BoardEntity] = []
+
+	func process_collisions():
+		if len(entities) > 1:
+			for e in entities: e.junction_collide()
+
+	func clear():
+		entities = []
+
 const width = 5
 const height = 5
 var fields = Array()
 var entities : Array[BoardEntity] = []
+var junctions : Dictionary[String, Junction] = {}
 @onready var clock = $"../GlobalClock"
 
 # Called when the node enters the scene tree for the first time.
@@ -46,19 +71,34 @@ func _ready() -> void:
 		fields.append(row)
 	place_starting_entities()
 
+func get_junction_name(field1:Field, field2:Field) -> String:
+	var str1 = str(field1.x) + str(field1.y)
+	var str2 = str(field2.x) + str(field2.y)
+	if str1 < str2: return str1+str2
+	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
+
 func update():
 	print("TURN START")
 	print_board()
 	var move_performed = true
+
 	while move_performed: ## will loop until there are no more moves to perform
 		move_performed = false
+		junctions = {}
+		for e in entities: e.turn_setup() ## setup new turn
+
 		for e in entities: ## perform moves
 			if e.move_distance > 0:
 				move_performed = true
 				move_entity(e)
+		
+		##for j in junctions.values():  pls dont
+		##	j.process_collisions() 
+
 		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
-			if len(get_field(e.coordinates).entities) > 1:
+			if e.able_to_collide && get_field(e.coordinates).count_colliding_entities() > 1:
 				e.collide() ## if collisions are detected, run collide() method of board entity
+
 		print_board()
 		print("xxxxxxxxxxxx")
 	
@@ -67,13 +107,26 @@ func update():
 func get_field(coordinates: Coordinates) -> Field:
 	return(fields[coordinates.x][coordinates.y])
 
-func move_entity(entity : BoardEntity) -> void:
+func move_entity(entity : BoardEntity, teleport: bool = false) -> void:
 	var dir = entity.move_direction
 	var new_coords = Coordinates.new(entity.coordinates.x + dir.x, entity.coordinates.y + dir.y)
-	get_field(entity.coordinates).entities.erase(entity)
+	
+	var old_field = get_field(entity.coordinates)
+	old_field.entities.erase(entity)
 	entity.coordinates = new_coords
-	get_field(entity.coordinates).entities.append(entity)
+	
+	var new_field = get_field(entity.coordinates)
+	new_field.entities.append(entity)
 	entity.move_distance -= 1
+	
+	if teleport == false: ##add junction between old and new field
+		var junction_name = get_junction_name(old_field, new_field)
+		if junctions.has(junction_name) == false:
+			var junction = Junction.new()
+			junction.entities.append(entity)
+			junctions[junction_name] = junction
+		else:
+			junctions[junction_name].entities.append(entity)
 	
 func place_entity(entity: BoardEntity) -> void: ##DEBUG
 	get_field(entity.coordinates).entities.append(entity)
