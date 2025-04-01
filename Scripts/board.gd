@@ -7,23 +7,33 @@ class Coordinates:
 	func _init(x : int, y: int) -> void:
 		self.x = x
 		self.y = y
+
+
 class BoardEntity:
 	var coordinates : Coordinates = Coordinates.new(0,0)
 	var move_direction : Coordinates = Coordinates.new(0,0)
 	var move_distance : int = 0
+	
+	var correction_required : bool = false
+	var knockback_immunity : bool = false
+	
 	var debug_display : String = "A"
-	var able_to_collide : bool = false
-	func invert_direction():
+
+	func invert_direction() -> void:
 		self.move_direction.x *= -1
 		self.move_direction.y *= -1
 	func turn_setup():
-		able_to_collide = true
+		self.correction_required = false
+		self.knockback_immunity = false
 	func collide():
-		self.invert_direction()
-		self.move_distance = 1
+		if not knockback_immunity:
+			self.invert_direction()
+			self.move_distance = 1
 	func junction_collide():
-		self.able_to_collide = false
-		self.collide()
+		self.move_distance = 1
+		self.invert_direction()
+		self.knockback_immunity = true
+		self.correction_required = true
 class Field:
 	var x : int
 	var y : int
@@ -33,20 +43,18 @@ class Field:
 		if len(entities) == 0: return "_"
 		else: if len(entities) > 1: return "!"
 		else: return entities[0].debug_display
-
 	func count_colliding_entities():
-		var count = 0
+		return len(entities)
+		'''var count = 0
 		for e in entities:
 			if e.able_to_collide: count += 1
-		return count
+		return count'''
 
 class Junction:
 	var entities : Array[BoardEntity] = []
-
 	func process_collisions():
 		if len(entities) > 1:
 			for e in entities: e.junction_collide()
-
 	func clear():
 		entities = []
 
@@ -78,6 +86,13 @@ func get_junction_name(field1:Field, field2:Field) -> String:
 	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
 
 func update():
+	perform_movement_phase()
+	perform_attack_phase()
+
+func perform_attack_phase():
+	pass
+
+func perform_movement_phase():
 	print("TURN START")
 	print_board()
 	var move_performed = true
@@ -92,11 +107,15 @@ func update():
 				move_performed = true
 				move_entity(e)
 		
-		##for j in junctions.values():  pls dont
-		##	j.process_collisions() 
+		for j in junctions.values():  ##hell yeah
+			j.process_collisions() 
+
+		for e in entities: ##corect positions after junction collisions
+			if e.correction_required and e.move_distance > 0:
+				move_entity(e, true)
 
 		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
-			if e.able_to_collide && get_field(e.coordinates).count_colliding_entities() > 1:
+			if get_field(e.coordinates).count_colliding_entities() > 1:
 				e.collide() ## if collisions are detected, run collide() method of board entity
 
 		print_board()
