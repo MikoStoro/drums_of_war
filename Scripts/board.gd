@@ -9,10 +9,13 @@ class Coordinates:
 		self.y = y
 
 
-class BoardEntity:
+class BoardEntity: ## to-do: this should be some sort of base class, extended by actions
 	var coordinates : Coordinates = Coordinates.new(0,0)
+	
 	var move_direction : Coordinates = Coordinates.new(0,0)
-	var move_distance : int = 0
+	var move_distance : int = 0 ## to-do: this should be a sort of move queue (for example to allow more complicated movement patterns)
+	
+	## to-do: var attacks 
 	
 	var correction_required : bool = false
 	var knockback_immunity : bool = false
@@ -25,7 +28,7 @@ class BoardEntity:
 	func turn_setup():
 		self.correction_required = false
 		self.knockback_immunity = false
-	func collide():
+	func collide(): ## to-do: make colliding entities able to interact
 		if not knockback_immunity:
 			self.invert_direction()
 			self.move_distance = 1
@@ -78,6 +81,7 @@ func _ready() -> void:
 			row.append(f)
 		fields.append(row)
 	place_starting_entities()
+	print_board()
 
 func get_junction_name(field1:Field, field2:Field) -> String:
 	var str1 = str(field1.x) + str(field1.y)
@@ -94,7 +98,6 @@ func perform_attack_phase():
 
 func perform_movement_phase():
 	print("TURN START")
-	print_board()
 	var move_performed = true
 
 	while move_performed: ## will loop until there are no more moves to perform
@@ -118,8 +121,8 @@ func perform_movement_phase():
 			if get_field(e.coordinates).count_colliding_entities() > 1:
 				e.collide() ## if collisions are detected, run collide() method of board entity
 
-		print_board()
-		print("xxxxxxxxxxxx")
+	print_board()
+		#print("xxxxxxxxxxxx")
 	
 
 
@@ -151,7 +154,7 @@ func place_entity(entity: BoardEntity) -> void: ##DEBUG
 	get_field(entity.coordinates).entities.append(entity)
 	entities.append(entity)
 	
-func print_board():
+func print_board(): ##DEBUG
 	var print_string = ""
 	for i in width:
 		for j in height:
@@ -167,11 +170,11 @@ func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
 	e1.move_distance = 1
 	e1.move_direction = Coordinates.new(1,0)
-	e1.coordinates = Coordinates.new(2,2)
+	e1.coordinates = Coordinates.new(0,2)
 	place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"
 	e2.move_distance = 1
 	e2.move_direction = Coordinates.new(-1,0)
-	e2.coordinates = Coordinates.new(3,2)
+	e2.coordinates = Coordinates.new(4,2)
 	place_entity(e2)
