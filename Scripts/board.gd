@@ -39,6 +39,11 @@ class BoardEntity: ## to-do: this should be some sort of base class, extended by
 		if len(moves) > 0:
 			return moves[0]
 		else: return null
+	func get_last_move() -> Move:
+		if last_move != null:
+			return last_move
+		else:
+			return Move.new(Coordinates.new(0,0),false,0)
 	func pop_move() -> void:
 		last_move = get_current_move()
 		moves.pop_front()
@@ -49,10 +54,10 @@ class BoardEntity: ## to-do: this should be some sort of base class, extended by
 		self.knockback_immunity = false
 	func collide(): ## to-do: make colliding entities able to interact
 		if not knockback_immunity:
-			self.moves = [Move.new(get_current_move().direction.invert())] 
+			self.moves = [Move.new(get_last_move().direction.invert())]
 	func junction_collide():
 		var current_move = get_current_move()
-		self.moves = [Move.new(get_current_move().direction.invert(),true)] 
+		self.moves = [Move.new(get_last_move().direction.invert(),true)] 
 		self.knockback_immunity = true
 		self.correction_required = true
 		
@@ -187,11 +192,11 @@ func _process(delta: float) -> void:
 	
 func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
-	e1.moves = [ Move.new(Coordinates.new(1,0)) ]
+	e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	e1.coordinates = Coordinates.new(0,2)
 	place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"
-	e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
+	#e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
 	e2.coordinates = Coordinates.new(3,2)
 	place_entity(e2)
