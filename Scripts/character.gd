@@ -25,9 +25,9 @@ var last_state : State = states["BLOCKED"]
 @onready var action_timer : Timer = $ActionTimer
 @onready var sprite = $Sprite2D
 
-@onready var Action1 = $Actions/MoveRightAction
-@onready var Action2 = $Actions/MoveLeftAction
-@onready var Action3 = $Actions/MoveMouseAction
+@onready var Action1 = $CharacterCD/Actions/MoveRightAction
+@onready var Action2 = $CharacterCD/Actions/MoveLeftAction
+@onready var Action3 = $CharacterCD/Actions/MoveMouseAction
 @onready var Action4 = null
 
 const SPEED = 300.0
