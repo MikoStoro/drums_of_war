@@ -1,66 +1,7 @@
 ##SPIRIT REALM
 class_name Board
 extends Node
-class Coordinates: 
-	var x : int = 0
-	var y : int = 0
-	func _init(x : int, y: int) -> void:
-		self.x = x
-		self.y = y
-	func invert() -> Coordinates:
-		self.x *= -1
-		self.y *= -1
-		return self
 
-
-class Move:
-	var distance: int = 1
-	var direction: Coordinates = null
-	var teleport : bool = false
-
-	func _init(dir: Coordinates,teleport: bool = false, dist : int = 1) -> void:
-		self.distance = dist
-		self.direction = dir
-		self.teleport = teleport
-
-class BoardEntity: ## to-do: this should be some sort of base class, extended by actions???
-	var coordinates : Coordinates = Coordinates.new(0,0)
-	
-	var moves  = []
-	var last_move : Move = null
-	## to-do: var attacks 
-	
-	var correction_required : bool = false
-	var knockback_immunity : bool = false
-	
-	var debug_display : String = "A"
-	
-	func get_current_move() -> Move:
-		if len(moves) > 0:
-			return moves[0]
-		else: return null
-	func get_last_move() -> Move:
-		if last_move != null:
-			return last_move
-		else:
-			return Move.new(Coordinates.new(0,0),false,0)
-	func pop_move() -> void:
-		last_move = get_current_move()
-		moves.pop_front()
-	func moves_left() -> int:
-		return len(moves)
-	func turn_setup():
-		self.correction_required = false
-		self.knockback_immunity = false
-	func collide(): ## to-do: make colliding entities able to interact
-		if not knockback_immunity:
-			self.moves = [Move.new(get_last_move().direction.invert())]
-	func junction_collide():
-		var current_move = get_current_move()
-		self.moves = [Move.new(get_last_move().direction.invert(),true)] 
-		self.knockback_immunity = true
-		self.correction_required = true
-		
 class Field:
 	var x : int
 	var y : int

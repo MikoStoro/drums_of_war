@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://Scripts/move_action_2.gd" id="6_1phco"]
 [ext_resource type="Script" uid="uid://d03binxqo5nfy" path="res://Scripts/move_mouse_action.gd" id="7_nb51f"]
 [ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://Scripts/character_instant.gd" id="8_nnt18"]
-[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/board.gd" id="9_ewbju"]
+[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board.gd" id="9_ewbju"]
 
 [node name="Game" type="Node2D"]
 
