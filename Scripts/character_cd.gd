@@ -20,7 +20,7 @@ func _stop_action():
 func _on_beat():
 	if state == states["PRE-ACTION"]:
 		action_timer.start()
-		current_action.perform_action(self)
+		current_action.perform_action(self, spirit)
 		change_state("ACTION")
 		dir *= -1
 

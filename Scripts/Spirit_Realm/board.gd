@@ -92,7 +92,7 @@ func perform_movement_phase():
 func get_field(coordinates: Coordinates) -> Field:
 	return(fields[coordinates.x][coordinates.y])
 
-func move_entity(entity : BoardEntity) -> void:
+func move_entity(entity : BoardEntity) -> void: ##to-do: make leaving board impossible
 	var move = entity.get_current_move()
 	var dir = move.direction
 	var dist = move.distance

@@ -7,9 +7,6 @@ class State:
 	func _init(name: String, color: Color) -> void:
 		self.name = name
 		self.color = color
-			
-
-
 
 var states = {"LISTENING": State.new("Listening", Color(1,1,1)),
 			"BLOCKED": State.new("Blocked", Color(1,1,1)),
@@ -25,15 +22,18 @@ var last_state : State = states["BLOCKED"]
 @onready var action_timer : Timer = $ActionTimer
 @onready var sprite = $Sprite2D
 
-@onready var Action1 = $CharacterCD/Actions/MoveRightAction
-@onready var Action2 = $CharacterCD/Actions/MoveLeftAction
-@onready var Action3 = $CharacterCD/Actions/MoveMouseAction
+@onready var Action1 = RightAction.new()
+@onready var Action2 = null
+@onready var Action3 = null
 @onready var Action4 = null
 
 const SPEED = 300.0
 var dir = 1
 
 var current_action: BaseAction = null
+
+@onready var board : Board = $Board
+var spirit : BoardEntity = null
 
 func _ready() -> void:
 	action_timer.wait_time = clock.beat_time * 0.4
@@ -76,13 +76,14 @@ func get_relative_mouse_position():
 func _process(delta: float) -> void:
 	##Action1 is pressed on-beat
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_1"):
-		perform_action(Action1)
+		if (Action1!=null):
+			perform_action(Action1)
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_2"):
-		perform_action(Action2)
+		if (Action2!=null):  perform_action(Action2)
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_3"):
-		perform_action(Action3)
+		if (Action3!=null): perform_action(Action3)
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_4"):
-		perform_action(Action4)
+		if (Action4!=null):  perform_action(Action4)
 	##Action is pressed off-beat
 	if state == states["BLOCKED"] && (Input.is_action_just_pressed("invoke_action_1") ||
 		 Input.is_action_just_pressed("invoke_action_2")  || 
