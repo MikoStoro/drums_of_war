@@ -15,7 +15,6 @@ func _input_window_leave():
 
 func _stop_action():
 	current_action.end_action(self)
-	
 	change_state("BLOCKED")
 
 func _on_beat():

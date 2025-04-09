@@ -7,36 +7,60 @@ class Coordinates:
 	func _init(x : int, y: int) -> void:
 		self.x = x
 		self.y = y
+	func invert() -> Coordinates:
+		self.x *= -1
+		self.y *= -1
+		return self
 
 
-class BoardEntity: ## to-do: this should be some sort of base class, extended by actions
+class Move:
+	var distance: int = 1
+	var direction: Coordinates = null
+	var teleport : bool = false
+
+	func _init(dir: Coordinates,teleport: bool = false, dist : int = 1) -> void:
+		self.distance = dist
+		self.direction = dir
+		self.teleport = teleport
+
+class BoardEntity: ## to-do: this should be some sort of base class, extended by actions???
 	var coordinates : Coordinates = Coordinates.new(0,0)
 	
-	var move_direction : Coordinates = Coordinates.new(0,0)
-	var move_distance : int = 0 ## to-do: this should be a sort of move queue (for example to allow more complicated movement patterns)
-	
+	var moves  = []
+	var last_move : Move = null
 	## to-do: var attacks 
 	
 	var correction_required : bool = false
 	var knockback_immunity : bool = false
 	
 	var debug_display : String = "A"
-
-	func invert_direction() -> void:
-		self.move_direction.x *= -1
-		self.move_direction.y *= -1
+	
+	func get_current_move() -> Move:
+		if len(moves) > 0:
+			return moves[0]
+		else: return null
+	func get_last_move() -> Move:
+		if last_move != null:
+			return last_move
+		else:
+			return Move.new(Coordinates.new(0,0),false,0)
+	func pop_move() -> void:
+		last_move = get_current_move()
+		moves.pop_front()
+	func moves_left() -> int:
+		return len(moves)
 	func turn_setup():
 		self.correction_required = false
 		self.knockback_immunity = false
 	func collide(): ## to-do: make colliding entities able to interact
 		if not knockback_immunity:
-			self.invert_direction()
-			self.move_distance = 1
+			self.moves = [Move.new(get_last_move().direction.invert())]
 	func junction_collide():
-		self.move_distance = 1
-		self.invert_direction()
+		var current_move = get_current_move()
+		self.moves = [Move.new(get_last_move().direction.invert(),true)] 
 		self.knockback_immunity = true
 		self.correction_required = true
+		
 class Field:
 	var x : int
 	var y : int
@@ -52,7 +76,7 @@ class Field:
 		for e in entities:
 			if e.able_to_collide: count += 1
 		return count'''
-
+		
 class Junction:
 	var entities : Array[BoardEntity] = []
 	func process_collisions():
@@ -106,32 +130,32 @@ func perform_movement_phase():
 		for e in entities: e.turn_setup() ## setup new turn
 
 		for e in entities: ## perform moves
-			if e.move_distance > 0:
+			if e.moves_left() > 0:
 				move_performed = true
 				move_entity(e)
-		
+
 		for j in junctions.values():  ##hell yeah
 			j.process_collisions() 
 
 		for e in entities: ##corect positions after junction collisions
-			if e.correction_required and e.move_distance > 0:
-				move_entity(e, true)
+			if e.correction_required and e.moves_left() > 0:
+				move_entity(e)
 
 		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
 			if get_field(e.coordinates).count_colliding_entities() > 1:
 				e.collide() ## if collisions are detected, run collide() method of board entity
 
 	print_board()
-		#print("xxxxxxxxxxxx")
-	
 
 
 func get_field(coordinates: Coordinates) -> Field:
 	return(fields[coordinates.x][coordinates.y])
 
-func move_entity(entity : BoardEntity, teleport: bool = false) -> void:
-	var dir = entity.move_direction
-	var new_coords = Coordinates.new(entity.coordinates.x + dir.x, entity.coordinates.y + dir.y)
+func move_entity(entity : BoardEntity) -> void:
+	var move = entity.get_current_move()
+	var dir = move.direction
+	var dist = move.distance
+	var new_coords = Coordinates.new(entity.coordinates.x + dir.x*dist, entity.coordinates.y + dir.y*dist)
 	
 	var old_field = get_field(entity.coordinates)
 	old_field.entities.erase(entity)
@@ -139,9 +163,9 @@ func move_entity(entity : BoardEntity, teleport: bool = false) -> void:
 	
 	var new_field = get_field(entity.coordinates)
 	new_field.entities.append(entity)
-	entity.move_distance -= 1
+	entity.pop_move()
 	
-	if teleport == false: ##add junction between old and new field
+	if move.teleport == false: ##add junction between old and new field
 		var junction_name = get_junction_name(old_field, new_field)
 		if junctions.has(junction_name) == false:
 			var junction = Junction.new()
@@ -168,13 +192,11 @@ func _process(delta: float) -> void:
 	
 func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
-	e1.move_distance = 1
-	e1.move_direction = Coordinates.new(1,0)
+	e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	e1.coordinates = Coordinates.new(0,2)
 	place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"
-	e2.move_distance = 1
-	e2.move_direction = Coordinates.new(-1,0)
-	e2.coordinates = Coordinates.new(4,2)
+	#e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
+	e2.coordinates = Coordinates.new(3,2)
 	place_entity(e2)
