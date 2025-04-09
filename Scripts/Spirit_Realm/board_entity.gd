@@ -33,5 +33,7 @@ func turn_setup():
 	behavior.turn_setup()
 func collide(): ## to-do: make colliding entities able to interact
 	behavior.collide()
+func stop():
+	behavior.stop()
 func junction_collide():
 	behavior.junction_collide()

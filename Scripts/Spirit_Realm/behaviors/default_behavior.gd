@@ -1,9 +1,6 @@
 class_name DefaultEntityBehavior
 extends EntityBehavior
 
-func turn_setup():
-	e.correction_required = false
-	e.knockback_immunity = false
 func collide(): ## to-do: make colliding entities able to interact
 	if not e.knockback_immunity:
 		e.moves = [Move.new(e.get_last_move().direction.invert())]

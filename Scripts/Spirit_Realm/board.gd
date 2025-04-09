@@ -92,11 +92,20 @@ func perform_movement_phase():
 func get_field(coordinates: Coordinates) -> Field:
 	return(fields[coordinates.x][coordinates.y])
 
+func out_of_bounds(coordinates : Coordinates) -> bool:
+	if coordinates.x < 0 || coordinates.y < 0 || coordinates.x > width-1 || coordinates.y > height-1:
+		return true
+	return false
+
 func move_entity(entity : BoardEntity) -> void: ##to-do: make leaving board impossible
 	var move = entity.get_current_move()
 	var dir = move.direction
 	var dist = move.distance
 	var new_coords = Coordinates.new(entity.coordinates.x + dir.x*dist, entity.coordinates.y + dir.y*dist)
+	
+	if out_of_bounds(new_coords):
+		entity.stop()
+		return
 	
 	var old_field = get_field(entity.coordinates)
 	old_field.entities.erase(entity)
