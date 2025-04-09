@@ -1,6 +1,6 @@
 
 
-class_name BoardEntity ## to-do: this should be some sort of base class, extended by actions???
+class_name BoardEntity
 var coordinates : Coordinates = Coordinates.new(0,0)
 	
 var moves  = []

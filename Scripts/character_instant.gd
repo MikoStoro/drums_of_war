@@ -21,7 +21,7 @@ func _stop_action():
 func _on_beat():
 	pass
 
-func perform_action(action):
+func order_action(action):
 	change_state("ORDERED")
 	current_action = action
 	print("Ordered: " + current_action.name)

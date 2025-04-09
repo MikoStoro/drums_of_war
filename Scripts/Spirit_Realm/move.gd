@@ -4,7 +4,7 @@ var distance: int = 1
 var direction: Coordinates = null
 var teleport : bool = false
 
-func _init(dir: Coordinates,teleport: bool = false, dist : int = 1) -> void:
+func _init(dir: Coordinates,tp: bool = false, dist : int = 1) -> void:
 	self.distance = dist
 	self.direction = dir
-	self.teleport = teleport
+	self.teleport = tp

@@ -24,7 +24,7 @@ func _on_beat():
 		change_state("ACTION")
 		dir *= -1
 
-func perform_action(action):
+func order_action(action):
 	change_state("ORDERED")
 	current_action = action
 	print("Ordered: " + current_action.name)

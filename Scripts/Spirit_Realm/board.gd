@@ -97,7 +97,7 @@ func out_of_bounds(coordinates : Coordinates) -> bool:
 		return true
 	return false
 
-func move_entity(entity : BoardEntity) -> void: ##to-do: make leaving board impossible
+func move_entity(entity : BoardEntity) -> void:
 	var move = entity.get_current_move()
 	var dir = move.direction
 	var dist = move.distance
@@ -136,10 +136,6 @@ func print_board(): ##DEBUG
 		print_string += "\n"
 	print(print_string)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
 func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
 	e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]

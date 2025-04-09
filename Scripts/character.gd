@@ -64,7 +64,7 @@ func _stop_action():
 func _on_beat():
 	pass
 
-func perform_action(action):
+func order_action(action):
 	change_state("ORDERED")
 	current_action = action
 	print("Ordered: " + current_action.name)
@@ -77,13 +77,13 @@ func _process(delta: float) -> void:
 	##Action1 is pressed on-beat
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_1"):
 		if (Action1!=null):
-			perform_action(Action1)
+			order_action(Action1)
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_2"):
-		if (Action2!=null):  perform_action(Action2)
+		if (Action2!=null):  order_action(Action2)
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_3"):
-		if (Action3!=null): perform_action(Action3)
+		if (Action3!=null): order_action(Action3)
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_4"):
-		if (Action4!=null):  perform_action(Action4)
+		if (Action4!=null):  order_action(Action4)
 	##Action is pressed off-beat
 	if state == states["BLOCKED"] && (Input.is_action_just_pressed("invoke_action_1") ||
 		 Input.is_action_just_pressed("invoke_action_2")  || 
