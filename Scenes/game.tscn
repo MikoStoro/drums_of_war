@@ -1,13 +1,8 @@
-[gd_scene load_steps=18 format=4 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=13 format=4 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/global_clock.gd" id="1_h4fw4"]
 [ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/visual_clock.gd" id="2_ldgsr"]
 [ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="3_o5yvi"]
-[ext_resource type="Script" uid="uid://cmgiii01a3n8" path="res://Scripts/character_cd.gd" id="4_rku1e"]
-[ext_resource type="Script" uid="uid://p5sxrhhq18cw" path="res://Scripts/move_action.gd" id="5_rfjv2"]
-[ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://Scripts/move_action_2.gd" id="6_1phco"]
-[ext_resource type="Script" uid="uid://d03binxqo5nfy" path="res://Scripts/move_mouse_action.gd" id="7_nb51f"]
-[ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://Scripts/character_instant.gd" id="8_nnt18"]
 [ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/board.gd" id="9_ewbju"]
 [ext_resource type="Texture2D" uid="uid://b0ay7wurrriai" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_tiles_and_buildings_01.png" id="10_ldgsr"]
 [ext_resource type="Script" uid="uid://c12kpt8ia02ei" path="res://Scripts/overworld.gd" id="10_o5yvi"]
@@ -275,48 +270,6 @@ position = Vector2(509, 350)
 scale = Vector2(1.42969, 0.296875)
 texture = ExtResource("3_o5yvi")
 
-[node name="CharacterCD" type="CharacterBody2D" parent="."]
-position = Vector2(270, 139)
-rotation = 0.0041771
-script = ExtResource("4_rku1e")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterCD"]
-position = Vector2(1375.4, 388.833)
-texture = ExtResource("3_o5yvi")
-offset = Vector2(-1375.97, -392.376)
-
-[node name="ActionTimer" type="Timer" parent="CharacterCD"]
-one_shot = true
-
-[node name="Actions" type="Node" parent="CharacterCD"]
-
-[node name="MoveRightAction" type="Node" parent="CharacterCD/Actions"]
-script = ExtResource("5_rfjv2")
-
-[node name="MoveLeftAction" type="Node" parent="CharacterCD/Actions"]
-script = ExtResource("6_1phco")
-
-[node name="MoveMouseAction" type="Node" parent="CharacterCD/Actions"]
-script = ExtResource("7_nb51f")
-
-[node name="CharacterInstant" type="CharacterBody2D" parent="."]
-position = Vector2(776, 196)
-script = ExtResource("8_nnt18")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterInstant"]
-texture = ExtResource("3_o5yvi")
-
-[node name="ActionTimer" type="Timer" parent="CharacterInstant"]
-one_shot = true
-
-[node name="Actions" type="Node" parent="CharacterInstant"]
-
-[node name="MoveRightAction" type="Node" parent="CharacterInstant/Actions"]
-script = ExtResource("5_rfjv2")
-
-[node name="MoveLeftAction" type="Node" parent="CharacterInstant/Actions"]
-script = ExtResource("6_1phco")
-
 [node name="Board" type="Node" parent="."]
 script = ExtResource("9_ewbju")
 
@@ -337,3 +290,6 @@ tile_set = SubResource("TileSet_1phco")
 script = ExtResource("13_rfjv2")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(224, 240)
+skew = -0.968658
+texture = ExtResource("3_o5yvi")
