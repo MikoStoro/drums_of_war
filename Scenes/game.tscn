@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/global_clock.gd" id="1_h4fw4"]
 [ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/visual_clock.gd" id="2_ldgsr"]
 [ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="3_o5yvi"]
+[ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="8_v158k"]
 [ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/board.gd" id="9_ewbju"]
 [ext_resource type="Texture2D" uid="uid://b0ay7wurrriai" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_tiles_and_buildings_01.png" id="10_ldgsr"]
 [ext_resource type="Script" uid="uid://c12kpt8ia02ei" path="res://Scripts/overworld.gd" id="10_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://blc3nlepwiply" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_props_and_items_01.png" id="12_rku1e"]
-[ext_resource type="Script" uid="uid://bwwcityn068i1" path="res://Scripts/player.gd" id="13_rfjv2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o5yvi"]
 texture = ExtResource("10_ldgsr")
@@ -273,23 +273,21 @@ texture = ExtResource("3_o5yvi")
 [node name="Board" type="Node" parent="."]
 script = ExtResource("9_ewbju")
 
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("8_v158k")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("3_o5yvi")
+
 [node name="Overworld" type="Node" parent="."]
 script = ExtResource("10_o5yvi")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Overworld"]
-position = Vector2(16, 16)
+position = Vector2(176, 272)
 tile_map_data = PackedByteArray("AAAAAAAAAAAIAAkAADAAAAEAAAAHAAkAAFAAAAIAAAAHAAkAAFAAAAMAAAAHAAkAAFAAAAQAAAAIAAkAAFABAAAAAAAHAAkAADABAAEAAAAHAAgAAAABAAIAAAAHAAgAAAABAAMAAAAHAAgAAAABAAQAAAAHAAkAAAACAAAAAAAHAAkAADACAAEAAAAHAAgAAAACAAIAAAAHAAgAAAACAAMAAAAHAAgAAAACAAQAAAAHAAkAAAADAAAAAAAHAAkAADADAAEAAAAHAAgAAAADAAIAAAAHAAgAAAADAAMAAAAHAAgAAAADAAQAAAAHAAkAAAAEAAAAAAAHAAkAADAEAAEAAAAHAAgAAAAEAAIAAAAHAAgAAAAEAAMAAAAHAAgAAAAEAAQAAAAHAAkAAAAFAAAAAAAIAAkAAGAFAAEAAAAIAAgAAAAFAAIAAAAIAAgAAAAFAAMAAAAIAAgAAAAFAAQAAAAIAAkAAAA=")
 tile_set = SubResource("TileSet_rku1e")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="Overworld"]
-position = Vector2(16, 8)
+position = Vector2(176, 312)
 tile_map_data = PackedByteArray("AAAAAP//AAAHAAcAAAAAAAAAAAAHAAgAAAAAAAEAAAAHAAkAAAAFAP//AAAHAAcAAAAFAAAAAAAHAAgAAAAFAAEAAAAHAAkAAAA=")
 tile_set = SubResource("TileSet_1phco")
-
-[node name="Player" type="Node2D" parent="."]
-script = ExtResource("13_rfjv2")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(224, 240)
-skew = -0.968658
-texture = ExtResource("3_o5yvi")
