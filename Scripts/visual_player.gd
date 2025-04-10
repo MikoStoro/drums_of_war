@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var animation: AnimationPlayer
+@export var animation_sprite: AnimatedSprite2D
 # set this somewhere else (maybe when creating player)
 var tile_size = 128
 var inputs = {"ui_right": Vector2.RIGHT,
@@ -16,6 +17,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
+
+	# only for animating, no damage dealt here
+	# if I understand correctly, AnimationPlayer for using keyframes 
+	# and AnimationSprite for spritesheets
+func attack():
+	animation_sprite.play("attack")
 
 func play_animation(name: String) -> void:
 	# not sure how to properly corelate speed in code with animation player
@@ -34,5 +41,7 @@ func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
 			_move(inputs[dir], 2)
+	if event.is_action_pressed("player1_action1"):
+		attack()
 	
 	
