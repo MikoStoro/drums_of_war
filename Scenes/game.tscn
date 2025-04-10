@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=16 format=4 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/global_clock.gd" id="1_h4fw4"]
 [ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/visual_clock.gd" id="2_ldgsr"]
@@ -8,6 +8,42 @@
 [ext_resource type="Texture2D" uid="uid://b0ay7wurrriai" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_tiles_and_buildings_01.png" id="10_ldgsr"]
 [ext_resource type="Script" uid="uid://c12kpt8ia02ei" path="res://Scripts/overworld.gd" id="10_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://blc3nlepwiply" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_props_and_items_01.png" id="12_rku1e"]
+
+[sub_resource type="Animation" id="Animation_v158k"]
+resource_name = "move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0472, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_h4fw4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ldgsr"]
+_data = {
+&"RESET": SubResource("Animation_h4fw4"),
+&"move": SubResource("Animation_v158k")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o5yvi"]
 texture = ExtResource("10_ldgsr")
@@ -273,11 +309,17 @@ texture = ExtResource("3_o5yvi")
 [node name="Board" type="Node" parent="."]
 script = ExtResource("9_ewbju")
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("animation")]
 script = ExtResource("8_v158k")
+animation = NodePath("Sprite2D/AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("3_o5yvi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_ldgsr")
+}
 
 [node name="Overworld" type="Node" parent="."]
 script = ExtResource("10_o5yvi")
