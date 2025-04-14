@@ -6,6 +6,7 @@ class Field:
 	var x : int
 	var y : int
 	var entities : Array[BoardEntity] = []
+	var attack_markers : Array[Attack] = []
 
 	func get_debug_display() -> String:
 		if len(entities) == 0: return "_"
@@ -20,6 +21,7 @@ class Field:
 		
 class Junction:
 	var entities : Array[BoardEntity] = []
+	var attack_markers : Array[Attack] = [] 
 	func process_collisions():
 		if len(entities) > 1:
 			for e in entities: e.junction_collide()
@@ -58,8 +60,38 @@ func update():
 	perform_movement_phase()
 	perform_attack_phase()
 
+func get_attacks_by_priority(priority: int) -> Array[Attack]:
+	var result = []
+	for e in entities:
+		if e.attack != null && e.attack.priority == priority:
+			result.append(e.attack)
+	return result
+
 func perform_attack_phase():
-	pass
+	for priority in range(3): #check attacks of every priority in order
+		var attacks = get_attacks_by_priority(priority)
+		
+		var update_performed = true
+		while update_performed:
+			update_performed = false
+			for a in attacks:
+				if a.count_remaining_targets() > 0:
+					update_performed = true
+					mark_attack(a)
+		
+			for j in junctions.values():  ##process clashes and ccollisions at junctions
+				pass
+		
+			for a in attacks: #process clashes and collisions on fields
+				pass
+
+func mark_attack(attack: Attack) -> void:
+	var last_target = attack.pop_target()
+	var next_target = attack.get_current_target()
+	if not out_of_bounds(next_target):
+		get_field(next_target).attack_markers.append(attack)
+		var junction_name = get_junction_name(last_target, next_target)
+		get_junction(junction_name).attack_markers.append(attack)
 
 func perform_movement_phase():
 	print("TURN START")
@@ -117,13 +149,18 @@ func move_entity(entity : BoardEntity) -> void:
 	
 	if move.teleport == false: ##add junction between old and new field
 		var junction_name = get_junction_name(old_field, new_field)
-		if junctions.has(junction_name) == false:
-			var junction = Junction.new()
-			junction.entities.append(entity)
-			junctions[junction_name] = junction
-		else:
-			junctions[junction_name].entities.append(entity)
-	
+		get_junction(junction_name).entities.append(entity)
+
+func get_junction(name: String) -> Junction:
+	var junction = null
+	if junctions.has(name) == false:
+		junction = Junction.new()
+		junctions[name] = junction
+	else:
+		junction = junctions[name]
+	return junction
+		
+
 func place_entity(entity: BoardEntity) -> void: ##DEBUG
 	get_field(entity.coordinates).entities.append(entity)
 	entities.append(entity)

@@ -5,7 +5,7 @@ var coordinates : Coordinates = Coordinates.new(0,0)
 	
 var moves  = []
 var last_move : Move = null
-## to-do: var attacks 
+var attack : Attack = null
 
 var correction_required : bool = false
 var knockback_immunity : bool = false
