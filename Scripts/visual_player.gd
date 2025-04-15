@@ -3,7 +3,7 @@ extends Node2D
 @export var animation: AnimationPlayer
 @export var animation_sprite: AnimatedSprite2D
 # set this somewhere else (maybe when creating player)
-var tile_size = 128
+var tile_size = 16
 var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_left": Vector2.LEFT,
 			"ui_up": Vector2.UP,
@@ -11,9 +11,9 @@ var inputs = {"ui_right": Vector2.RIGHT,
 			
 		
 
-func _ready() -> void:
-	position = position.snapped(Vector2.ONE * tile_size)
-	position += Vector2.ONE * tile_size/2
+#func _ready() -> void:
+	#position = position.snapped(Vector2.ONE * tile_size)
+	#position += Vector2.ONE * tile_size
 
 func _process(delta: float) -> void:
 	pass
@@ -40,7 +40,7 @@ func _move(dir: Vector2, distance) -> void:
 func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			_move(inputs[dir], 2)
+			_move(inputs[dir], 1)
 	if event.is_action_pressed("player1_action1"):
 		attack()
 	
