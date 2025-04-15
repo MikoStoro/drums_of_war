@@ -2,31 +2,8 @@
 class_name Board
 extends Node
 
-class Field:
-	var x : int
-	var y : int
-	var entities : Array[BoardEntity] = []
-	var attack_markers : Array[Attack] = []
 
-	func get_debug_display() -> String:
-		if len(entities) == 0: return "_"
-		else: if len(entities) > 1: return "!"
-		else: return entities[0].debug_display
-	func count_colliding_entities():
-		return len(entities)
-		'''var count = 0
-		for e in entities:
-			if e.able_to_collide: count += 1
-		return count'''
-		
-class Junction:
-	var entities : Array[BoardEntity] = []
-	var attack_markers : Array[Attack] = [] 
-	func process_collisions():
-		if len(entities) > 1:
-			for e in entities: e.junction_collide()
-	func clear():
-		entities = []
+
 
 const width = 5
 const height = 5
@@ -61,37 +38,73 @@ func update():
 	perform_attack_phase()
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
-	var result = []
+	var result : Array[Attack] = []
 	for e in entities:
 		if e.attack != null && e.attack.priority == priority:
 			result.append(e.attack)
 	return result
 
 func perform_attack_phase():
+	print("CHICKEN ATTAAAAACK")
 	for priority in range(3): #check attacks of every priority in order
-		var attacks = get_attacks_by_priority(priority)
-		
+		junctions = {}
+		var attacks : Array[Attack] = get_attacks_by_priority(priority)
+		var attacks_to_unmark: Array[Attack] = []
 		var update_performed = true
 		while update_performed:
 			update_performed = false
 			for a in attacks:
-				if a.count_remaining_targets() > 0:
+				if not a.is_finished():
 					update_performed = true
 					mark_attack(a)
+				else:
+					attacks.erase(a)
+					attacks_to_unmark.append(a)
 		
-			for j in junctions.values():  ##process clashes and ccollisions at junctions
-				pass
+			for j in junctions.values():  ##process clashes at junctions
+				j.process_clashes()
+			
+			for a in attacks:
+				if a.correction_required:
+					unmark_attack(a)
 		
-			for a in attacks: #process clashes and collisions on fields
-				pass
+			for a in attacks: #process hits on fields
+				get_field(a.get_current_target()).process_hits()
+					
+			for a in attacks: #process clashes on fields
+				get_field(a.get_current_target()).process_clashes()
+			
+			for a in attacks:
+				a.pop_target()
+			print_board()
+		for a in attacks_to_unmark:
+			unmark_attack_completely(a)
+		junctions = {}
+			
 
 func mark_attack(attack: Attack) -> void:
-	var last_target = attack.pop_target()
-	var next_target = attack.get_current_target()
-	if not out_of_bounds(next_target):
-		get_field(next_target).attack_markers.append(attack)
-		var junction_name = get_junction_name(last_target, next_target)
+	var last_target = attack.get_last_target()
+	var current_target = attack.get_current_target()
+	if not out_of_bounds(current_target):
+		last_target = get_field(last_target)
+		current_target = get_field(current_target)
+		current_target.attack_markers.append(attack)
+		var junction_name = get_junction_name(last_target, current_target)
 		get_junction(junction_name).attack_markers.append(attack)
+
+func unmark_attack(attack: Attack):
+	var last_target = attack.get_last_target()
+	if not out_of_bounds(last_target):
+		var last_field = get_field(last_target)
+		if(last_field.attack_markers.has(attack)):
+			last_field.attack_markers.erase(attack)
+
+func unmark_attack_completely(attack: Attack) -> void:
+	for t in attack.targets:
+		if not out_of_bounds(t):
+			var field = get_field(t)
+			if(field.attack_markers.has(attack)):
+				field.attack_markers.erase(attack)
 
 func perform_movement_phase():
 	print("TURN START")
@@ -115,9 +128,8 @@ func perform_movement_phase():
 				move_entity(e)
 
 		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
-			if get_field(e.coordinates).count_colliding_entities() > 1:
+			if get_field(e.coordinates).count_entities() > 1:
 				e.collide() ## if collisions are detected, run collide() method of board entity
-
 	print_board()
 
 
@@ -175,11 +187,12 @@ func print_board(): ##DEBUG
 
 func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
-	e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
+	#e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	e1.coordinates = Coordinates.new(0,2)
+	e1.set_attack(ThrustAttack.new())
 	place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"
 	#e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
-	e2.coordinates = Coordinates.new(3,2)
+	e2.coordinates = Coordinates.new(2,2)
 	place_entity(e2)

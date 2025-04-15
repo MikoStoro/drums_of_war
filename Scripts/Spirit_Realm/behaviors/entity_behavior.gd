@@ -12,5 +12,7 @@ func junction_collide():
 func stop():
 	e.moves = []
 	e.knockback_immunity = true
+func hit(attack: Attack):
+	print(e.debug_display + " has been hit!")
 func _init(entity: BoardEntity) -> void:
 	self.e = entity

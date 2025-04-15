@@ -33,7 +33,12 @@ func turn_setup():
 	behavior.turn_setup()
 func collide(): ## to-do: make colliding entities able to interact
 	behavior.collide()
+func hit(attack):
+	behavior.hit(attack)
 func stop():
 	behavior.stop()
 func junction_collide():
 	behavior.junction_collide()
+func set_attack(attack: Attack):
+	self.attack = attack
+	attack.apply_blueprint(self)

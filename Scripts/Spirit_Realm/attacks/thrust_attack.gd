@@ -1,9 +1,8 @@
 extends Attack
+class_name ThrustAttack
 
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _init() -> void:
+	target_blueprint = [
+		Coordinates.new(1,0),
+		Coordinates.new(1,0)
+	]
