@@ -9,3 +9,5 @@ func invert() -> Coordinates:
 	self.x *= -1
 	self.y *= -1
 	return self
+func add(other: Coordinates) -> Coordinates:
+	return Coordinates.new(self.x + other.x, self.y + other.y)
