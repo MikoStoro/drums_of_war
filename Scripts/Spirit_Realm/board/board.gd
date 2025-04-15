@@ -189,7 +189,7 @@ func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
 	#e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	e1.coordinates = Coordinates.new(0,2)
-	e1.set_attack(ThrustAttack.new())
+	e1.set_attack(ThrustAttack.new(1))
 	place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"

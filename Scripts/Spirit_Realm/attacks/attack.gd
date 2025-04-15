@@ -41,6 +41,10 @@ func clash(): ##used when attack hits another attack
 func collide(): ##used when attack hits entity
 	pass
 
+func rotate(steps:int):
+	for c in target_blueprint:
+		c.rotate(steps)
+
 func apply_blueprint(entity):
 	user_coordinates = entity.coordinates
 	var last_coordinates = user_coordinates
