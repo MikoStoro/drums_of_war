@@ -14,9 +14,11 @@ func _map_into_array() -> Array:
 	for y in size_y:
 		board.append([])
 		for x in size_x:
-			var id = str(tile_map.get_cell_atlas_coords(Vector2i(x,y)))
-			print(id)
-			board[y].append('_')
+			var field = Field.new()
+	
+			field.x = x
+			field.y = y
+			board[y].append(field)
 		print()
 			
 	return board
