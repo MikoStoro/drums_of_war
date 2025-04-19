@@ -11,7 +11,7 @@ func _input_window_leave():
 		change_state("BLOCKED")
 	if state == states["ORDERED"]:
 		action_timer.start()
-		current_action.perform_action(self)
+		current_action.perform_action(self, spirit)
 		change_state("ACTION")
 
 func _stop_action():
@@ -21,7 +21,16 @@ func _stop_action():
 func _on_beat():
 	pass
 
-func perform_action(action):
+func order_action(action):
 	change_state("ORDERED")
 	current_action = action
 	print("Ordered: " + current_action.name)
+	
+func _ready() -> void:
+	super._ready()
+	self.board = $"../Board"
+	var e = BoardEntity.new()
+	e.debug_display = "C"
+	e.coordinates = Coordinates.new(1,1)
+	self.spirit = e
+	self.board.place_entity(e)
