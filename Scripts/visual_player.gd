@@ -29,19 +29,29 @@ func play_animation(name: String) -> void:
 	animation.speed_scale = 5
 	animation.play(name)
 	
-func _move(dir: Vector2, distance) -> void:
-	# TODO play animation
-	play_animation("move")
-	var new_position = position + dir * tile_size * distance
 	
+func move(field: Field) -> void:
+	play_animation("move")
+	var x = field.x
+	var y = field.y
+	var coords = Vector2(field.x, field.y) 
+	var new_position = coords * tile_size
 	var tween = create_tween()
 	tween.tween_property(self, "position", new_position, 0.2) 
+	
 	
 func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			_move(inputs[dir], 1)
+			var f = Field.new()
+			f.x = 3
+			f.y=2
+			move(f)
 	if event.is_action_pressed("player1_action1"):
-		attack()
+			var f = Field.new()
+			f.x = 1
+			f.y=1
+			move(f)
+			attack()
 	
 	
