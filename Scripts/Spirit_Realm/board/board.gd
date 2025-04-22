@@ -12,6 +12,13 @@ var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
 @onready var clock = $"../GlobalClock"
 
+func remove_duplicates(array: Array) -> Array:
+	var unique: Array = []
+	for item in array:
+		if not unique.has(item):
+			unique.append(item)
+	return unique
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	clock.board_update.connect(update)
@@ -28,8 +35,9 @@ func _ready() -> void:
 	print_board()
 
 func get_junction_name(field1:Field, field2:Field) -> String:
-	var str1 = str(field1.x) + str(field1.y)
-	var str2 = str(field2.x) + str(field2.y)
+	#var str1 = str(field1.x) + str(field1.y)
+	var str1 = str((field1.x + field2.x)/2)
+	var str2 = str((field1.y + field2.y)/2)
 	if str1 < str2: return str1+str2
 	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
 
@@ -49,17 +57,19 @@ func perform_attack_phase():
 	for priority in range(3): #check attacks of every priority in order
 		junctions = {}
 		var attacks : Array[Attack] = get_attacks_by_priority(priority)
-		var attacks_to_unmark: Array[Attack] = []
+		var attacks_to_remove: Array[Attack] = []
 		var update_performed = true
 		while update_performed:
 			update_performed = false
+			var temp_attacks : Array[Attack] = []
 			for a in attacks:
 				if not a.is_finished():
 					update_performed = true
+					temp_attacks.append(a)
 					mark_attack(a)
 				else:
-					attacks.erase(a)
-					attacks_to_unmark.append(a)
+					attacks_to_remove.append(a)
+			attacks = temp_attacks
 		
 			for j in junctions.values():  ##process clashes at junctions
 				j.process_clashes()
@@ -67,18 +77,23 @@ func perform_attack_phase():
 			for a in attacks:
 				if a.correction_required:
 					unmark_attack(a)
-		
-			for a in attacks: #process hits on fields
-				get_field(a.get_current_target()).process_hits()
+			
+			var fields_to_resolve = []
+			for a in attacks:
+				fields_to_resolve.append(get_field(a.get_current_target()))
+			fields_to_resolve = remove_duplicates(fields_to_resolve)
+			
+			for f in fields_to_resolve: #process hits on fields
+				f.process_hits()
 					
-			for a in attacks: #process clashes on fields
-				get_field(a.get_current_target()).process_clashes()
+			for f in fields_to_resolve: #process clashes on fields
+				f.process_clashes()
 			
 			for a in attacks:
 				a.pop_target()
 			print_board()
-		for a in attacks_to_unmark:
-			unmark_attack_completely(a)
+		for a in attacks_to_remove:
+			remove_attack_from_board(a)
 		junctions = {}
 			
 
@@ -93,13 +108,13 @@ func mark_attack(attack: Attack) -> void:
 		get_junction(junction_name).attack_markers.append(attack)
 
 func unmark_attack(attack: Attack):
-	var last_target = attack.get_last_target()
+	var last_target = attack.get_current_target()
 	if not out_of_bounds(last_target):
 		var last_field = get_field(last_target)
 		if(last_field.attack_markers.has(attack)):
 			last_field.attack_markers.erase(attack)
 
-func unmark_attack_completely(attack: Attack) -> void:
+func remove_attack_from_board(attack: Attack) -> void:
 	for t in attack.targets:
 		if not out_of_bounds(t):
 			var field = get_field(t)
@@ -189,10 +204,11 @@ func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
 	#e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	e1.coordinates = Coordinates.new(0,2)
-	e1.set_attack(ThrustAttack.new(1))
+	e1.set_attack(ThrustAttack.new(0))
 	place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"
 	#e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
-	e2.coordinates = Coordinates.new(2,2)
+	e2.coordinates = Coordinates.new(1,2)
+	e2.set_attack(ThrustAttack.new(4))
 	place_entity(e2)

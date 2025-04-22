@@ -36,7 +36,7 @@ func junction_clash(): ##used when attack hits another attack between fields
 	correction_required = true
 	
 func clash(): ##used when attack hits another attack
-	pass
+	finished = true
 
 func collide(): ##used when attack hits entity
 	pass
