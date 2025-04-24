@@ -3,9 +3,9 @@ class_name Coordinates
 const matrix90 = [[0,-1], [1,0]]
 const matrix45 = [ [1, -1],[1, 1] ]
  
-var x : int = 0
-var y : int = 0
-func _init(x : int, y: int) -> void:
+var x : float = 0
+var y : float = 0
+func _init(x : float, y: float) -> void:
 	self.x = x
 	self.y = y
 func invert() -> Coordinates:

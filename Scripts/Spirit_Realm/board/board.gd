@@ -12,6 +12,8 @@ var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
 @onready var clock = $"../GlobalClock"
 
+var events_this_round : Array[BoardEvent] = []
+
 func remove_duplicates(array: Array) -> Array:
 	var unique: Array = []
 	for item in array:
@@ -26,9 +28,7 @@ func _ready() -> void:
 	for i in width:
 		var row = []
 		for j in height:
-			var f = Field.new()
-			f.x = i
-			f.y = j
+			var f = Field.new(i,j)
 			row.append(f)
 		fields.append(row)
 	place_starting_entities()
@@ -36,14 +36,17 @@ func _ready() -> void:
 
 func get_junction_name(field1:Field, field2:Field) -> String:
 	#var str1 = str(field1.x) + str(field1.y)
-	var str1 = str((field1.x + field2.x)/2)
-	var str2 = str((field1.y + field2.y)/2)
+	var str1 = str((field1.x() + field2.x())/2)
+	var str2 = str((field1.y() + field2.y())/2)
 	if str1 < str2: return str1+str2
 	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
 
 func update():
+	events_this_round = []
 	perform_movement_phase()
 	perform_attack_phase()
+	print(events_this_round)
+	##to-do: send events to the graphical layer 
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
 	var result : Array[Attack] = []
@@ -70,9 +73,10 @@ func perform_attack_phase():
 				else:
 					attacks_to_remove.append(a)
 			attacks = temp_attacks
-		
+
 			for j in junctions.values():  ##process clashes at junctions
-				j.process_clashes()
+				var events = j.process_clashes()
+				self.events_this_round += events
 			
 			for a in attacks:
 				if a.correction_required:
@@ -84,10 +88,12 @@ func perform_attack_phase():
 			fields_to_resolve = remove_duplicates(fields_to_resolve)
 			
 			for f in fields_to_resolve: #process hits on fields
-				f.process_hits()
+				var events = f.process_hits()
+				self.events_this_round += events
 					
 			for f in fields_to_resolve: #process clashes on fields
-				f.process_clashes()
+				var events = f.process_clashes()
+				self.events_this_round += events
 			
 			for a in attacks:
 				a.pop_target()
@@ -104,8 +110,7 @@ func mark_attack(attack: Attack) -> void:
 		last_target = get_field(last_target)
 		current_target = get_field(current_target)
 		current_target.attack_markers.append(attack)
-		var junction_name = get_junction_name(last_target, current_target)
-		get_junction(junction_name).attack_markers.append(attack)
+		get_junction(last_target, current_target).attack_markers.append(attack)
 
 func unmark_attack(attack: Attack):
 	var last_target = attack.get_current_target()
@@ -136,15 +141,20 @@ func perform_movement_phase():
 				move_entity(e)
 
 		for j in junctions.values():  ##hell yeah
-			j.process_collisions() 
+			var events = j.process_collisions() 
+			self.events_this_round += events
 
 		for e in entities: ##corect positions after junction collisions
 			if e.correction_required and e.moves_left() > 0:
-				move_entity(e)
+				move_entity(e) ## to-do: add move events
 
-		for e in entities: ## at the end of simulation round, check for collisions (multiple entities on the same field)
-			if get_field(e.coordinates).count_entities() > 1:
-				e.collide() ## if collisions are detected, run collide() method of board entity
+		var fields_to_resolve = []
+		for e in entities:
+			fields_to_resolve.append(get_field(e.coordinates))
+		fields_to_resolve = remove_duplicates(fields_to_resolve)
+		for f in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
+			var events = f.process_collisions() 
+			self.events_this_round += events
 	print_board()
 
 
@@ -175,13 +185,15 @@ func move_entity(entity : BoardEntity) -> void:
 	entity.pop_move()
 	
 	if move.teleport == false: ##add junction between old and new field
-		var junction_name = get_junction_name(old_field, new_field)
-		get_junction(junction_name).entities.append(entity)
+		#var junction_name = get_junction_name(old_field, new_field)
+		#get_junction(junction_name).entities.append(entity)
+		get_junction(old_field, new_field).entities.append(entity)
 
-func get_junction(name: String) -> Junction:
+func get_junction(old: Field, new: Field) -> Junction:
+	var name = get_junction_name(old, new)
 	var junction = null
 	if junctions.has(name) == false:
-		junction = Junction.new()
+		junction = Junction.new(old.location, new.location)
 		junctions[name] = junction
 	else:
 		junction = junctions[name]
