@@ -48,6 +48,42 @@ func update():
 	print(events_this_round)
 	##to-do: send events to the graphical layer 
 
+
+func perform_movement_phase():
+	print("TURN START")
+	var move_performed = true
+	var entities_moved: Array[BoardEntity] = []
+	while move_performed: ## will loop until there are no more moves to perform
+		move_performed = false
+		junctions = {}
+		for e in entities: e.turn_setup() ## setup new turn
+
+		for e in entities: ## perform moves
+			if e.moves_left() > 0:
+				move_performed = true
+				move_entity(e)
+				entities_moved.append(e)
+
+		for j in junctions.values():  ##hell yeah
+			var events = j.process_collisions() 
+			self.events_this_round += events
+
+		for e in entities: ##corect positions after junction collisions
+			if e.correction_required and e.moves_left() > 0:
+				move_entity(e) ## to-do: add move events
+
+		var fields_to_resolve = []
+		for e in entities:
+			fields_to_resolve.append(get_field(e.coordinates))
+		fields_to_resolve = remove_duplicates(fields_to_resolve)
+		for f in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
+			var events = f.process_collisions() 
+			self.events_this_round += events
+	
+	for e in remove_duplicates(entities_moved):
+		events_this_round.append(BoardEvent.new(BoardEvent.Event_type.MOVE, e, e.coordinates))
+	print_board()
+
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
 	var result : Array[Attack] = []
 	for e in entities:
@@ -77,7 +113,7 @@ func perform_attack_phase():
 			for j in junctions.values():  ##process clashes at junctions
 				var events = j.process_clashes()
 				self.events_this_round += events
-			
+
 			for a in attacks:
 				if a.correction_required:
 					unmark_attack(a)
@@ -101,7 +137,6 @@ func perform_attack_phase():
 		for a in attacks_to_remove:
 			remove_attack_from_board(a)
 		junctions = {}
-			
 
 func mark_attack(attack: Attack) -> void:
 	var last_target = attack.get_last_target()
@@ -126,36 +161,7 @@ func remove_attack_from_board(attack: Attack) -> void:
 			if(field.attack_markers.has(attack)):
 				field.attack_markers.erase(attack)
 
-func perform_movement_phase():
-	print("TURN START")
-	var move_performed = true
 
-	while move_performed: ## will loop until there are no more moves to perform
-		move_performed = false
-		junctions = {}
-		for e in entities: e.turn_setup() ## setup new turn
-
-		for e in entities: ## perform moves
-			if e.moves_left() > 0:
-				move_performed = true
-				move_entity(e)
-
-		for j in junctions.values():  ##hell yeah
-			var events = j.process_collisions() 
-			self.events_this_round += events
-
-		for e in entities: ##corect positions after junction collisions
-			if e.correction_required and e.moves_left() > 0:
-				move_entity(e) ## to-do: add move events
-
-		var fields_to_resolve = []
-		for e in entities:
-			fields_to_resolve.append(get_field(e.coordinates))
-		fields_to_resolve = remove_duplicates(fields_to_resolve)
-		for f in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
-			var events = f.process_collisions() 
-			self.events_this_round += events
-	print_board()
 
 
 func get_field(coordinates: Coordinates) -> Field:
