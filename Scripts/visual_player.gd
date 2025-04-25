@@ -10,10 +10,11 @@ var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_down": Vector2.DOWN}
 			
 		
-
-#func _ready() -> void:
-	#position = position.snapped(Vector2.ONE * tile_size)
-	#position += Vector2.ONE * tile_size
+func new_orders(arr: Array[BoardEvent]) -> void:
+	for event: BoardEvent in arr:
+		if event.type == GlobalEnums.event_type.MOVE:
+			#move(event)
+			print("where coords")
 
 func _process(delta: float) -> void:
 	pass
@@ -30,11 +31,9 @@ func play_animation(name: String) -> void:
 	animation.play(name)
 	
 	
-func move(field: Field) -> void:
+func move(x: int, y: int) -> void:
 	play_animation("move")
-	var x = field.x
-	var y = field.y
-	var coords = Vector2(field.x, field.y) 
+	var coords = Vector2(x,y) 
 	var new_position = coords * tile_size
 	var tween = create_tween()
 	tween.tween_property(self, "position", new_position, 0.2) 
@@ -43,15 +42,9 @@ func move(field: Field) -> void:
 func _unhandled_input(event):
 	for dir in inputs.keys():
 		if event.is_action_pressed(dir):
-			var f = Field.new()
-			f.x = 3
-			f.y=2
-			move(f)
+			move(3,2)
 	if event.is_action_pressed("player1_action1"):
-			var f = Field.new()
-			f.x = 1
-			f.y=1
-			move(f)
+			move(2,1)
 			attack()
 	
 	

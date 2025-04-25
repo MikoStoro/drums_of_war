@@ -14,10 +14,7 @@ func _map_into_array() -> Array:
 	for y in size_y:
 		board.append([])
 		for x in size_x:
-			var field = Field.new()
-	
-			field.x = x
-			field.y = y
+			var field = Field.new(x,y)
 			board[y].append(field)
 		print()
 			
