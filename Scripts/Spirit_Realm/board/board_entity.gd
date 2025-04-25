@@ -12,7 +12,7 @@ var knockback_immunity : bool = false
 
 var debug_display : String = "A"
 
-var behavior : EntityBehavior = DefaultEntityBehavior.new(self)
+var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
 
 func get_current_move() -> Move:
