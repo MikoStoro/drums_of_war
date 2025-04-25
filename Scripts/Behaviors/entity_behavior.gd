@@ -5,9 +5,9 @@ var e : BoardEntity
 func turn_setup():
 	e.knockback_immunity = false
 	e.correction_required = false
-func collide(): ## to-do: make colliding entities able to interact
+func collide(other: BoardEntity = null): ## to-do: make colliding entities able to interact
 	pass
-func junction_collide():
+func junction_collide(other: BoardEntity = null):
 	pass
 func stop():
 	e.moves = []

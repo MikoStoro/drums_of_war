@@ -158,8 +158,7 @@ func remove_attack_from_board(attack: Attack) -> void:
 	for t in attack.targets:
 		if not out_of_bounds(t):
 			var field = get_field(t)
-			if(field.attack_markers.has(attack)):
-				field.attack_markers.erase(attack)
+			field.reset_attack_markers()
 
 
 

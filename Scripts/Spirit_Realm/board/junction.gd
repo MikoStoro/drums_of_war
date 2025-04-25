@@ -1,17 +1,11 @@
 class_name Junction
 extends BoardElement
 
-func process_collisions():
-	if len(entities) > 1:
-		for e in entities: e.junction_collide()
-	return _get_collision_events()
+func perform_clash(a1: Attack, a2: Attack):
+	a1.junction_clash(a2)
 
-
-func process_clashes(): 
-	if len(attack_markers) > 1:
-		for a in attack_markers:
-			a.junction_clash()
-	return _get_clash_events()
+func perform_collide(e1: BoardEntity, e2: BoardEntity):
+	e1.junction_collide(e2)
 
 func clear():
 	entities = []

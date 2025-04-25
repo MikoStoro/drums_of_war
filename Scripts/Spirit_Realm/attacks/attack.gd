@@ -31,11 +31,11 @@ func is_finished() -> bool:
 	else: return false
 		
 
-func junction_clash(): ##used when attack hits another attack between fields
+func junction_clash(other: Attack = null): ##used when attack hits another attack between fields
 	finished = true
 	correction_required = true
 	
-func clash(): ##used when attack hits another attack
+func clash(other : Attack = null): ##used when attack hits another attack
 	finished = true
 
 func collide(): ##used when attack hits entity
@@ -51,7 +51,9 @@ func apply_blueprint(entity):
 	for b in target_blueprint:
 		last_coordinates = last_coordinates.add(b)
 		targets.append(last_coordinates)
-	
+
+func _to_string():
+	return debug_display
 	
 		
 	

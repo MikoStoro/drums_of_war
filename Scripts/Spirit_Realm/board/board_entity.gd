@@ -31,14 +31,16 @@ func moves_left() -> int:
 	return len(moves)
 func turn_setup():
 	behavior.turn_setup()
-func collide(): ## to-do: make colliding entities able to interact
-	behavior.collide()
+func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
+	behavior.collide(other)
 func hit(attack):
 	behavior.hit(attack)
 func stop():
 	behavior.stop()
-func junction_collide():
-	behavior.junction_collide()
+func junction_collide(other: BoardEntity = null):
+	behavior.junction_collide(other)
 func set_attack(attack: Attack):
 	self.attack = attack
 	attack.apply_blueprint(self)
+func _to_string():
+	return self.debug_display
