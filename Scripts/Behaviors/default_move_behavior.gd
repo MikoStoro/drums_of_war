@@ -1,4 +1,4 @@
-class_name DefaultEntityBehavior
+class_name DefaultMoveBehavior
 extends EntityBehavior
 
 func collide(): ## to-do: make colliding entities able to interact
