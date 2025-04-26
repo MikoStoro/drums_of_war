@@ -7,6 +7,8 @@ var moves  = []
 var last_move : Move = null
 var attack : Attack = null
 
+var health : int = 100
+
 var correction_required : bool = false
 var knockback_immunity : bool = false
 
@@ -14,7 +16,9 @@ var debug_display : String = "A"
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
-
+func rotate_moves(direction: int):
+	for m in self.moves:
+		m.rotate(direction)
 func get_current_move() -> Move:
 	if len(moves) > 0:
 		return moves[0]

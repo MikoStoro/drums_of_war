@@ -22,8 +22,8 @@ var last_state : State = states["BLOCKED"]
 @onready var action_timer : Timer = $ActionTimer
 @onready var sprite = $Sprite2D
 
-@onready var Action1 = RightAction.new()
-@onready var Action2 = null
+@onready var Action1 = DashAction.new()
+@onready var Action2 = ThrustAction.new()
 @onready var Action3 = null
 @onready var Action4 = null
 

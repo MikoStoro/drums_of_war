@@ -1,6 +1,6 @@
 class_name Attack
 
-var priority : int = 1
+var priority : int = 2 #from 1 (fast) to 3 (slow)
 var damage : int = 1
 var targets : Array[Coordinates] = [] # an array of coordinates
 var target_blueprint : Array[Coordinates] = []
@@ -9,6 +9,7 @@ var current_target : int = 0
 var finished = false
 var correction_required = false
 var debug_display = 'o'
+var name : String = "attack_name"
 
 func count_remaining_targets() -> int:
 	var remaining = len(targets) - current_target
@@ -29,7 +30,6 @@ func is_finished() -> bool:
 	if finished: return true
 	else: if count_remaining_targets() < 1: return true
 	else: return false
-		
 
 func junction_clash(other: Attack = null): ##used when attack hits another attack between fields
 	finished = true

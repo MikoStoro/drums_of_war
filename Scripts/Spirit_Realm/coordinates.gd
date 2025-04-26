@@ -1,6 +1,6 @@
 class_name Coordinates
 
-const matrix90 = [[0,-1], [1,0]]
+const matrix90 = 	[ [0,-1], [1,0] ]
 const matrix45 = [ [1, -1],[1, 1] ]
  
 var x : float = 0
