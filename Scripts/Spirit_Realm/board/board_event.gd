@@ -4,9 +4,9 @@ class_name BoardEvent
 
 var object : Variant = null
 var type: GlobalEnums.event_type
-var place : Coordinates = null
+var place : Vector2
 
-func _init(type: GlobalEnums.event_type, object, place: Coordinates) -> void:
+func _init(type: GlobalEnums.event_type, object, place: Vector2) -> void:
 	self.type = type
 	self.object = object
 	self.place = place

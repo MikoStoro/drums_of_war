@@ -33,5 +33,8 @@ func rotate(steps:int): ## step = 45 deg
 	if steps%2==1:
 		self.matrix_rotate(self.matrix45)
 
+func get_vector2():
+	return Vector2(self.x, self.y)
+
 func _to_string():
 	return "Coordinates: " + str(x) + " " + str(y)

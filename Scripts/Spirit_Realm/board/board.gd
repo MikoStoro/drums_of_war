@@ -13,6 +13,7 @@ var junctions : Dictionary[String, Junction] = {}
 @onready var clock = $"../GlobalClock"
 
 var events_this_round : Array[BoardEvent] = []
+var attacked_fields : Array[Field] = []
 
 func remove_duplicates(array: Array) -> Array:
 	var unique: Array = []
@@ -35,7 +36,6 @@ func _ready() -> void:
 	print_board()
 
 func get_junction_name(field1:Field, field2:Field) -> String:
-	#var str1 = str(field1.x) + str(field1.y)
 	var str1 = str((field1.x() + field2.x())/2)
 	var str2 = str((field1.y() + field2.y())/2)
 	if str1 < str2: return str1+str2
@@ -45,7 +45,9 @@ func update():
 	events_this_round = []
 	perform_movement_phase()
 	perform_attack_phase()
-	print(events_this_round)
+	if len(events_this_round) > 0:
+		print(events_this_round)
+		pass
 	##to-do: send events to the graphical layer 
 
 
@@ -81,7 +83,7 @@ func perform_movement_phase():
 			self.events_this_round += events
 	
 	for e in remove_duplicates(entities_moved):
-		events_this_round.append(BoardEvent.new(BoardEvent.Event_type.MOVE, e, e.coordinates))
+		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, e.coordinates.get_vector2()))
 	print_board()
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
@@ -95,6 +97,7 @@ func perform_attack_phase():
 	print("CHICKEN ATTAAAAACK")
 	for priority in range(3): #check attacks of every priority in order
 		junctions = {}
+		attacked_fields = []
 		var attacks : Array[Attack] = get_attacks_by_priority(priority)
 		if len(attacks) == 0:
 			continue
@@ -136,10 +139,20 @@ func perform_attack_phase():
 			for a in attacks:
 				a.pop_target()
 			print_board()
+		
+		save_attack_events()
+		
 		for a in attacks_to_remove:
 			remove_attack_from_board(a)
 		attacks_to_remove = []
 		junctions = {}
+
+func save_attack_events():
+	var events : Array[BoardEvent] = []
+	for m in attacked_fields:
+		var event = BoardEvent.new(GlobalEnums.event_type.ATTACK, m.attack_markers[0], m.location.get_vector2())
+		events.append(event)
+	events_this_round += events
 
 func mark_attack(attack: Attack) -> void:
 	var last_target = attack.get_last_target()
@@ -148,6 +161,7 @@ func mark_attack(attack: Attack) -> void:
 		last_target = get_field(last_target)
 		current_target = get_field(current_target)
 		current_target.attack_markers.append(attack)
+		attacked_fields.append(current_target)
 		get_junction(last_target, current_target).attack_markers.append(attack)
 
 func unmark_attack(attack: Attack):
@@ -156,6 +170,7 @@ func unmark_attack(attack: Attack):
 		var last_field = get_field(last_target)
 		if(last_field.attack_markers.has(attack)):
 			last_field.attack_markers.erase(attack)
+		attacked_fields.erase(last_field)
 
 func remove_attack_from_board(attack: Attack) -> void:
 	for t in attack.targets:

@@ -10,19 +10,19 @@ func _get_collision_events():
 	for e1 in entities:
 		for e2 in entities:
 			if e1 != e2:
-				event_list.append(BoardEvent.new(BoardEvent.Event_type.CLASH, [e1,e2], location))
+				event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, [e1,e2], location.get_vector2()))
 	return event_list
 
 func _get_hit_events(hit_pairs: Array):
 	var event_list : Array[BoardEvent] = []
 	for h in hit_pairs:
-		event_list.append(BoardEvent.new(BoardEvent.Event_type.CLASH, h, location))
+		event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, h, location.get_vector2()))
 	return event_list
 
 func _get_clash_events(attack_pairs : Array) -> Array[BoardEvent]:
 	var event_list : Array[BoardEvent] = []
 	for a in attack_pairs:
-		event_list.append(BoardEvent.new(BoardEvent.Event_type.CLASH, a, location))
+		event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, a, location.get_vector2()))
 	return event_list
 
 func perform_clash(a1: Attack, a2: Attack):

@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxviel6md8neh"]
+
+[ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/global_clock.gd" id="1_h4fw4"]
+[ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/visual_clock.gd" id="2_ldgsr"]
+[ext_resource type="PackedScene" uid="uid://c88fwxmvb54he" path="res://board.tscn" id="2_wowpa"]
+[ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="3_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://c0whnj5qpvvap" path="res://Sandbox/Lukasz/overworld.tscn" id="6_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://404w5yrx56m8" path="res://Sandbox/Lukasz/player.tscn" id="7_v158k"]
+[ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://Scripts/character_instant.gd" id="8_nnt18"]
+[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/board.gd" id="9_ewbju"]
+
+[node name="Game" type="Node2D"]
+
+[node name="GlobalClock" type="Node" parent="."]
+script = ExtResource("1_h4fw4")
+
+[node name="MainBeat" type="Timer" parent="GlobalClock"]
+wait_time = 0.761
+autostart = true
+
+[node name="Board" parent="." instance=ExtResource("2_wowpa")]
+script = ExtResource("9_ewbju")
+
+[node name="VisualClock" type="Sprite2D" parent="."]
+script = ExtResource("2_ldgsr")
+
+[node name="beat" type="Timer" parent="VisualClock"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="VisualClock"]
+position = Vector2(509, 350)
+scale = Vector2(1.42969, 0.296875)
+texture = ExtResource("3_o5yvi")
+
+[node name="CharacterCD" type="CharacterBody2D" parent="."]
+position = Vector2(270, 139)
+rotation = 0.0041771
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterCD"]
+position = Vector2(1375.4, 388.833)
+texture = ExtResource("3_o5yvi")
+offset = Vector2(-1375.97, -392.376)
+
+[node name="ActionTimer" type="Timer" parent="CharacterCD"]
+one_shot = true
+
+[node name="CharacterInstant" type="CharacterBody2D" parent="."]
+position = Vector2(776, 196)
+script = ExtResource("8_nnt18")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterInstant"]
+texture = ExtResource("3_o5yvi")
+
+[node name="ActionTimer" type="Timer" parent="CharacterInstant"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Overworld" parent="." instance=ExtResource("6_1l0tm")]
+
+[node name="Player" parent="." instance=ExtResource("7_v158k")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.075, 4.075)
