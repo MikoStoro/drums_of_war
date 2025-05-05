@@ -1,5 +1,5 @@
 extends Attack
-class_name StabAttack
+class_name QuickStabAttack
 
 func _init(rotation:int = 0) -> void:
 	self.name = "Quick Stab"
