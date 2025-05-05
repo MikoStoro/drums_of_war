@@ -1,9 +1,10 @@
 extends BaseAction
 
-func perform_action(character : Character, entity : BoardEntity, rotation: int = 0):
-	entity.attack = StabAttack.new(rotation)
+func perform_action(character : Character, entity : BoardEntity):
+	var direction = character.get_direction()
+	entity.attack = StabAttack.new(direction)
 	entity.moves = [ Move.new(Coordinates.new(1,0)) ]
-	entity.rotate_moves(rotation)
+	entity.rotate_moves(direction)
 	entity.behavior = DefaultMoveBehavior.new(entity)
 
 

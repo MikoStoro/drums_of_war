@@ -96,6 +96,8 @@ func perform_attack_phase():
 	for priority in range(3): #check attacks of every priority in order
 		junctions = {}
 		var attacks : Array[Attack] = get_attacks_by_priority(priority)
+		if len(attacks) == 0:
+			continue
 		var attacks_to_remove: Array[Attack] = []
 		var update_performed = true
 		while update_performed:
@@ -136,6 +138,7 @@ func perform_attack_phase():
 			print_board()
 		for a in attacks_to_remove:
 			remove_attack_from_board(a)
+		attacks_to_remove = []
 		junctions = {}
 
 func mark_attack(attack: Attack) -> void:
