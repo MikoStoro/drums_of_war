@@ -2,10 +2,10 @@ class_name BaseAction extends Node
 
 var action_name = "base_action"
 
-var SPEED: int
+func rotate_moves(direction: int):
+	for m in self.moves:
+		m.rotate(direction)
 
-func _ready() -> void:
-	pass # Replace with function body.
 
 func perform_action(character : Character, entity : BoardEntity):
 	pass

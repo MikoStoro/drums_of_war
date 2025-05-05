@@ -22,8 +22,8 @@ var last_state : State = states["BLOCKED"]
 @onready var action_timer : Timer = $ActionTimer
 @onready var sprite = $Sprite2D
 
-@onready var Action1 = RightAction.new()
-@onready var Action2 = null
+@onready var Action1 = DashAction.new()
+@onready var Action2 = ThrustAction.new()
 @onready var Action3 = null
 @onready var Action4 = null
 
@@ -90,6 +90,20 @@ func _process(delta: float) -> void:
 		 Input.is_action_just_pressed("invoke_action_3")  ||
 		 Input.is_action_just_pressed("invoke_action_4")):
 		change_state("MISSED")
+
+func get_direction() -> int: ##TODO
+	var direction = self.get_relative_mouse_position().normalized()
+	
+	var steps = -1 * direction.angle_to(Vector2.DOWN)/PI*4
+	print(steps)
+	if steps < 0: 
+		steps *= -1
+	else:
+		steps = 8 - steps
+	print(steps)
+	var steps2 = int(round(steps))
+	print(steps2)
+	return steps
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()

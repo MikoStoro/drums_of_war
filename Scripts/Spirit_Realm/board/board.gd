@@ -5,8 +5,8 @@ extends Node
 
 
 
-const width = 5
-const height = 5
+const width = 10
+const height = 10
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
@@ -96,6 +96,8 @@ func perform_attack_phase():
 	for priority in range(3): #check attacks of every priority in order
 		junctions = {}
 		var attacks : Array[Attack] = get_attacks_by_priority(priority)
+		if len(attacks) == 0:
+			continue
 		var attacks_to_remove: Array[Attack] = []
 		var update_performed = true
 		while update_performed:
@@ -136,6 +138,7 @@ func perform_attack_phase():
 			print_board()
 		for a in attacks_to_remove:
 			remove_attack_from_board(a)
+		attacks_to_remove = []
 		junctions = {}
 
 func mark_attack(attack: Attack) -> void:
@@ -158,8 +161,7 @@ func remove_attack_from_board(attack: Attack) -> void:
 	for t in attack.targets:
 		if not out_of_bounds(t):
 			var field = get_field(t)
-			if(field.attack_markers.has(attack)):
-				field.attack_markers.erase(attack)
+			field.reset_attack_markers()
 
 
 
@@ -222,11 +224,11 @@ func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()
 	#e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	e1.coordinates = Coordinates.new(0,2)
-	e1.set_attack(ThrustAttack.new(0))
-	place_entity(e1)
+	#e1.set_attack(ThrustAttack.new(0))
+	#place_entity(e1)
 	var e2 = BoardEntity.new()
 	e2.debug_display = "B"
 	#e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
 	e2.coordinates = Coordinates.new(1,2)
 	e2.set_attack(ThrustAttack.new(4))
-	place_entity(e2)
+	#place_entity(e2)

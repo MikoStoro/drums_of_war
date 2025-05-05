@@ -1,6 +1,6 @@
 class_name Coordinates
 
-const matrix90 = [[0,-1], [1,0]]
+const matrix90 = 	[ [0,-1], [1,0] ]
 const matrix45 = [ [1, -1],[1, 1] ]
  
 var x : float = 0
@@ -32,3 +32,6 @@ func rotate(steps:int): ## step = 45 deg
 		self.matrix_rotate(self.matrix90)
 	if steps%2==1:
 		self.matrix_rotate(self.matrix45)
+
+func _to_string():
+	return "Coordinates: " + str(x) + " " + str(y)

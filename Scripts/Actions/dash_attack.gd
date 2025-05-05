@@ -1,13 +1,12 @@
-class_name ThrustAction
 extends BaseAction
 
-# Called when the node enters the scene tree for the first time.
 func perform_action(character : Character, entity : BoardEntity):
 	var direction = character.get_direction()
-	entity.set_attack(ThrustAttack.new(direction))
-	entity.moves = [ ]
+	entity.attack = StabAttack.new(direction)
+	entity.moves = [ Move.new(Coordinates.new(1,0)) ]
+	entity.rotate_moves(direction)
 	entity.behavior = DefaultMoveBehavior.new(entity)
 
 
 func _init() -> void:
-	self.action_name = "Thrust_attack"
+	self.action_name = "Dash_Attack"
