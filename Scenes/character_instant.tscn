@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://hudwoqievhit"]
+
+[ext_resource type="Script" uid="uid://db733ewaveu5s" path="res://Scripts/character_instant.gd" id="1_jo747"]
+[ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="2_ttma6"]
+[ext_resource type="Script" uid="uid://p5sxrhhq18cw" path="res://Scripts/Actions/move_action.gd" id="3_kqdv3"]
+[ext_resource type="Script" uid="uid://bo5gud4o5ch2m" path="res://Scripts/Actions/move_action_2.gd" id="4_rgyhf"]
+
+[node name="CharacterInstant" type="CharacterBody2D"]
+visible = false
+script = ExtResource("1_jo747")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 44)
+texture = ExtResource("2_ttma6")
+
+[node name="ActionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Actions" type="Node" parent="."]
+
+[node name="MoveRightAction" type="Node" parent="Actions"]
+script = ExtResource("3_kqdv3")
+
+[node name="MoveLeftAction" type="Node" parent="Actions"]
+script = ExtResource("4_rgyhf")
