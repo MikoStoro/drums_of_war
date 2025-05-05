@@ -94,7 +94,7 @@ func _process(delta: float) -> void:
 func get_direction() -> int: ##TODO
 	var direction = self.get_relative_mouse_position().normalized()
 	
-	var steps = direction.angle_to(Vector2.DOWN)/PI*4
+	var steps = -1 * direction.angle_to(Vector2.DOWN)/PI*4
 	print(steps)
 	if steps < 0: 
 		steps *= -1

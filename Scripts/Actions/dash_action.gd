@@ -1,10 +1,11 @@
 class_name DashAction
 extends BaseAction
 
-func perform_action(character : Character, entity : BoardEntity, rotation: int = 0):
+func perform_action(character : Character, entity : BoardEntity):
 	entity.attack = null
 	entity.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
-	entity.rotate_moves(character.get_direction())
+	var direction = character.get_direction()
+	entity.rotate_moves(direction)
 	entity.behavior = DefaultMoveBehavior.new(entity)
 
 
