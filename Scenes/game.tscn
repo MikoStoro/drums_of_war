@@ -29,7 +29,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="VisualClock"]
-position = Vector2(509, 350)
+position = Vector2(-40, -40)
 scale = Vector2(1.42969, 0.296875)
 texture = ExtResource("3_o5yvi")
 
@@ -45,14 +45,15 @@ offset = Vector2(-1375.97, -392.376)
 [node name="ActionTimer" type="Timer" parent="CharacterCD"]
 one_shot = true
 
-[node name="CharacterInstant" type="CharacterBody2D" parent="."]
-position = Vector2(776, 196)
+[node name="Sprite2D" type="CharacterBody2D" parent="."]
+position = Vector2(-80, 48)
+scale = Vector2(0.24, 0.2)
 script = ExtResource("8_nnt18")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterInstant"]
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
 texture = ExtResource("3_o5yvi")
 
-[node name="ActionTimer" type="Timer" parent="CharacterInstant"]
+[node name="ActionTimer" type="Timer" parent="Sprite2D"]
 wait_time = 0.1
 one_shot = true
 
@@ -61,4 +62,4 @@ one_shot = true
 [node name="Player" parent="." instance=ExtResource("7_v158k")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4.075, 4.075)
+zoom = Vector2(2.09, 2.09)
