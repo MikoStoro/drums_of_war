@@ -2,7 +2,7 @@
 class_name Board
 extends Node
 
-
+@onready var temp_player = $"../Player" ## debug
 
 
 const width = 10
@@ -47,7 +47,7 @@ func update():
 	perform_attack_phase()
 	if len(events_this_round) > 0:
 		print(events_this_round)
-		pass
+		temp_player.new_orders(events_this_round)
 	##to-do: send events to the graphical layer 
 
 
