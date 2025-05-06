@@ -36,7 +36,7 @@ var current_action: BaseAction = null
 var spirit : BoardEntity = null
 
 func _ready() -> void:
-	action_timer = $"./ActionTimer"
+	action_timer = $"ActionTimer"
 	clock = $"../../GlobalClock"
 	action_timer.wait_time = clock.beat_time * 0.4
 	clock.beat.connect(_on_beat)
