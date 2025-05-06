@@ -13,7 +13,6 @@ var junctions : Dictionary[String, Junction] = {}
 @onready var clock = $"../GlobalClock"
 
 var events_this_round : Array[BoardEvent] = []
-var attacked_fields : Array[Field] = []
 
 func remove_duplicates(array: Array) -> Array:
 	var unique: Array = []
@@ -83,7 +82,7 @@ func perform_movement_phase():
 			self.events_this_round += events
 	
 	for e in remove_duplicates(entities_moved):
-		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, e.coordinates.get_vector2()))
+		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
 	print_board()
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
@@ -97,11 +96,10 @@ func perform_attack_phase():
 	print("CHICKEN ATTAAAAACK")
 	for priority in range(3): #check attacks of every priority in order
 		junctions = {}
-		attacked_fields = []
 		var attacks : Array[Attack] = get_attacks_by_priority(priority)
 		if len(attacks) == 0:
 			continue
-		var attacks_to_remove: Array[Attack] = []
+		var resolved_attacks: Array[Attack] = []
 		var update_performed = true
 		while update_performed:
 			update_performed = false
@@ -112,7 +110,7 @@ func perform_attack_phase():
 					temp_attacks.append(a)
 					mark_attack(a)
 				else:
-					attacks_to_remove.append(a)
+					resolved_attacks.append(a)
 			attacks = temp_attacks
 
 			for j in junctions.values():  ##process clashes at junctions
@@ -140,20 +138,27 @@ func perform_attack_phase():
 				a.pop_target()
 			print_board()
 		
-		save_attack_events()
+		events_this_round += get_attack_events(resolved_attacks)
 		
-		for a in attacks_to_remove:
+		for a in resolved_attacks:
 			remove_attack_from_board(a)
-		attacks_to_remove = []
+		resolved_attacks = []
 		junctions = {}
 
-func save_attack_events():
+func get_attack_events(attacks : Array[Attack]) -> Array[BoardEvent]:
 	var events : Array[BoardEvent] = []
-	for m in attacked_fields:
-		var event = BoardEvent.new(GlobalEnums.event_type.ATTACK, m.attack_markers[0], m.location.get_vector2())
-		events.append(event)
-	events_this_round += events
-
+	for a in attacks:
+		var location_list : Array[Vector2] = []
+		for t in a.targets:
+			if t == a.get_last_target():
+				break
+			location_list.append(t.get_vector2())
+		if len(location_list) > 0:
+			location_list.push_front(a.user_coordinates.get_vector2())
+			var event = BoardEvent.new(GlobalEnums.event_type.ATTACK, a, location_list)
+			events.append(event)
+	return events
+	
 func mark_attack(attack: Attack) -> void:
 	var last_target = attack.get_last_target()
 	var current_target = attack.get_current_target()
@@ -161,7 +166,6 @@ func mark_attack(attack: Attack) -> void:
 		last_target = get_field(last_target)
 		current_target = get_field(current_target)
 		current_target.attack_markers.append(attack)
-		attacked_fields.append(current_target)
 		get_junction(last_target, current_target).attack_markers.append(attack)
 
 func unmark_attack(attack: Attack):
@@ -170,7 +174,6 @@ func unmark_attack(attack: Attack):
 		var last_field = get_field(last_target)
 		if(last_field.attack_markers.has(attack)):
 			last_field.attack_markers.erase(attack)
-		attacked_fields.erase(last_field)
 
 func remove_attack_from_board(attack: Attack) -> void:
 	for t in attack.targets:
