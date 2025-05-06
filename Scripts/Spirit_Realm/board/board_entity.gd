@@ -46,5 +46,7 @@ func junction_collide(other: BoardEntity = null):
 func set_attack(attack: Attack):
 	self.attack = attack
 	attack.apply_blueprint(self)
+func reset_attack():
+	self.attack = null
 func _to_string():
 	return self.debug_display

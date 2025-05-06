@@ -107,8 +107,12 @@ func perform_attack_phase():
 			for a in attacks:
 				if not a.is_finished():
 					update_performed = true
-					temp_attacks.append(a)
-					mark_attack(a)
+					var mark_success = mark_attack(a)
+					if mark_success:
+						temp_attacks.append(a)
+					else:
+						a.finished = true
+						resolved_attacks.append(a)
 				else:
 					resolved_attacks.append(a)
 			attacks = temp_attacks
@@ -123,7 +127,9 @@ func perform_attack_phase():
 			
 			var fields_to_resolve = []
 			for a in attacks:
-				fields_to_resolve.append(get_field(a.get_current_target()))
+				var current_target = a.get_current_target()
+				if not out_of_bounds(current_target):
+					fields_to_resolve.append(get_field(a.get_current_target()))
 			fields_to_resolve = remove_duplicates(fields_to_resolve)
 			
 			for f in fields_to_resolve: #process hits on fields
@@ -149,9 +155,10 @@ func get_attack_events(attacks : Array[Attack]) -> Array[BoardEvent]:
 	var events : Array[BoardEvent] = []
 	for a in attacks:
 		var location_list : Array[Vector2] = []
-		for t in a.targets:
-			if t == a.get_last_target():
+		for i in range(len(a.targets)):
+			if i == a.current_target:
 				break
+			var t = a.targets[i]
 			location_list.append(t.get_vector2())
 		if len(location_list) > 0:
 			location_list.push_front(a.user_coordinates.get_vector2())
@@ -159,7 +166,7 @@ func get_attack_events(attacks : Array[Attack]) -> Array[BoardEvent]:
 			events.append(event)
 	return events
 	
-func mark_attack(attack: Attack) -> void:
+func mark_attack(attack: Attack) -> bool:   ## true if able to mark attack
 	var last_target = attack.get_last_target()
 	var current_target = attack.get_current_target()
 	if not out_of_bounds(current_target):
@@ -167,6 +174,8 @@ func mark_attack(attack: Attack) -> void:
 		current_target = get_field(current_target)
 		current_target.attack_markers.append(attack)
 		get_junction(last_target, current_target).attack_markers.append(attack)
+		return true
+	else: return false
 
 func unmark_attack(attack: Attack):
 	var last_target = attack.get_current_target()
