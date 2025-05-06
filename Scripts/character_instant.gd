@@ -8,6 +8,7 @@ func _input_window_enter():
 
 func _input_window_leave():
 	if state == states["LISTENING"] or state == states["MISSED"]:
+		self.default_action.perform_action(self, spirit)
 		change_state("BLOCKED")
 	if state == states["ORDERED"]:
 		action_timer.start()

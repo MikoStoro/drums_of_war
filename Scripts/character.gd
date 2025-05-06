@@ -22,10 +22,11 @@ var last_state : State = states["BLOCKED"]
 @onready var action_timer : Timer = $ActionTimer
 @onready var sprite = $Sprite2D
 
-@onready var Action1 = DashAction.new()
-@onready var Action2 = ThrustAction.new()
-@onready var Action3 = null
-@onready var Action4 = null
+@onready var Action1 : BaseAction = DashAction.new()
+@onready var Action2 : BaseAction = ThrustAction.new()
+@onready var Action3 : BaseAction = null
+@onready var Action4 : BaseAction = null
+@onready var default_action : BaseAction = DefaultIdleAction.new()
 
 const SPEED = 300.0
 var dir = 1
