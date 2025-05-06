@@ -46,7 +46,11 @@ func move(coords: Vector2) -> void:
 	var new_position = coords
 	var tween = create_tween()
 	tween.tween_property(self, "position", new_position, 0.2) 
-	
-	
-	
+
+## by MikoStoro
+func get_relative_mouse_position():
+	return get_global_mouse_position() - position
+
+func apply_visual_effect(color):
+	self.animation_sprite.modulate = color
 	

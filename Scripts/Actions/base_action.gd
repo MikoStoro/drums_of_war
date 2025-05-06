@@ -7,7 +7,7 @@ func rotate_moves(direction: int):
 		m.rotate(direction)
 
 
-func perform_action(character : Character, entity : BoardEntity):
+func perform_action(character : CharacterController, entity : BoardEntity):
 	pass
 
 func end_action(character):
