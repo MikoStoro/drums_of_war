@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://404w5yrx56m8"]
+[gd_scene load_steps=18 format=3 uid="uid://404w5yrx56m8"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_uxg1o"]
+[ext_resource type="Texture2D" uid="uid://coubmgqdyatd0" path="res://Art/abstract-fire-desktop-wallpaper-realistic-blazing-flame-image_53876-147448.jpg" id="2_10v25"]
 [ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="2_gtnjq"]
 [ext_resource type="Texture2D" uid="uid://dpe8bqxj818kc" path="res://Art/Particles/Free Smoke Fx  Pixel 04.png" id="3_n44hn"]
 
@@ -115,6 +116,7 @@ animations = [{
 script = ExtResource("1_uxg1o")
 animation = NodePath("Sprite2D/AnimationPlayer")
 animation_sprite = NodePath("Sprite2D/AnimatedSprite2D")
+line_texture = ExtResource("2_10v25")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_gtnjq")
