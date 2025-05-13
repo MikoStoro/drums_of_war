@@ -1,7 +1,7 @@
 class_name DashAction
 extends BaseAction
 
-func perform_action(character : Character, entity : BoardEntity):
+func perform_action(character : CharacterController, entity : BoardEntity):
 	entity.attack = null
 	entity.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
 	var direction = character.get_direction()

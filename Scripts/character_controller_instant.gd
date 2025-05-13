@@ -1,4 +1,6 @@
-extends Character
+extends CharacterController
+
+
 
 func _input_window_enter():
 	if state == states["BLOCKED"]:
@@ -29,7 +31,7 @@ func order_action(action):
 	
 func _ready() -> void:
 	super._ready()
-	self.board = $"../Board"
+	self.board = $"../../Board"
 	var e = BoardEntity.new()
 	e.debug_display = "C"
 	e.coordinates = Coordinates.new(1,1)

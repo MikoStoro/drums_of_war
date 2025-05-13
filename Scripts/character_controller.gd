@@ -1,5 +1,5 @@
-class_name Character
-extends CharacterBody2D
+class_name CharacterController
+extends Node
 
 class State:
 	var name: String
@@ -18,9 +18,7 @@ var states = {"LISTENING": State.new("Listening", Color(1,1,1)),
 var state : State = states["LISTENING"]
 var last_state : State = states["BLOCKED"]
 
-@onready var clock = $"../GlobalClock"
-@onready var action_timer : Timer = $ActionTimer
-@onready var sprite = $Sprite2D
+
 
 @onready var Action1 : BaseAction = DashAction.new()
 @onready var Action2 : BaseAction = ThrustAction.new()
@@ -28,8 +26,9 @@ var last_state : State = states["BLOCKED"]
 @onready var Action4 : BaseAction = null
 @onready var default_action : BaseAction = DefaultIdleAction.new()
 
-const SPEED = 300.0
-var dir = 1
+@onready var visual_character  = $"../VisualCharacter"
+@onready var clock = $GlobalClock
+@onready var action_timer : Timer
 
 var current_action: BaseAction = null
 
@@ -37,6 +36,8 @@ var current_action: BaseAction = null
 var spirit : BoardEntity = null
 
 func _ready() -> void:
+	action_timer = $"ActionTimer"
+	clock = $"../../GlobalClock"
 	action_timer.wait_time = clock.beat_time * 0.4
 	clock.beat.connect(_on_beat)
 	clock.input_window_enter.connect(_input_window_enter)
@@ -47,7 +48,7 @@ func change_state(new_state_str : String) -> void:
 	var new_state_obj = states[new_state_str]
 	last_state = state
 	state = new_state_obj
-	sprite.modulate = state.color
+	self.visual_character.apply_visual_effect(state.color)
 
 #to be overriden
 func _input_window_enter():
@@ -71,7 +72,7 @@ func order_action(action):
 	print("Ordered: " + current_action.name)
 
 func get_relative_mouse_position():
-	return get_global_mouse_position() - position
+	return self.visual_character.get_relative_mouse_position()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -107,6 +108,7 @@ func get_direction() -> int: ##TODO
 	return steps
 
 func _physics_process(delta: float) -> void:
-	move_and_slide()
+	#move_and_slide()
+	pass
 
 	

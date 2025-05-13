@@ -1,6 +1,6 @@
 extends BaseAction
 
-func perform_action(character : Character, entity : BoardEntity):
+func perform_action(character : CharacterController, entity : BoardEntity):
 	var direction = character.get_direction()
 	entity.attack = StabAttack.new(direction)
 	entity.moves = [ Move.new(Coordinates.new(1,0)) ]
