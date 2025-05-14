@@ -2,7 +2,7 @@
 class_name Board
 extends Node
 
-@onready var temp_player = $"../Player" ## debug
+@onready var temp_player = $"../Character/VisualCharacter" ## debug
 
 
 const width = 10

@@ -49,6 +49,7 @@ func move(coords: Vector2) -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "position", new_position, 0.05) 
 
+
 ## by MikoStoro
 func get_relative_mouse_position():
 	return get_global_mouse_position() - position
