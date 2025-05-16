@@ -93,7 +93,7 @@ func _process(delta: float) -> void:
 		 Input.is_action_just_pressed("invoke_action_4")):
 		change_state("MISSED")
 
-func get_direction() -> int: ##TODO
+func get_direction() -> int: 
 	var direction = self.get_relative_mouse_position().normalized()
 	
 	var steps = -1 * direction.angle_to(Vector2.DOWN)/PI*4
