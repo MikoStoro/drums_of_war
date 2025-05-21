@@ -2,6 +2,7 @@ extends Node2D
 
 @export var animation: AnimationPlayer
 @export var animation_sprite: AnimatedSprite2D
+@export var line_texture: Texture
 # set this somewhere else (maybe when creating player)
 var tile_size := 16.0
 var inputs = {"ui_right": Vector2.RIGHT,
@@ -24,19 +25,20 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 
 func _draw_line(arr: Array[Vector2]):
 	var line := Line2D.new()
-	get_tree().root.add_child(line)
-	line.width = 3
-	line.default_color = Color.CRIMSON
-	
+	get_tree().root.add_child(line) # add it to root so it doesnt move with player
+	line.width = 5
+	#line.default_color = Color.CRIMSON
+	line.texture = line_texture
+	line.texture_mode = line.LINE_TEXTURE_TILE	
 	for pos in arr:
 		line.add_point(pos)
 		
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.2).timeout
 	line.queue_free()
 		
 func play_animation(name: String) -> void:
 	# not sure how to properly corelate speed in code with animation player
-	animation.speed_scale = 5
+	animation.speed_scale = 10
 	animation.play(name)
 	
 	
@@ -45,7 +47,8 @@ func move(coords: Vector2) -> void:
 	#coords = Vector2(coords.y,coords.x) 
 	var new_position = coords
 	var tween = create_tween()
-	tween.tween_property(self, "position", new_position, 0.2) 
+	tween.tween_property(self, "position", new_position, 0.05) 
+
 
 ## by MikoStoro
 func get_relative_mouse_position():

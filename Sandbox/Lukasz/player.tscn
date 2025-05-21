@@ -1,7 +1,9 @@
+
 [gd_scene load_steps=19 format=3 uid="uid://404w5yrx56m8"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_uxg1o"]
 [ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Art/Sprites/druns_of_war_sprite_hi_res.png" id="2_chk1l"]
+
 [ext_resource type="Texture2D" uid="uid://dpe8bqxj818kc" path="res://Art/Particles/Free Smoke Fx  Pixel 04.png" id="3_n44hn"]
 [ext_resource type="Script" uid="uid://r01osvml610n" path="res://Scenes/direction_indicator.gd" id="4_chk1l"]
 [ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Art/Sprites/file-arrow-right-3-3092301021.png" id="5_01535"]
@@ -117,6 +119,7 @@ animations = [{
 script = ExtResource("1_uxg1o")
 animation = NodePath("Sprite2D/AnimationPlayer")
 animation_sprite = NodePath("Sprite2D/AnimatedSprite2D")
+line_texture = ExtResource("2_10v25")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 3.14159
