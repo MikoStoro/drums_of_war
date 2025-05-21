@@ -45,7 +45,8 @@ one_shot = true
 [node name="Overworld" parent="." instance=ExtResource("6_1l0tm")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.09, 2.09)
+position = Vector2(52, 38)
+zoom = Vector2(5, 5)
 
 [node name="Character" type="Node" parent="."]
 script = ExtResource("7_h4fw4")
