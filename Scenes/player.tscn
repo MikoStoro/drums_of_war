@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8883cv2ciy2a"]
+
+[ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_vgqql"]
+[ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Art/Sprites/druns_of_war_sprite_hi_res.png" id="2_vgqql"]
+[ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Art/Sprites/file-arrow-right-3-3092301021.png" id="2_y6gs3"]
+[ext_resource type="Script" uid="uid://r01osvml610n" path="res://Scenes/direction_indicator.gd" id="3_fkybt"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_vgqql")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+rotation = -3.14159
+texture = ExtResource("2_vgqql")
+
+[node name="DirectionIndicator" type="Node2D" parent="."]
+script = ExtResource("3_fkybt")
+
+[node name="IndivatorSprite" type="Sprite2D" parent="DirectionIndicator"]
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_y6gs3")
+offset = Vector2(100, 0)

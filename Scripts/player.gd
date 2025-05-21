@@ -28,12 +28,14 @@ func _process(delta: float) -> void:
 
 ## activated with signal from timer
 func execute_action() -> void:
-	if queued_action:
-		queued_action.perform_action(self)
+	pass
+	'''if queued_action:
+		queued_action.perform_action(self)'''
 			
 func _check_for_action() -> BaseAction:
-	if Input.is_action_just_pressed("player"+str(player_id)+"_action1"):
+	return null
+	'''if Input.is_action_just_pressed("player"+str(player_id)+"_action1"):
 		print("move")		
 		return MoveRight.new()
 	else:
-		return null
+		return null'''

@@ -9,7 +9,7 @@ var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_left": Vector2.LEFT,
 			"ui_up": Vector2.UP,
 			"ui_down": Vector2.DOWN}
-		
+
 func new_orders(arr: Array[BoardEvent]) -> void:
 	for event: BoardEvent in arr:
 		var newArr: Array[Vector2] = []
@@ -43,7 +43,7 @@ func play_animation(name: String) -> void:
 	
 	
 func move(coords: Vector2) -> void:
-	play_animation("move")
+	#play_animation("move")
 	#coords = Vector2(coords.y,coords.x) 
 	var new_position = coords
 	var tween = create_tween()
@@ -55,7 +55,7 @@ func get_relative_mouse_position():
 	return get_global_mouse_position() - position
 
 func apply_visual_effect(color):
-	self.animation_sprite.modulate = color
+	$PlayerSprite.modulate = color
 
 var direction : int = 0
 @onready var base_rotation : int = self.rotation
@@ -74,4 +74,5 @@ func rotate_to_direction(new_direction : int = 0):
 	#t.tween_property(self, "rotation", self.base_rotation, 0.025)
 	t.tween_property(self, "rotation", rotation_value, 0.075)
 	$DirectionIndicator.rotate_to_direction(new_direction)
+
 	

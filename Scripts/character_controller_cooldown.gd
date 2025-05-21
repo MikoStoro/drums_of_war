@@ -1,4 +1,4 @@
-extends Character
+extends CharacterController
 
 
 func _input_window_enter():
@@ -22,7 +22,7 @@ func _on_beat():
 		action_timer.start()
 		current_action.perform_action(self, spirit)
 		change_state("ACTION")
-		dir *= -1
+		#dir *= -1
 
 func order_action(action):
 	change_state("ORDERED")
