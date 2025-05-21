@@ -56,22 +56,4 @@ func get_relative_mouse_position():
 
 func apply_visual_effect(color):
 	self.animation_sprite.modulate = color
-
-var direction : int = 0
-@onready var base_rotation : int = self.rotation
-@onready var rotation_tween = create_tween()
-func _process(delta) -> void:
-	var new_direction = Direction_Tools.get_direction_index(get_relative_mouse_position().normalized())
-	if new_direction != direction:
-		rotate_to_direction(new_direction)
-		self.direction = new_direction
-
-func rotate_to_direction(new_direction : int = 0):
-	var rotation_value = -Direction_Tools.get_direction_angle_i(new_direction) + self.base_rotation
-	rotation_value = lerp_angle(rotation, rotation_value, 1)
-	print(new_direction)
-	var t = create_tween()
-	#t.tween_property(self, "rotation", self.base_rotation, 0.025)
-	t.tween_property(self, "rotation", rotation_value, 0.075)
-	$DirectionIndicator.rotate_to_direction(new_direction)
 	

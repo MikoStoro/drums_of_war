@@ -12,7 +12,6 @@ var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
 @onready var clock = $"../GlobalClock"
 
-var debug_print = false
 var events_this_round : Array[BoardEvent] = []
 
 func remove_duplicates(array: Array) -> Array:
@@ -26,14 +25,14 @@ func remove_duplicates(array: Array) -> Array:
 func _ready() -> void:
 	clock.board_update.connect(update)
 	fields = []
-	for j in width:
+	for i in width:
 		var row = []
-		for i in height:
+		for j in height:
 			var f = Field.new(i,j)
 			row.append(f)
 		fields.append(row)
 	place_starting_entities()
-	print_board(debug_print)
+	print_board()
 
 func get_junction_name(field1:Field, field2:Field) -> String:
 	var str1 = str((field1.x() + field2.x())/2)
@@ -52,7 +51,7 @@ func update():
 
 
 func perform_movement_phase():
-	if debug_print : ("TURN START")
+	print("TURN START")
 	var move_performed = true
 	var entities_moved: Array[BoardEntity] = []
 	while move_performed: ## will loop until there are no more moves to perform
@@ -84,7 +83,7 @@ func perform_movement_phase():
 	
 	for e in remove_duplicates(entities_moved):
 		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
-	print_board(debug_print)
+	print_board()
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
 	var result : Array[Attack] = []
@@ -94,7 +93,7 @@ func get_attacks_by_priority(priority: int) -> Array[Attack]:
 	return result
 
 func perform_attack_phase():
-	if debug_print: ("CHICKEN ATTAAAAACK")
+	print("CHICKEN ATTAAAAACK")
 	for priority in range(3): #check attacks of every priority in order
 		junctions = {}
 		var attacks : Array[Attack] = get_attacks_by_priority(priority)
@@ -143,7 +142,7 @@ func perform_attack_phase():
 			
 			for a in attacks:
 				a.pop_target()
-			print_board(debug_print)
+			print_board()
 		
 		events_this_round += get_attack_events(resolved_attacks)
 		
@@ -240,8 +239,7 @@ func place_entity(entity: BoardEntity) -> void: ##DEBUG
 	get_field(entity.coordinates).entities.append(entity)
 	entities.append(entity)
 	
-func print_board(debug : bool = true): ##DEBUG
-	if not debug: return
+func print_board(): ##DEBUG
 	var print_string = ""
 	for i in width:
 		for j in height:
