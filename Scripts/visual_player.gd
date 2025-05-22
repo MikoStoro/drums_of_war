@@ -1,4 +1,5 @@
 extends Node2D
+class_name VisualCharacter
 
 @export var animation: AnimationPlayer
 @export var animation_sprite: AnimatedSprite2D

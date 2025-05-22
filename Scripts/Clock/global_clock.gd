@@ -1,4 +1,5 @@
 extends Node
+class_name GameClock
 
 signal beat
 signal input_window_enter
@@ -14,10 +15,8 @@ var input_window_flag : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	GlobalComponents.clock = self
 	clock = $MainBeat
-	
 	beat_time = clock.wait_time
 	clock.timeout.connect(beat_event)
 	

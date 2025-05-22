@@ -1,12 +1,11 @@
 extends Node
-@onready var clock = GlobalComponents.clock
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	clock.beat.connect(beat)
+	GlobalComponents.abstract_board.reset_board()
+	$"../Characters".add_child(Character.new())
 
-func beat():
-	$AudioStreamPlayer.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

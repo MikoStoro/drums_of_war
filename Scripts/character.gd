@@ -1,11 +1,24 @@
 extends Node
+class_name Character
 
-@onready var visual = $VisualCharacter
-@onready var controller = $InstantCharacterController
+@onready var visual : VisualCharacter = $VisualCharacter
+@onready var controller : CharacterController = $CharacterController
+var spirit : BoardEntity = null
 
-var start_x = 0
-var start_y = 0
 
-## to-do: place visual player model and board entity on corresponding fields
+func _init():
+	pass
+
+func create(s_x: int = 0, s_y:int = 0):
+	var spirit = BoardEntity.new(s_x, s_y)
+	GlobalComponents.abstract_board.place_entity(spirit)
+	##initialize and place visual character on board
+	self
+	
+func set_action():
+	## switch given action characterController (cerate an instance of action)
+	pass
+	
+
 func _ready() -> void:
-	pass # Replace with function body.
+	create(0,0)

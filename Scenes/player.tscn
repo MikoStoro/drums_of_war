@@ -11,9 +11,9 @@ script = ExtResource("1_wa5vi")
 position = Vector2(9, 8)
 scale = Vector2(0.06, 0.06)
 
-[node name="InstantCharacterController" type="Node" parent="."]
+[node name="CharacterController" type="Node" parent="."]
 script = ExtResource("3_px5sl")
 
-[node name="ActionTimer" type="Timer" parent="InstantCharacterController"]
+[node name="ActionTimer" type="Timer" parent="CharacterController"]
 wait_time = 0.1
 one_shot = true

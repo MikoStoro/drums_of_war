@@ -5,8 +5,8 @@ extends Node
 @onready var temp_player = $"../Character/VisualCharacter" ## debug
 
 
-const width = 10
-const height = 10
+var width = 10
+var height = 10
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
@@ -26,15 +26,9 @@ func remove_duplicates(array: Array) -> Array:
 func _ready() -> void:
 	GlobalComponents.abstract_board = self
 	clock.board_update.connect(update)
-	fields = []
-	for j in width:
-		var row = []
-		for i in height:
-			var f = Field.new(i,j)
-			row.append(f)
-		fields.append(row)
-	place_starting_entities()
-	print_board(debug_print)
+	reset_board()
+	
+
 
 func get_junction_name(field1:Field, field2:Field) -> String:
 	var str1 = str((field1.x() + field2.x())/2)
@@ -264,6 +258,19 @@ func print_board(debug : bool = true): ##DEBUG
 			print_string += fields[i][j].get_debug_display() + ' '
 		print_string += "\n"
 	print(print_string)
+
+func reset_board(x:int = 10, y:int=10):
+	fields = []
+	self.width = x
+	self.height = y
+	for j in width:
+		var row = []
+		for i in height:
+			var f = Field.new(i,j)
+			row.append(f)
+		fields.append(row)
+	place_starting_entities()
+	print_board(debug_print)
 
 func place_starting_entities(): ##DEBUG
 	var e1 = BoardEntity.new()

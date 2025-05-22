@@ -19,7 +19,7 @@ var state : State = states["LISTENING"]
 var last_state : State = states["BLOCKED"]
 
 
-
+##to-do: change this to Array[Action] 
 @onready var Action1 : BaseAction = DashAction.new()
 @onready var Action2 : BaseAction = ThrustAction.new()
 @onready var Action3 : BaseAction = null

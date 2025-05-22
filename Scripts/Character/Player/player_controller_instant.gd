@@ -1,4 +1,5 @@
 extends CharacterController
+class_name InstantPlayerController
 
 func _input_window_enter():
 	if state == states["BLOCKED"]:

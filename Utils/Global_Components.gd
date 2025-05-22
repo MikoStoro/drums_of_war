@@ -1,4 +1,4 @@
 extends Node
 
-var clock : Node
-var abstract_board : Node 
+var clock : GameClock
+var abstract_board : Board 
