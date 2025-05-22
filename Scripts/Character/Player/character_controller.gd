@@ -100,5 +100,8 @@ func get_direction() -> int:
 func _physics_process(delta: float) -> void:
 	#move_and_slide()
 	pass
+	
+func transfer_events(events: Array[BoardEvent]):
+	$"../VisualCharacter".new_orders(events)
 
 	

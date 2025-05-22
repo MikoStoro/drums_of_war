@@ -5,6 +5,7 @@ var damage : int = 1
 var targets : Array[Coordinates] = [] # an array of coordinates
 var target_blueprint : Array[Coordinates] = []
 var user_coordinates : Coordinates = null
+var user : BoardEntity = null
 var current_target : int = 0
 var finished = false
 var correction_required = false
@@ -46,6 +47,7 @@ func rotate(steps:int):
 		c.rotate(steps)
 
 func apply_blueprint(entity):
+	user = entity
 	user_coordinates = entity.coordinates
 	var last_coordinates = user_coordinates
 	for b in target_blueprint:

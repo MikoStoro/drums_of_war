@@ -72,10 +72,8 @@ func get_current_direction() -> int:
 func rotate_to_direction(new_direction : int = 0):
 	var rotation_value = -Direction_Tools.get_direction_angle_i(new_direction) + self.base_rotation
 	rotation_value = lerp_angle(rotation, rotation_value, 1)
-	print(new_direction)
 	var t = create_tween()
-	#t.tween_property(self, "rotation", self.base_rotation, 0.025)
 	t.tween_property(self, "rotation", rotation_value, 0.075)
-	$DirectionIndicator.rotate_to_direction(new_direction)
+	#$DirectionIndicator.rotate_to_direction(new_direction)
 
 	

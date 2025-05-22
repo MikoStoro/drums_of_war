@@ -10,7 +10,7 @@ const height = 10
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
-@onready var clock = $"../GlobalClock"
+@onready var clock = GlobalComponents.clock
 
 var debug_print = false
 var events_this_round : Array[BoardEvent] = []
@@ -42,14 +42,29 @@ func get_junction_name(field1:Field, field2:Field) -> String:
 	if str1 < str2: return str1+str2
 	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
 
+func get_affected_entities(events: Array[BoardEvent]):
+	var entities:Array[BoardEntity] = []
+	for ev in events:
+		var en = ev.get_affected_entities()
+		if en is Array:
+			entities += en
+		else: entities.append(en)
+	return entities
+	
+
 func update():
 	events_this_round = []
 	perform_movement_phase()
 	perform_attack_phase()
 	if len(events_this_round) > 0:
 		print(events_this_round)
-		temp_player.new_orders(events_this_round)
-	##to-do: send events to the graphical layer 
+		var entities = get_affected_entities(events_this_round)
+		for en in entities:
+			var events_for_this_entity : Array[BoardEvent] = []
+			for ev in events_this_round:
+				if ev.affects_entity(en): events_for_this_entity.append(ev)
+			en.transfer_events(events_for_this_entity)
+			#temp_player.new_orders(events_this_round)
 
 
 func perform_movement_phase():

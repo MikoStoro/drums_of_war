@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=10 format=3 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/Clock/global_clock.gd" id="1_h4fw4"]
 [ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/Clock/visual_clock.gd" id="2_ldgsr"]
 [ext_resource type="Script" uid="uid://dtnuvnkj8rxor" path="res://Scripts/Drummer/drummer.gd" id="2_o5yvi"]
-[ext_resource type="PackedScene" uid="uid://c88fwxmvb54he" path="res://Scenes/board.tscn" id="2_wowpa"]
 [ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="3_o5yvi"]
 [ext_resource type="AudioStream" uid="uid://cpu66ynl1xxu7" path="res://audio/tribal-drums-tom-4.wav" id="3_rku1e"]
 [ext_resource type="PackedScene" uid="uid://c0whnj5qpvvap" path="res://Sandbox/Lukasz/overworld.tscn" id="6_1l0tm"]
@@ -15,6 +14,7 @@
 
 [node name="GlobalClock" type="Node" parent="."]
 script = ExtResource("1_h4fw4")
+window_size = 0.35
 
 [node name="MainBeat" type="Timer" parent="GlobalClock"]
 autostart = true
@@ -25,7 +25,7 @@ script = ExtResource("2_o5yvi")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Drummer"]
 stream = ExtResource("3_rku1e")
 
-[node name="Board" parent="." instance=ExtResource("2_wowpa")]
+[node name="Board" type="Node" parent="."]
 script = ExtResource("9_ewbju")
 
 [node name="VisualClock" type="Sprite2D" parent="."]

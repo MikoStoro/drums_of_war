@@ -16,6 +16,8 @@ var debug_display : String = "A"
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
+var controller : CharacterController = null
+
 func rotate_moves(direction: int):
 	for m in self.moves:
 		m.rotate(direction)
@@ -50,3 +52,5 @@ func reset_attack():
 	self.attack = null
 func _to_string():
 	return self.debug_display
+func transfer_events(events : Array[BoardEvent]):
+	self.controller.transfer_events(events)

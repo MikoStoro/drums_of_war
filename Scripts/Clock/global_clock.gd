@@ -9,7 +9,7 @@ var clock
 @export var beat_time : float
 var input_window_flag : bool = false
 
-const window_size = 0.5
+@export var window_size = 0.5
 
 
 # Called when the node enters the scene tree for the first time.

@@ -1,7 +1,5 @@
 extends CharacterController
 
-
-
 func _input_window_enter():
 	if state == states["BLOCKED"]:
 		change_state("LISTENING")
@@ -35,6 +33,7 @@ func setup():
 	e.debug_display = "C"
 	e.coordinates = Coordinates.new(1,1)
 	self.spirit = e
+	e.controller = self
 	self.board.place_entity(e)
 
 
