@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://c0whnj5qpvvap"]
 
-[ext_resource type="Script" path="res://Scripts/overworld.gd" id="1_vx70m"]
+[ext_resource type="Script" uid="uid://c12kpt8ia02ei" path="res://Scripts/overworld.gd" id="1_vx70m"]
 [ext_resource type="Texture2D" uid="uid://b0ay7wurrriai" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_tiles_and_buildings_01.png" id="2_bpuco"]
 [ext_resource type="Texture2D" uid="uid://blc3nlepwiply" path="res://Art/Sprites/neo_zero_V1.0/neo_zero_props_and_items_01.png" id="3_i6y1n"]
 

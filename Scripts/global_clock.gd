@@ -11,9 +11,13 @@ var input_window_flag : bool = false
 
 const window_size = 0.5
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	GlobalComponents.clock = self
 	clock = $MainBeat
+	
 	beat_time = clock.wait_time
 	clock.timeout.connect(beat_event)
 	

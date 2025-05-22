@@ -24,6 +24,7 @@ func remove_duplicates(array: Array) -> Array:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	GlobalComponents.abstract_board = self
 	clock.board_update.connect(update)
 	fields = []
 	for j in width:

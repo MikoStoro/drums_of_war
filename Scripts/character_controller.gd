@@ -27,17 +27,17 @@ var last_state : State = states["BLOCKED"]
 @onready var default_action : BaseAction = DefaultIdleAction.new()
 
 @onready var visual_character  = $"../VisualCharacter"
-@onready var clock = $GlobalClock
+@onready var clock = GlobalComponents.clock
 @onready var action_timer : Timer
 
 var current_action: BaseAction = null
 
-@onready var board : Board = $Board
+@onready var board : Board = GlobalComponents.abstract_board
 var spirit : BoardEntity = null
 
 func _ready() -> void:
 	action_timer = $"ActionTimer"
-	clock = $"../../GlobalClock"
+	
 	action_timer.wait_time = clock.beat_time * 0.4
 	clock.beat.connect(_on_beat)
 	clock.input_window_enter.connect(_input_window_enter)
@@ -93,19 +93,9 @@ func _process(delta: float) -> void:
 		 Input.is_action_just_pressed("invoke_action_4")):
 		change_state("MISSED")
 
-func get_direction() -> int: 
-	var direction = self.get_relative_mouse_position().normalized()
-	
-	var steps = -1 * direction.angle_to(Vector2.DOWN)/PI*4
-	print(steps)
-	if steps < 0: 
-		steps *= -1
-	else:
-		steps = 8 - steps
-	print(steps)
-	var steps2 = int(round(steps))
-	print(steps2)
-	return steps
+func get_direction() -> int:
+	return get_parent().visual.get_current_direction()
+
 
 func _physics_process(delta: float) -> void:
 	#move_and_slide()
