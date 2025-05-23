@@ -28,17 +28,8 @@ func order_action(action):
 	current_action = action
 	print("Ordered: " + current_action.name)
 
-func setup():
-	self.board = GlobalComponents.abstract_board
-	var e = BoardEntity.new()
-	e.debug_display = "C"
-	e.coordinates = Coordinates.new(1,1)
-	self.spirit = e
-	e.controller = self
-	self.board.place_entity(e)
-
 
 func _ready() -> void:
-	super._ready()
-	setup()
+	super()
+	self.board = GlobalComponents.abstract_board
 	

@@ -20,10 +20,7 @@ var last_state : State = states["BLOCKED"]
 
 
 ##to-do: change this to Array[Action] 
-@onready var Action1 : BaseAction = DashAction.new()
-@onready var Action2 : BaseAction = ThrustAction.new()
-@onready var Action3 : BaseAction = null
-@onready var Action4 : BaseAction = null
+@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), DashAttack.new(), null ]
 @onready var default_action : BaseAction = DefaultIdleAction.new()
 
 @onready var visual_character  = $"../VisualCharacter"
@@ -78,14 +75,14 @@ func get_relative_mouse_position():
 func _process(delta: float) -> void:
 	##Action1 is pressed on-beat
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_1"):
-		if (Action1!=null):
-			order_action(Action1)
+		if (actions[0]!=null):
+			order_action(actions[0])
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_2"):
-		if (Action2!=null):  order_action(Action2)
+		if (actions[1]!=null):  order_action(actions[1])
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_3"):
-		if (Action3!=null): order_action(Action3)
+		if (actions[2]!=null): order_action(actions[2])
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_4"):
-		if (Action4!=null):  order_action(Action4)
+		if (actions[3]!=null):  order_action(actions[3])
 	##Action is pressed off-beat
 	if state == states["BLOCKED"] && (Input.is_action_just_pressed("invoke_action_1") ||
 		 Input.is_action_just_pressed("invoke_action_2")  || 
@@ -103,5 +100,11 @@ func _physics_process(delta: float) -> void:
 	
 func transfer_events(events: Array[BoardEvent]):
 	$"../VisualCharacter".new_orders(events)
+	
+func link_spirit(e: BoardEntity):
+	self.spirit = e
+	e.controller = self
+
+
 
 	

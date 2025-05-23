@@ -1,4 +1,5 @@
 extends BaseAction
+class_name DashAttack
 
 func perform_action(character : CharacterController, entity : BoardEntity):
 	var direction = character.get_direction()

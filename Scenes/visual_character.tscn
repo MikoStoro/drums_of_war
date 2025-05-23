@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Art/Sprites/file-arrow-right-3-3092301021.png" id="2_y6gs3"]
 [ext_resource type="Script" uid="uid://r01osvml610n" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
 
-[node name="Player" type="Node2D"]
+[node name="VisualCharacter" type="Node2D"]
 script = ExtResource("1_vgqql")
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
+[node name="CharacterSprite" type="Sprite2D" parent="."]
 rotation = -3.14159
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_vgqql")
 
 [node name="DirectionIndicator" type="Node2D" parent="."]
@@ -17,6 +18,6 @@ script = ExtResource("3_fkybt")
 
 [node name="IndivatorSprite" type="Sprite2D" parent="DirectionIndicator"]
 rotation = 1.5708
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.005, 0.005)
 texture = ExtResource("2_y6gs3")
-offset = Vector2(100, 0)
+offset = Vector2(20, 0)

@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var character_sprite = $"../PlayerSprite"
-var offset : Vector2 = Vector2(0,200)
+@onready var character_sprite = $"../CharacterSprite"
+var offset : Vector2 = Vector2(0,15)
 var base_rotation = PI
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

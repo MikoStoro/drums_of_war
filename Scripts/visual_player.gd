@@ -5,7 +5,7 @@ class_name VisualCharacter
 @export var animation_sprite: AnimatedSprite2D
 @export var line_texture: Texture
 # set this somewhere else (maybe when creating player)
-var tile_size := 16.0
+var tile_size : float = VisualBoardTools.tile_size
 var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_left": Vector2.LEFT,
 			"ui_up": Vector2.UP,
@@ -15,7 +15,7 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 	for event: BoardEvent in arr:
 		var newArr: Array[Vector2] = []
 		for e in event.place:
-			var v := Vector2(e.y * tile_size - tile_size/2, e.x * tile_size - tile_size/2)
+			var v := VisualBoardTools.spirit_tile_into_visual(Vector2(e.x,e.y))
 			newArr.append(v)
 		event.place = newArr
 		
@@ -56,7 +56,7 @@ func get_relative_mouse_position():
 	return get_global_mouse_position() - position
 
 func apply_visual_effect(color):
-	$PlayerSprite.modulate = color
+	$CharacterSprite.modulate = color
 
 var direction : int = 0
 @onready var base_rotation : int = self.rotation
@@ -76,5 +76,8 @@ func rotate_to_direction(new_direction : int = 0):
 	var t = create_tween()
 	t.tween_property(self, "rotation", rotation_value, 0.075)
 	#$DirectionIndicator.rotate_to_direction(new_direction)
+
+func _ready():
+	pass
 
 	

@@ -2,8 +2,6 @@
 class_name Board
 extends Node
 
-@onready var temp_player = $"../Character/VisualCharacter" ## debug
-
 
 var width = 10
 var height = 10
@@ -12,7 +10,7 @@ var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
 @onready var clock = GlobalComponents.clock
 
-var debug_print = false
+var debug_print = true
 var events_this_round : Array[BoardEvent] = []
 
 func remove_duplicates(array: Array) -> Array:
@@ -47,6 +45,7 @@ func get_affected_entities(events: Array[BoardEvent]):
 	
 
 func update():
+	print(entities)
 	events_this_round = []
 	perform_movement_phase()
 	perform_attack_phase()
@@ -246,9 +245,10 @@ func get_junction(old: Field, new: Field) -> Junction:
 	return junction
 		
 
-func place_entity(entity: BoardEntity) -> void: ##DEBUG
+func place_entity(entity: BoardEntity) -> void:
 	get_field(entity.coordinates).entities.append(entity)
 	entities.append(entity)
+	print_board(debug_print)
 	
 func print_board(debug : bool = true): ##DEBUG
 	if not debug: return
@@ -269,18 +269,4 @@ func reset_board(x:int = 10, y:int=10):
 			var f = Field.new(i,j)
 			row.append(f)
 		fields.append(row)
-	place_starting_entities()
 	print_board(debug_print)
-
-func place_starting_entities(): ##DEBUG
-	var e1 = BoardEntity.new()
-	#e1.moves = [ Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)), Move.new(Coordinates.new(1,0)) ]
-	e1.coordinates = Coordinates.new(0,2)
-	#e1.set_attack(ThrustAttack.new(0))
-	#place_entity(e1)
-	var e2 = BoardEntity.new()
-	e2.debug_display = "B"
-	#e2.moves = [ Move.new(Coordinates.new(-1,0)) ]
-	e2.coordinates = Coordinates.new(1,2)
-	e2.set_attack(ThrustAttack.new(4))
-	#place_entity(e2)

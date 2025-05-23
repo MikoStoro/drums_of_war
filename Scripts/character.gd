@@ -1,26 +1,33 @@
 extends Node
 class_name Character
 
-@onready var visual : VisualCharacter = $VisualCharacter
-@onready var controller : CharacterController = $CharacterController
+@onready var visual : VisualCharacter
+@onready var controller : CharacterController
 var spirit : BoardEntity = null
 
+var debug_display: String = "C"
+var x_pos = 2
+var y_pos = 2
 
 func _init():
-	pass
+	print(self)
 
-func create(s_x: int = 0, s_y:int = 0):
-	var spirit = BoardEntity.new(s_x, s_y)
+func initialize():
+	self.spirit = BoardEntity.new(x_pos, y_pos)
+	self.spirit.debug_display = self.debug_display
 	GlobalComponents.abstract_board.place_entity(spirit)
-	var player: VisualCharacter = find_child("VisualCharacter")
-	player.position = GameManager.spirit_tile_into_visual(Vector2(s_x, s_y))
+	self.controller.link_spirit(self.spirit)
+	self.visual.position = VisualBoardTools.spirit_tile_into_visual(Vector2(x_pos, y_pos))
+
 	##initialize and place visual character on board
-	self
 	
-func set_action():
-	## switch given action characterController (cerate an instance of action)
-	pass
-	
+func set_action(index: int, action: BaseAction):
+	self.controller.actions[index] = action
 
 func _ready() -> void:
-	create(1,1)
+	var children  = self.get_children()
+	if(len(children)>0):
+		self.controller = children[0] ### why the fuck does $ not work?
+		self.visual = children[1]
+		initialize()
+	

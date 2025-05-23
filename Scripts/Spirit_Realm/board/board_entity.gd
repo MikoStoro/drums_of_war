@@ -54,5 +54,5 @@ func _to_string():
 	return self.debug_display
 func transfer_events(events : Array[BoardEvent]):
 	self.controller.transfer_events(events)
-func _init(s_x:int=0, s_y:int=0):
+func _init(s_x:float=0, s_y:float=0):
 	self.coordinates = Coordinates.new(s_x,s_y)
