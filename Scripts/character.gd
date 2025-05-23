@@ -12,6 +12,8 @@ func _init():
 func create(s_x: int = 0, s_y:int = 0):
 	var spirit = BoardEntity.new(s_x, s_y)
 	GlobalComponents.abstract_board.place_entity(spirit)
+	var player: VisualCharacter = find_child("VisualCharacter")
+	player.position = GameManager.spirit_tile_into_visual(Vector2(s_x, s_y))
 	##initialize and place visual character on board
 	self
 	
@@ -21,4 +23,4 @@ func set_action():
 	
 
 func _ready() -> void:
-	create(0,0)
+	create(1,1)
