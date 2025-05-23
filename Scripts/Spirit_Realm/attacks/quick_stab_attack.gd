@@ -6,5 +6,5 @@ func _init(rotation:int = 0) -> void:
 	target_blueprint = [
 		Coordinates.new(1,0),
 	]
-	self.priority = 1
+	self.priority = 2
 	self.rotate(rotation)

@@ -30,4 +30,6 @@ func _ready() -> void:
 		self.controller = children[0] ### why the fuck does $ not work?
 		self.visual = children[1]
 		initialize()
-	
+
+func get_spirit_position() -> Coordinates:
+	return self.spirit.coordinates

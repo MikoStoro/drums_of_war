@@ -35,13 +35,13 @@ func get_junction_name(field1:Field, field2:Field) -> String:
 	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
 
 func get_affected_entities(events: Array[BoardEvent]):
-	var entities:Array[BoardEntity] = []
+	var ents:Array[BoardEntity] = []
 	for ev in events:
 		var en = ev.get_affected_entities()
 		if en is Array:
-			entities += en
-		else: entities.append(en)
-	return entities
+			ents += en
+		else: ents.append(en)
+	return ents
 	
 
 func update():
@@ -51,8 +51,8 @@ func update():
 	perform_attack_phase()
 	if len(events_this_round) > 0:
 		print(events_this_round)
-		var entities = get_affected_entities(events_this_round)
-		for en in entities:
+		var temp_entities = get_affected_entities(events_this_round)
+		for en in temp_entities:
 			var events_for_this_entity : Array[BoardEvent] = []
 			for ev in events_this_round:
 				if ev.affects_entity(en): events_for_this_entity.append(ev)
@@ -93,6 +93,8 @@ func perform_movement_phase():
 	
 	for e in remove_duplicates(entities_moved):
 		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
+		e.update_attack_targets()
+		
 	print_board(debug_print)
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:

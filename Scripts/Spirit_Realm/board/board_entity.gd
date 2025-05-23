@@ -56,3 +56,6 @@ func transfer_events(events : Array[BoardEvent]):
 	self.controller.transfer_events(events)
 func _init(s_x:float=0, s_y:float=0):
 	self.coordinates = Coordinates.new(s_x,s_y)
+func update_attack_targets():
+	if attack != null:
+		attack.apply_blueprint(self)

@@ -1,6 +1,6 @@
 class_name Attack
 
-var priority : int = 2 #from 1 (fast) to 3 (slow)
+var priority : int = 1 #from 0 (fast) to 2 (slow)
 var damage : int = 1
 var targets : Array[Coordinates] = [] # an array of coordinates
 var target_blueprint : Array[Coordinates] = []
@@ -47,6 +47,7 @@ func rotate(steps:int):
 		c.rotate(steps)
 
 func apply_blueprint(entity):
+	targets = []
 	user = entity
 	user_coordinates = entity.coordinates
 	var last_coordinates = user_coordinates

@@ -8,12 +8,13 @@ func _input_window_enter():
 		change_state("LISTENING")
 
 func _input_window_leave():
+	var direction = get_direction()
 	if state == states["LISTENING"] or state == states["MISSED"]:
-		self.default_action.perform_action(self, spirit)
+		self.default_action.perform_action(self, spirit, direction)
 		change_state("BLOCKED")
 	if state == states["ORDERED"]:
 		action_timer.start()
-		current_action.perform_action(self, spirit)
+		current_action.perform_action(self, spirit, direction)
 		change_state("ACTION")
 
 func _stop_action():

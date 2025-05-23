@@ -20,7 +20,7 @@ var last_state : State = states["BLOCKED"]
 
 
 ##to-do: change this to Array[Action] 
-@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), DashAttack.new(), null ]
+@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), CleaveAction.new(), QuickStabAction.new() ]
 @onready var default_action : BaseAction = DefaultIdleAction.new()
 
 @onready var visual_character  = $"../VisualCharacter"
