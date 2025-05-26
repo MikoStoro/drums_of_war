@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=12 format=3 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/Clock/global_clock.gd" id="1_h4fw4"]
 [ext_resource type="Script" uid="uid://b1wohejsgyckp" path="res://Scenes/arbiter.gd" id="1_ldgsr"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cye1nkou6ankm" path="res://Scenes/characters_manager.gd" id="7_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://coo1igwacxt1v" path="res://Scenes/character.tscn" id="7_v158k"]
 [ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/board.gd" id="9_ewbju"]
+[ext_resource type="Script" uid="uid://b66noetk1vfp4" path="res://Scripts/UI/action_select_button.gd" id="11_o5yvi"]
 
 [node name="Game" type="Node2D"]
 
@@ -50,7 +51,57 @@ script = ExtResource("7_ldgsr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(52, 38)
-zoom = Vector2(5, 5)
+zoom = Vector2(2.165, 2.165)
 
 [node name="Arbiter" type="Node" parent="."]
 script = ExtResource("1_ldgsr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = 108.0
+offset_top = -94.0
+offset_right = 275.0
+offset_bottom = -24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="CharacterID" type="OptionButton" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Action" type="OptionButton" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "XXXXX"
+popup/item_0/id = 0
+popup/item_1/text = "DDDDDD"
+popup/item_1/id = 1
+script = ExtResource("11_o5yvi")
+
+[node name="SpawnCoordinates" type="HBoxContainer" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="X" type="TextEdit" parent="PanelContainer/MarginContainer/GridContainer/SpawnCoordinates"]
+layout_mode = 2
+text = "0"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Y" type="TextEdit" parent="PanelContainer/MarginContainer/GridContainer/SpawnCoordinates"]
+layout_mode = 2
+text = "0"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "SPAWN"
