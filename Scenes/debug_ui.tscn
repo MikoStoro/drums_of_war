@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://2oxd7jc00m5q"]
+
+[ext_resource type="Script" uid="uid://b66noetk1vfp4" path="res://Scripts/UI/action_select_button.gd" id="1_aqnpe"]
+
+[node name="DebugUI" type="PanelContainer"]
+offset_left = 108.0
+offset_top = -94.0
+offset_right = 275.0
+offset_bottom = -24.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="CharacterID" type="TextEdit" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "0"
+placeholder_text = "id"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="SpawnCoordinates" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="X" type="TextEdit" parent="MarginContainer/GridContainer/SpawnCoordinates"]
+layout_mode = 2
+text = "0"
+placeholder_text = "x"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Y" type="TextEdit" parent="MarginContainer/GridContainer/SpawnCoordinates"]
+layout_mode = 2
+text = "0"
+placeholder_text = "y"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+script = ExtResource("1_aqnpe")
+
+[node name="Action2" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action3" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action4" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "SPAWN"

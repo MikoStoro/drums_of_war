@@ -4,6 +4,7 @@ class_name Character
 @onready var visual : VisualCharacter
 @onready var controller : CharacterController
 var spirit : BoardEntity = null
+@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), CleaveAction.new(), QuickStabAction.new() ]
 
 var debug_display: String = "C"
 var x_pos = 2

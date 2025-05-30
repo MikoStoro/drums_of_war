@@ -7,10 +7,10 @@
 [node name="Character" type="Node"]
 script = ExtResource("1_wa5vi")
 
-[node name="CharacterController" type="Node" parent="."]
+[node name="PlayerControllerInstant" type="Node" parent="."]
 script = ExtResource("3_px5sl")
 
-[node name="ActionTimer" type="Timer" parent="CharacterController"]
+[node name="ActionTimer" type="Timer" parent="PlayerControllerInstant"]
 wait_time = 0.1
 one_shot = true
 

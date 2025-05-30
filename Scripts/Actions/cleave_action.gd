@@ -9,4 +9,4 @@ func perform_action(character : CharacterController, entity : BoardEntity, direc
 
 
 func _init() -> void:
-	self.action_name = "Thrust_attack"
+	self.action_name = "Cleave_attack"
