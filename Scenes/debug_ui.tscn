@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://2oxd7jc00m5q"]
+[gd_scene load_steps=3 format=3 uid="uid://2oxd7jc00m5q"]
 
 [ext_resource type="Script" uid="uid://b66noetk1vfp4" path="res://Scripts/UI/action_select_button.gd" id="1_aqnpe"]
+[ext_resource type="Script" uid="uid://dyu1aobt5kl6b" path="res://Scripts/UI/button_spawn.gd" id="1_dmshr"]
 
 [node name="DebugUI" type="PanelContainer"]
 offset_left = 108.0
@@ -18,7 +19,7 @@ theme_override_constants/margin_bottom = 5
 [node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="CharacterID" type="TextEdit" parent="MarginContainer/GridContainer"]
+[node name="CharacterID" type="TextEdit" parent="MarginContainer/GridContainer" groups=["debug-ui"]]
 layout_mode = 2
 text = "0"
 placeholder_text = "id"
@@ -28,19 +29,24 @@ scroll_fit_content_width = true
 [node name="SpawnCoordinates" type="HBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 
-[node name="X" type="TextEdit" parent="MarginContainer/GridContainer/SpawnCoordinates"]
+[node name="X" type="TextEdit" parent="MarginContainer/GridContainer/SpawnCoordinates" groups=["debug-ui"]]
 layout_mode = 2
 text = "0"
 placeholder_text = "x"
 scroll_fit_content_height = true
 scroll_fit_content_width = true
 
-[node name="Y" type="TextEdit" parent="MarginContainer/GridContainer/SpawnCoordinates"]
+[node name="Y" type="TextEdit" parent="MarginContainer/GridContainer/SpawnCoordinates" groups=["debug-ui"]]
 layout_mode = 2
 text = "0"
 placeholder_text = "y"
 scroll_fit_content_height = true
 scroll_fit_content_width = true
+
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/SpawnCoordinates"]
+layout_mode = 2
+text = "SPAWN"
+script = ExtResource("1_dmshr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
@@ -58,10 +64,7 @@ layout_mode = 2
 [node name="Action4" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/GridContainer"]
-layout_mode = 2
-text = "SPAWN"
-
+[connection signal="button_down" from="MarginContainer/GridContainer/SpawnCoordinates/Button" to="MarginContainer/GridContainer/SpawnCoordinates/Button" method="_on_button_down"]
 [connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_item_selected"]
 [connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action2" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_2_item_selected"]
 [connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action3" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_3_item_selected"]

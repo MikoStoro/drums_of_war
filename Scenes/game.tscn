@@ -42,7 +42,7 @@ position = Vector2(-40, -40)
 scale = Vector2(1.42969, 0.296875)
 texture = ExtResource("3_o5yvi")
 
-[node name="CharacterManager" type="Node" parent="."]
+[node name="CharacterManager" type="Node" parent="." groups=["CharacterManager"]]
 script = ExtResource("7_ldgsr")
 
 [node name="Player" parent="CharacterManager" instance=ExtResource("7_v158k")]

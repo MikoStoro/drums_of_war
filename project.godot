@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 GlobalComponents="*res://Utils/Global_Components.gd"
 GameManager="*res://Utils/game_manager.gd"
 
+[global_group]
+
+CharacterManager=""
+
 [input]
 
 invoke_action_1={

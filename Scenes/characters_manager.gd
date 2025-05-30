@@ -1,17 +1,20 @@
 extends Node
 class_name Character_Manager
 static var character_packed_scene = preload("res://Scenes/character.tscn")
-static var character
-
+static var character:Character
+static var characters = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	character=get_child(0)
 	pass # Replace with function body.
 
-static func add_character(c):
-	character=character_packed_scene.instantiate()
-	#add_child(character_packed_scene)
-
+func add_character(x, y):
+	var c =character_packed_scene.instantiate() 
+	characters.append(c)
+	c.x_pos=x
+	c.y_pos=y
+	add_child(c)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
