@@ -20,7 +20,7 @@ var last_state : State = states["BLOCKED"]
 
 
 ##to-do: change this to Array[Action] 
-@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), CleaveAction.new(), QuickStabAction.new() ]
+@onready var actions : Array[BaseAction] #= [ DashAction.new(), ThrustAction.new(), CleaveAction.new(), QuickStabAction.new() ]
 @onready var default_action : BaseAction = DefaultIdleAction.new()
 
 @onready var visual_character  = $"../VisualCharacter"
@@ -74,6 +74,7 @@ func get_relative_mouse_position():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	##Action1 is pressed on-beat
+	actions = get_parent().actions
 	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_1"):
 		if (actions[0]!=null):
 			order_action(actions[0])

@@ -46,6 +46,9 @@ scroll_fit_content_width = true
 layout_mode = 2
 script = ExtResource("1_aqnpe")
 
+[node name="Action" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="Action2" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -55,9 +58,11 @@ layout_mode = 2
 [node name="Action4" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Action" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
-layout_mode = 2
-
 [node name="Button" type="Button" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 text = "SPAWN"
+
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action2" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_2_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action3" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_3_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action4" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_4_item_selected"]
