@@ -43,10 +43,12 @@ placeholder_text = "y"
 scroll_fit_content_height = true
 scroll_fit_content_width = true
 
-[node name="Button" type="Button" parent="MarginContainer/GridContainer/SpawnCoordinates"]
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/SpawnCoordinates" node_paths=PackedStringArray("x", "y")]
 layout_mode = 2
 text = "SPAWN"
 script = ExtResource("1_dmshr")
+x = NodePath("../X")
+y = NodePath("../Y")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
