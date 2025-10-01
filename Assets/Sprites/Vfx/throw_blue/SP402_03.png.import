@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blc3nlepwiply"
-path="res://.godot/imported/neo_zero_props_and_items_01.png-b69d3f9cfcb9d5633c5e7f93d6b24493.ctex"
+uid="uid://cgd6n0nx2uso6"
+path="res://.godot/imported/SP402_03.png-c9f47cf4c24bea6099a1a5a20a6057fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Sprites/neo_zero_V1.0/neo_zero_props_and_items_01.png"
-dest_files=["res://.godot/imported/neo_zero_props_and_items_01.png-b69d3f9cfcb9d5633c5e7f93d6b24493.ctex"]
+source_file="res://Assets/Sprites/Vfx/throw_blue/SP402_03.png"
+dest_files=["res://.godot/imported/SP402_03.png-c9f47cf4c24bea6099a1a5a20a6057fa.ctex"]
 
 [params]
 

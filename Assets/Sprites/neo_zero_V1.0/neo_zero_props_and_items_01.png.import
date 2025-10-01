@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crt3pre8nvy7x"
-path="res://.godot/imported/neo_zero_char_01.png-af131b446d656088cbc006767d755e7a.ctex"
+uid="uid://blc3nlepwiply"
+path="res://.godot/imported/neo_zero_props_and_items_01.png-54e8534150ba0196cf8a36cbd4086d59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Sprites/neo_zero_V1.0/neo_zero_char_01.png"
-dest_files=["res://.godot/imported/neo_zero_char_01.png-af131b446d656088cbc006767d755e7a.ctex"]
+source_file="res://Assets/Sprites/neo_zero_V1.0/neo_zero_props_and_items_01.png"
+dest_files=["res://.godot/imported/neo_zero_props_and_items_01.png-54e8534150ba0196cf8a36cbd4086d59.ctex"]
 
 [params]
 

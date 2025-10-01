@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b78khj68k5i5y"
-path="res://.godot/imported/tribal-drums-conga-1.wav-2bb5655d671102b581829c9c9bbc8f8a.sample"
+path="res://.godot/imported/tribal-drums-conga-1.wav-2bb6263bb216394ec3f2381c560129f0.sample"
 
 [deps]
 
-source_file="res://audio/tribal-drums-conga-1.wav"
-dest_files=["res://.godot/imported/tribal-drums-conga-1.wav-2bb5655d671102b581829c9c9bbc8f8a.sample"]
+source_file="res://Assets/audio/tribal-drums-conga-1.wav"
+dest_files=["res://.godot/imported/tribal-drums-conga-1.wav-2bb6263bb216394ec3f2381c560129f0.sample"]
 
 [params]
 

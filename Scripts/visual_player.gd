@@ -13,27 +13,34 @@ var inputs = {"ui_right": Vector2.RIGHT,
 
 func new_orders(arr: Array[BoardEvent]) -> void:
 	for event: BoardEvent in arr:
+		event = _adapt_event_to_visual_realm(event)
+		
+		if event.type == GlobalEnums.event_type.MOVE:
+			_move(event.place[0])	#Move always should have only one element, so its function takes only one
+		if event.type == GlobalEnums.event_type.ATTACK:
+			_draw_line(event.place)
+
+func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		var newArr: Array[Vector2] = []
 		for e in event.place:
 			var v := VisualBoardTools.spirit_tile_into_visual(Vector2(e.x,e.y))
 			newArr.append(v)
 		event.place = newArr
-		
-		if event.type == GlobalEnums.event_type.MOVE:
-			move(event.place[0])
-		if event.type == GlobalEnums.event_type.ATTACK:
-			_draw_line(event.place)
+		return event
 
 func _draw_line(arr: Array[Vector2]):
+	
+	$Attack.play("throw_blue")
+	
 	var line := Line2D.new()
 	get_tree().root.add_child(line) # add it to root so it doesnt move with player
 	line.width = 5
 	#line.default_color = Color.CRIMSON
 	line.texture = line_texture
+	line.default_color = Color(1, 1, 1, 0.1)
 	line.texture_mode = line.LINE_TEXTURE_TILE	
 	for pos in arr:
 		line.add_point(pos)
-		
 	await get_tree().create_timer(0.2).timeout
 	line.queue_free()
 		
@@ -43,7 +50,7 @@ func play_animation(name: String) -> void:
 	animation.play(name)
 	
 	
-func move(coords: Vector2) -> void:
+func _move(coords: Vector2) -> void:
 	#play_animation("move")
 	#coords = Vector2(coords.y,coords.x) 
 	var new_position = coords

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jq6ug8xgk54h"
-path="res://.godot/imported/file-arrow-right-3-3092301021.png-1bc6d2704b12b3fc7cf147dea12f9517.ctex"
+uid="uid://ck3ifytee3oi"
+path="res://.godot/imported/druns_of_war_sprite_hi_res.png-a89de198329aa905e9f2916e8657ea18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Sprites/file-arrow-right-3-3092301021.png"
-dest_files=["res://.godot/imported/file-arrow-right-3-3092301021.png-1bc6d2704b12b3fc7cf147dea12f9517.ctex"]
+source_file="res://Assets/Sprites/druns_of_war_sprite_hi_res.png"
+dest_files=["res://.godot/imported/druns_of_war_sprite_hi_res.png-a89de198329aa905e9f2916e8657ea18.ctex"]
 
 [params]
 

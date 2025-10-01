@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cpu66ynl1xxu7"
-path="res://.godot/imported/tribal-drums-tom-4.wav-d4579586244bcc2e725a6d8beceb8a80.sample"
+path="res://.godot/imported/tribal-drums-tom-4.wav-f27769ee17c7e07031a03d42b8f7767c.sample"
 
 [deps]
 
-source_file="res://audio/tribal-drums-tom-4.wav"
-dest_files=["res://.godot/imported/tribal-drums-tom-4.wav-d4579586244bcc2e725a6d8beceb8a80.sample"]
+source_file="res://Assets/audio/tribal-drums-tom-4.wav"
+dest_files=["res://.godot/imported/tribal-drums-tom-4.wav-f27769ee17c7e07031a03d42b8f7767c.sample"]
 
 [params]
 
