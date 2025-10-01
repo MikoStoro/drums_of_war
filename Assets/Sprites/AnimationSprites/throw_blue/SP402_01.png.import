@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csdl1r0k2mr0s"
-path="res://.godot/imported/SP402_01.png-5e505fb01e4989c62b66231e0ddabfb9.ctex"
+path="res://.godot/imported/SP402_01.png-6ce2fca1cd6fe11c7a281b74b3592500.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Vfx/throw_blue/SP402_01.png"
-dest_files=["res://.godot/imported/SP402_01.png-5e505fb01e4989c62b66231e0ddabfb9.ctex"]
+source_file="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_01.png"
+dest_files=["res://.godot/imported/SP402_01.png-6ce2fca1cd6fe11c7a281b74b3592500.ctex"]
 
 [params]
 

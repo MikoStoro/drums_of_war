@@ -1,14 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8883cv2ciy2a"]
+[gd_scene load_steps=16 format=3 uid="uid://c8883cv2ciy2a"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_vgqql"]
 [ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Assets/Sprites/druns_of_war_sprite_hi_res.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Assets/Sprites/file-arrow-right-3-3092301021.png" id="2_y6gs3"]
 [ext_resource type="Script" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
-[ext_resource type="Texture2D" uid="uid://csdl1r0k2mr0s" path="res://Assets/Sprites/Vfx/throw_blue/SP402_01.png" id="5_f3hw6"]
-[ext_resource type="Texture2D" uid="uid://dd7nqs07nuoqt" path="res://Assets/Sprites/Vfx/throw_blue/SP402_02.png" id="6_yjmre"]
-[ext_resource type="Texture2D" uid="uid://cgd6n0nx2uso6" path="res://Assets/Sprites/Vfx/throw_blue/SP402_03.png" id="7_ohbes"]
-[ext_resource type="Texture2D" uid="uid://dg58kqdyku261" path="res://Assets/Sprites/Vfx/throw_blue/SP402_04.png" id="8_yup71"]
-[ext_resource type="Texture2D" uid="uid://yv14gu85l8nj" path="res://Assets/Sprites/Vfx/throw_blue/SP402_05.png" id="9_pl8g5"]
+[ext_resource type="Texture2D" uid="uid://csdl1r0k2mr0s" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_01.png" id="5_f3hw6"]
+[ext_resource type="Texture2D" uid="uid://dry5gnaodclim" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_01.png" id="5_m75ug"]
+[ext_resource type="Texture2D" uid="uid://e8tju37pmsi7" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_02.png" id="6_mcm0q"]
+[ext_resource type="Texture2D" uid="uid://dd7nqs07nuoqt" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_02.png" id="6_yjmre"]
+[ext_resource type="Texture2D" uid="uid://p1ox7gh402a3" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_03.png" id="7_1c3ib"]
+[ext_resource type="Texture2D" uid="uid://cgd6n0nx2uso6" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_03.png" id="7_ohbes"]
+[ext_resource type="Texture2D" uid="uid://ctfmdhquspk7g" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_04.png" id="8_bjrch"]
+[ext_resource type="Texture2D" uid="uid://dg58kqdyku261" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_04.png" id="8_yup71"]
+[ext_resource type="Texture2D" uid="uid://l7g0i8uldhxf" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_05.png" id="9_hevkl"]
+[ext_resource type="Texture2D" uid="uid://yv14gu85l8nj" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_05.png" id="9_pl8g5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m75ug"]
 animations = [{
@@ -35,12 +40,39 @@ animations = [{
 "texture": null
 }],
 "loop": false,
-"name": &"throw_blue",
+"name": &"Quick Stab",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_m75ug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mcm0q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_1c3ib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bjrch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_hevkl")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"thrust",
 "speed": 14.0
 }]
 
-[node name="VisualCharacter" type="Node2D"]
+[node name="VisualCharacter" type="Node2D" node_paths=PackedStringArray("player_animations")]
 script = ExtResource("1_vgqql")
+player_animations = NodePath("PlayerAnimation")
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
 rotation = -3.14159
@@ -56,9 +88,9 @@ scale = Vector2(0.005, 0.005)
 texture = ExtResource("2_y6gs3")
 offset = Vector2(20, 0)
 
-[node name="Attack" type="AnimatedSprite2D" parent="."]
+[node name="PlayerAnimation" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, 22.41)
 rotation = 4.71239
 sprite_frames = SubResource("SpriteFrames_m75ug")
-animation = &"throw_blue"
+animation = &"Quick Stab"

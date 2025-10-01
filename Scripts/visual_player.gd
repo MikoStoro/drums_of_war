@@ -1,9 +1,10 @@
 extends Node2D
 class_name VisualCharacter
 
-@export var animation: AnimationPlayer
-@export var animation_sprite: AnimatedSprite2D
-@export var line_texture: Texture
+#@export var animation: AnimationPlayer
+#@export var animation_sprite: AnimatedSprite2D
+@export var player_animations: AnimatedSprite2D
+#@export var line_texture: Texture
 # set this somewhere else (maybe when creating player)
 var tile_size : float = VisualBoardTools.tile_size
 var inputs = {"ui_right": Vector2.RIGHT,
@@ -18,7 +19,7 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 		if event.type == GlobalEnums.event_type.MOVE:
 			_move(event.place[0])	#Move always should have only one element, so its function takes only one
 		if event.type == GlobalEnums.event_type.ATTACK:
-			_draw_line(event.place)
+			_draw_line(event.place, event)
 
 func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		var newArr: Array[Vector2] = []
@@ -28,15 +29,20 @@ func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		event.place = newArr
 		return event
 
-func _draw_line(arr: Array[Vector2]):
+func _draw_line(arr: Array[Vector2], event: BoardEvent):
 	
-	$Attack.play("throw_blue")
+	#same animation name as attack so you can get it straigth from Event
+	#print(event)
+	#print(event.Object)
+	print(event.object.name)
+	player_animations.play(event.object.name)
+	
 	
 	var line := Line2D.new()
 	get_tree().root.add_child(line) # add it to root so it doesnt move with player
 	line.width = 5
 	#line.default_color = Color.CRIMSON
-	line.texture = line_texture
+	#line.texture = line_texture
 	line.default_color = Color(1, 1, 1, 0.1)
 	line.texture_mode = line.LINE_TEXTURE_TILE	
 	for pos in arr:
@@ -44,14 +50,14 @@ func _draw_line(arr: Array[Vector2]):
 	await get_tree().create_timer(0.2).timeout
 	line.queue_free()
 		
-func play_animation(name: String) -> void:
-	# not sure how to properly corelate speed in code with animation player
-	animation.speed_scale = 10
-	animation.play(name)
+#func play_animation(name: String) -> void:
+	## not sure how to properly corelate speed in code with animation player
+	#animation.speed_scale = 10
+	#animation.play(name)
 	
 	
 func _move(coords: Vector2) -> void:
-	#play_animation("move")
+	#play_animation("move") # ie wind
 	#coords = Vector2(coords.y,coords.x) 
 	var new_position = coords
 	var tween = create_tween()

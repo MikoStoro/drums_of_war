@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p1ox7gh402a3"
-path="res://.godot/imported/SP401_03.png-ac6eac1f4ca515904e7c9c7d228d6547.ctex"
+uid="uid://yv14gu85l8nj"
+path="res://.godot/imported/SP402_05.png-a9cbd71e81d625a8d70349dc21f62e4e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Vfx/throw_white/SP401_03.png"
-dest_files=["res://.godot/imported/SP401_03.png-ac6eac1f4ca515904e7c9c7d228d6547.ctex"]
+source_file="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_05.png"
+dest_files=["res://.godot/imported/SP402_05.png-a9cbd71e81d625a8d70349dc21f62e4e.ctex"]
 
 [params]
 
