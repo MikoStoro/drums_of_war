@@ -1,5 +1,3 @@
-
-
 class_name BoardEntity
 var coordinates : Coordinates = Coordinates.new(0,0)
 	
@@ -7,7 +5,7 @@ var moves  = []
 var last_move : Move = null
 var attack : Attack = null
 
-var health : int = 100
+var health : int = 3
 
 var correction_required : bool = false
 var knockback_immunity : bool = false
@@ -59,3 +57,5 @@ func _init(s_x:float=0, s_y:float=0):
 func update_attack_targets():
 	if attack != null:
 		attack.apply_blueprint(self)
+func die():
+	print("DETH: " + debug_display)

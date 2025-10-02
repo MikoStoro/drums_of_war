@@ -19,5 +19,9 @@ func _init(entity: BoardEntity) -> void:
 	self.e = entity
 func take_damage(amount : int):
 	e.health -= amount
+	if e.health <= 0:
+		self.die()
 func heal(amount: int):
-	e.health += amount 
+	e.health += amount
+func die():
+	print(e.debug_display + " has died!")
