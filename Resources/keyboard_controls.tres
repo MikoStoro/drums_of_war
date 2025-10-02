@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://bt6roi0syja4i"]
+
+[ext_resource type="Script" uid="uid://r4xsru5x7tnd" path="res://Resources/player_controls.gd" id="1_maium"]
+
+[resource]
+script = ExtResource("1_maium")
+action_1 = "keyboard1"
+action_2 = "keyboard2"
+action_3 = "keyboard3"
+action_4 = "keyboard4"
+metadata/_custom_type_script = "uid://r4xsru5x7tnd"

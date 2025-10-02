@@ -8,6 +8,8 @@ class State:
 		self.name = name
 		self.color = color
 
+@export var controls : PlayerControls
+
 var states = {"LISTENING": State.new("Listening", Color(1,1,1)),
 			"BLOCKED": State.new("Blocked", Color(1,1,1)),
 			"ORDERED": State.new("Ordered", Color(0.5,0.5,0.25)),
@@ -75,14 +77,14 @@ func get_relative_mouse_position():
 func _process(delta: float) -> void:
 	##Action1 is pressed on-beat
 	actions = get_parent().actions
-	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_1"):
+	if state == states["LISTENING"] && Input.is_action_just_pressed(controls.action_1):
 		if (actions[0]!=null):
 			order_action(actions[0])
-	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_2"):
+	if state == states["LISTENING"] && Input.is_action_just_pressed(controls.action_2):
 		if (actions[1]!=null):  order_action(actions[1])
-	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_3"):
+	if state == states["LISTENING"] && Input.is_action_just_pressed(controls.action_3):
 		if (actions[2]!=null): order_action(actions[2])
-	if state == states["LISTENING"] && Input.is_action_just_pressed("invoke_action_4"):
+	if state == states["LISTENING"] && Input.is_action_just_pressed(controls.action_4):
 		if (actions[3]!=null):  order_action(actions[3])
 	##Action is pressed off-beat
 	if state == states["BLOCKED"] && (Input.is_action_just_pressed("invoke_action_1") ||
