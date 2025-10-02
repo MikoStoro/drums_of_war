@@ -97,7 +97,7 @@ func _process(delta) -> void:
 		self.direction = new_direction
 
 func get_current_direction() -> int:
-	return Direction_Tools.get_direction_index(get_relative_mouse_position().normalized())
+	return Direction_Tools.get_direction_index(_get_direction().normalized())
 
 func rotate_to_direction(new_direction : int = 0):
 	var rotation_value = -Direction_Tools.get_direction_angle_i(new_direction) + self.base_rotation
