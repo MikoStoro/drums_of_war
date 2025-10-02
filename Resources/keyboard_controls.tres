@@ -8,4 +8,5 @@ action_1 = "keyboard1"
 action_2 = "keyboard2"
 action_3 = "keyboard3"
 action_4 = "keyboard4"
+is_keyboard = true
 metadata/_custom_type_script = "uid://r4xsru5x7tnd"
