@@ -53,11 +53,12 @@ func update():
 		print(events_this_round)
 		var temp_entities = get_affected_entities(events_this_round)
 		for en in temp_entities:
-			var events_for_this_entity : Array[BoardEvent] = []
-			for ev in events_this_round:
-				if ev.affects_entity(en): events_for_this_entity.append(ev)
-			en.transfer_events(events_for_this_entity)
-			#temp_player.new_orders(events_this_round)
+			if en != null:	#TODO why is it null
+				var events_for_this_entity : Array[BoardEvent] = []
+				for ev in events_this_round:
+					if ev.affects_entity(en): events_for_this_entity.append(ev)
+				en.transfer_events(events_for_this_entity)
+				#temp_player.new_orders(events_this_round)
 
 
 func perform_movement_phase():
