@@ -38,7 +38,8 @@ func turn_setup():
 func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
 	behavior.collide(other)
 func hit(attack):
-	behavior.hit(attack)
+	var attack_result = behavior.hit(attack)
+	
 func stop():
 	behavior.stop()
 func junction_collide(other: BoardEntity = null):
