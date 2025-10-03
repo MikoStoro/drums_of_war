@@ -15,9 +15,9 @@ func add_character(x, y):
 	c.y_pos=y
 	add_child(c)
 
-func get_characters():
-	return character.duplicate()
-func get_players():
+func get_characters() -> Array[Character]:
+	return characters.duplicate()
+func get_players() -> Array[Character]:
 	return get_characters().filter(func(c): return !c.is_ai)
 
 	
