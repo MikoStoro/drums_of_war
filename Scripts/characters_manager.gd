@@ -15,9 +15,10 @@ func add_character(x, y):
 	c.x_pos=x
 	c.y_pos=y
 	add_child(c)
-	pass
 
+func get_characters() -> Array[Character]:
+	return characters.duplicate()
+func get_players() -> Array[Character]:
+	return get_characters().filter(func(c): return !c.is_ai)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	

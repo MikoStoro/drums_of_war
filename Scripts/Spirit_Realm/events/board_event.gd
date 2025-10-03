@@ -1,10 +1,9 @@
 class_name BoardEvent
 
-#enum Event_type {CLASH,HIT,COLLISION,MOVE}
-
 var object : Variant = null
 var type: GlobalEnums.event_type
 var place : Array[Vector2]
+var extra_data : Array[EventData] = []
 
 func _init(type: GlobalEnums.event_type, object, place: Array[Vector2]) -> void:
 	self.type = type
@@ -33,3 +32,6 @@ func get_affected_entities():
 	if type == GlobalEnums.event_type.HIT:
 		return object[0]
 	else: return null
+
+func add_data(data: EventData):
+	extra_data.append(data)
