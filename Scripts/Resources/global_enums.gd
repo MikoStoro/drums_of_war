@@ -1,4 +1,3 @@
 extends Resource
 class_name GlobalEnums
-enum event_type {CLASH,HIT,COLLISION,MOVE,ATTACK}
-enum hit_result {DAMAGE, BLOCKED}
+enum event_type {CLASH,HIT, DAMAGE,COLLISION,MOVE,ATTACK}

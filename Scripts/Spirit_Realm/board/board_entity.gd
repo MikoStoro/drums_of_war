@@ -39,6 +39,7 @@ func collide(other : BoardEntity = null): ## to-do: make colliding entities able
 	behavior.collide(other)
 func hit(attack):
 	var attack_result = behavior.hit(attack)
+	return attack_result
 	
 func stop():
 	behavior.stop()

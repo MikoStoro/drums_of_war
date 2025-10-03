@@ -13,11 +13,6 @@ func _get_collision_events():
 				event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, [e1,e2], [location.get_vector2()]))
 	return event_list
 
-func _get_hit_events(hit_pairs: Array):
-	var event_list : Array[BoardEvent] = []
-	for h in hit_pairs:
-		event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, h, [location.get_vector2()]))
-	return event_list
 
 func _get_clash_events(attack_pairs : Array) -> Array[BoardEvent]:
 	var event_list : Array[BoardEvent] = []
@@ -48,13 +43,15 @@ func reset_attack_markers():
 	self.clash_resolved = []
 
 func process_hits():
-	var hits = []
+	var hits : Array[BoardEvent] = []
 	if len(entities)>0 and len(attack_markers) > 0:
 		for a in attack_markers:
 			for e in entities:
-				e.hit(a)
-				hits.append([e,a])
-	return _get_hit_events(hits)
+				var result = e.hit(a)
+				var hit_event = BoardEvent.new(GlobalEnums.event_type.HIT, [e,a], [location.get_vector2()])
+				hit_event.add_data(result)
+				hits.append(hit_event)
+	return hits
 
 func process_collisions():
 	if len(entities) > 1:
