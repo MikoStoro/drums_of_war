@@ -39,8 +39,8 @@ func junction_clash(other: Attack = null): ##used when attack hits another attac
 func clash(other : Attack = null): ##used when attack hits another attack
 	finished = true
 
-func collide(): ##used when attack hits entity
-	pass
+func collide(other: BoardEntity): ##used when attack hits entity
+	other.hit(damage)
 
 func rotate(steps:int):
 	for c in target_blueprint:
