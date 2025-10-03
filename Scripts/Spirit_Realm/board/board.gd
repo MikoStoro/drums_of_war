@@ -29,10 +29,21 @@ func _ready() -> void:
 
 
 func get_junction_name(field1:Field, field2:Field) -> String:
-	var str1 = str((field1.x() + field2.x())/2)
-	var str2 = str((field1.y() + field2.y())/2)
-	if str1 < str2: return str1+str2
-	else: return str2  + str1 ## this could have been avoided, if only gdscript implemented sets...
+	var x1 = field1.x()
+	var x2 = field2.x()
+	var y1 = field1.y()
+	var y2 = field2.y()
+	var strx = ""
+	var stry = ""
+	
+	if x1 < x2: strx = str(x1) + " " + str(x2)
+	else: strx = str(x2) + " " + str(x1)
+	
+	if y1 < y2: stry = str(y1) + " " + str(y2)
+	else: stry = str(y2) + " " + str(y1)
+	
+	return strx + " " + stry
+	## this could have been avoided, if only gdscript implemented sets...
 
 func get_affected_entities(events: Array[BoardEvent]):
 	var ents:Array[BoardEntity] = []
@@ -65,10 +76,17 @@ func perform_movement_phase():
 	if debug_print : ("TURN START")
 	var move_performed = true
 	var entities_moved: Array[BoardEntity] = []
+	var iterations = 0
 	while move_performed: ## will loop until there are no more moves to perform
+		iterations+=1
+		if (iterations > 25):
+			break ##CIRCUIT BREAKER - MIGHT CAUSE PROBLEMS
 		move_performed = false
 		junctions = {}
 		for e in entities: e.turn_setup() ## setup new turn
+		
+		if (len(entities.filter(func(e) : return e.moves_left() > 0)) > 1):
+			pass
 
 		for e in entities: ## perform moves
 			if e.moves_left() > 0:
@@ -88,7 +106,7 @@ func perform_movement_phase():
 		for e in entities:
 			fields_to_resolve.append(get_field(e.coordinates))
 		fields_to_resolve = remove_duplicates(fields_to_resolve)
-		for f in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
+		for f  in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
 			var events = f.process_collisions() 
 			self.events_this_round += events
 	
@@ -269,7 +287,7 @@ func reset_board(x:int = 10, y:int=10):
 	for j in width:
 		var row = []
 		for i in height:
-			var f = Field.new(i,j)
+			var f = Field.new(j,i)
 			row.append(f)
 		fields.append(row)
 	print_board(debug_print)
