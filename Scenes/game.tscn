@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://cye1nkou6ankm" path="res://Scripts/characters_manager.gd" id="7_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://coo1igwacxt1v" path="res://Scenes/character.tscn" id="7_v158k"]
 [ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/board.gd" id="9_ewbju"]
-[ext_resource type="Resource" uid="uid://csujaolyhb3um" path="res://Resources/gamepad_controls.tres" id="9_rku1e"]
+[ext_resource type="Script" uid="uid://bk52nnxf3jaxp" path="res://Scripts/Character/AI/basic_ai_controller.gd" id="10_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://b8nydg3iq102d" path="res://Scenes/debug_ui.tscn" id="11_o5yvi"]
 
 [node name="Game" type="Node2D"]
@@ -51,7 +51,8 @@ script = ExtResource("7_ldgsr")
 [node name="Player2" parent="CharacterManager" instance=ExtResource("7_v158k")]
 
 [node name="PlayerControllerInstant" parent="CharacterManager/Player2" index="0"]
-controls = ExtResource("9_rku1e")
+script = ExtResource("10_rfjv2")
+controls = null
 
 [node name="Overworld" parent="." instance=ExtResource("6_1l0tm")]
 
