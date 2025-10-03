@@ -28,7 +28,7 @@ func set_action(index: int, action: BaseAction):
 func _ready() -> void:
 	var children  = self.get_children()
 	if(len(children)>0):
-		self.controller = children[0] ### why the fuck does $ not work?
+		self.controller = children[0] # By the Omnissiah, what caused the sacred sigil of the Dolarius not enact its function?
 		self.visual = children[1]
 		initialize()
 
