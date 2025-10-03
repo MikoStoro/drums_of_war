@@ -6,6 +6,8 @@ class_name VisualCharacter
 @export var player_animations: AnimatedSprite2D
 #@export var line_texture: Texture
 # set this somewhere else (maybe when creating player)
+var deadzone := 0.2
+var is_keyboard := true
 var tile_size : float = VisualBoardTools.tile_size
 var inputs = {"ui_right": Vector2.RIGHT,
 			"ui_left": Vector2.LEFT,
@@ -63,6 +65,20 @@ func _move(coords: Vector2) -> void:
 	var tween = create_tween()
 	tween.tween_property(self, "position", new_position, 0.05) 
 
+var _last_known_vector:= Vector2.ZERO
+func _get_joystick_direction(device := 0):
+	var x = Input.get_joy_axis(device, JOY_AXIS_LEFT_X)
+	var y = Input.get_joy_axis(device, JOY_AXIS_LEFT_Y)
+	var dir = Vector2(x,y)
+	if dir.length() < deadzone:
+		return _last_known_vector
+	_last_known_vector = dir
+	return dir
+	
+func _get_direction():
+	if is_keyboard:
+		return get_relative_mouse_position()		
+	return _get_joystick_direction()
 
 ## by MikoStoro
 func get_relative_mouse_position():
@@ -75,13 +91,13 @@ var direction : int = 0
 @onready var base_rotation : int = self.rotation
 @onready var rotation_tween = create_tween()
 func _process(delta) -> void:
-	var new_direction = Direction_Tools.get_direction_index(get_relative_mouse_position().normalized())
+	var new_direction = Direction_Tools.get_direction_index(_get_direction().normalized())
 	if new_direction != direction:
 		rotate_to_direction(new_direction)
 		self.direction = new_direction
 
 func get_current_direction() -> int:
-	return Direction_Tools.get_direction_index(get_relative_mouse_position().normalized())
+	return Direction_Tools.get_direction_index(_get_direction().normalized())
 
 func rotate_to_direction(new_direction : int = 0):
 	var rotation_value = -Direction_Tools.get_direction_angle_i(new_direction) + self.base_rotation

@@ -19,7 +19,7 @@ func initialize():
 	GlobalComponents.abstract_board.place_entity(spirit)
 	self.controller.link_spirit(self.spirit)
 	self.visual.position = VisualBoardTools.spirit_tile_into_visual(Vector2(x_pos, y_pos))
-
+	visual.is_keyboard = controller.controls.is_keyboard
 	##initialize and place visual character on board
 	
 func set_action(index: int, action: BaseAction):

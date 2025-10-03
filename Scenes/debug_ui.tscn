@@ -45,7 +45,8 @@ scroll_fit_content_width = true
 
 [node name="Button" type="Button" parent="MarginContainer/GridContainer/SpawnCoordinates" node_paths=PackedStringArray("x", "y")]
 layout_mode = 2
-text = "SPAWN"
+theme_override_font_sizes/font_size = 15
+text = "dont spawn we need only 2 players"
 script = ExtResource("1_dmshr")
 x = NodePath("../X")
 y = NodePath("../Y")

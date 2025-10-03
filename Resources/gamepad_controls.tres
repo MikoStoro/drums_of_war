@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlayerControls" load_steps=2 format=3 uid="uid://csujaolyhb3um"]
+
+[ext_resource type="Script" uid="uid://r4xsru5x7tnd" path="res://Resources/player_controls.gd" id="1_y2tci"]
+
+[resource]
+script = ExtResource("1_y2tci")
+action_1 = "gamepad1"
+action_2 = "gamepad2"
+action_3 = "gamepad3"
+action_4 = "gamepad4"
+is_keyboard = false
+metadata/_custom_type_script = "uid://r4xsru5x7tnd"

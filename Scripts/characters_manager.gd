@@ -9,7 +9,8 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func add_character(x, y):
-	var c =character_packed_scene.instantiate() 
+	var c : Character =character_packed_scene.instantiate() 
+	
 	characters.append(c)
 	c.x_pos=x
 	c.y_pos=y
