@@ -78,6 +78,7 @@ func perform_movement_phase():
 	var possible_collisions = []
 	var entities_moved  = []
 	var iterations = 0
+	for e in entities: e.round_setup()
 	while move_performed: ## will loop until there are no more moves to perform
 		iterations+=1
 		if (iterations > 25):
@@ -91,13 +92,13 @@ func perform_movement_phase():
 			if e.moves_left() > 0:
 				move_performed = true
 				var success = move_entity(e)
-				if success: entities_moved.append(e)
+				if success: possible_collisions.append(e)
 				
-		entities_moved = remove_duplicates(entities_moved)
-		possible_collisions = entities_moved.duplicate()
+		
+		possible_collisions = remove_duplicates(possible_collisions)
 		var collision_events = []
 		var collisions_detected = 1
-		while(collisions_detected > 0):
+		while(collisions_detected > 0): ##detect collisions on fields
 			collisions_detected = 0
 			for j:Junction in junctions.values():
 				if len(j.entities) > 1:
@@ -108,7 +109,7 @@ func perform_movement_phase():
 							revert_last_move(e)
 							possible_collisions.erase(e)
 
-			for e in possible_collisions:
+			for e in possible_collisions: ##detect collisions on junctions
 				var field_to_inspect = get_field(e.coordinates)
 				if len(field_to_inspect.entities) > 1:
 					for e2 in field_to_inspect.entities:
@@ -117,9 +118,9 @@ func perform_movement_phase():
 							events_this_round.append( BoardEvent.new(GlobalEnums.event_type.COLLISION, e2, [field_to_inspect.location.get_vector2()]))
 							revert_last_move(e2)
 							possible_collisions.erase(e2)
-				entities_moved = possible_collisions.duplicate()
-
-		
+				
+			
+	
 		'''for j : Junction in junctions.values():  ##hell yeah
 			var events = j.process_collisions() 
 			self.events_this_round += events'''
@@ -135,8 +136,8 @@ func perform_movement_phase():
 		for f  in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
 			var events = f.process_collisions() 
 			self.events_this_round += events'''
-	
-	for e in remove_duplicates(entities_moved):
+	entities_moved = entities.filter(func(e:BoardEntity) : return e.moved_this_turn>0)
+	for e in entities_moved:
 		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
 		e.update_attack_targets()
 		
@@ -266,6 +267,7 @@ func revert_last_move(entity: BoardEntity) -> void:
 	entity.update_coordinates(last_position)
 	current_field.entities.erase(entity)
 	target_field.entities.append(entity)
+	entity.moved_this_turn -= 1
 	entity.stop()
 
 
@@ -291,6 +293,7 @@ func move_entity(entity : BoardEntity) -> bool:
 		#var junction_name = get_junction_name(old_field, new_field)
 		#get_junction(junction_name).entities.append(entity)
 		get_junction(old_field, new_field).entities.append(entity)
+	entity.moved_this_turn += 1
 	return true
 
 func get_junction(old: Field, new: Field) -> Junction:

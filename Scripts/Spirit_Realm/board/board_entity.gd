@@ -11,6 +11,8 @@ var health : int = 3
 var correction_required : bool = false
 var knockback_immunity : bool = false
 
+var moved_this_turn : int = 0
+
 var debug_display : String = "A"
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
@@ -43,6 +45,8 @@ func moves_left() -> int:
 func turn_setup():
 	last_coordinates = null
 	behavior.turn_setup()
+func round_setup():
+	moved_this_turn = 0
 func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
 	behavior.collide(other)
 func hit(attack):
