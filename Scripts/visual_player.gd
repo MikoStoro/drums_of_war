@@ -4,6 +4,8 @@ class_name VisualCharacter
 #@export var animation: AnimationPlayer
 #@export var animation_sprite: AnimatedSprite2D
 @export var player_animations: AnimatedSprite2D
+@export var sprite: Sprite2D
+@export var hpbar: ProgressBar
 #@export var line_texture: Texture
 # set this somewhere else (maybe when creating player)
 var deadzone := 0.2
@@ -18,11 +20,19 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 	for event: BoardEvent in arr:
 		event = _adapt_event_to_visual_realm(event)
 		
-		if event.type == GlobalEnums.event_type.MOVE:
-			_move(event.place[0])	#Move always should have only one element, so its function takes only one
-		if event.type == GlobalEnums.event_type.ATTACK:
-			_draw_line(event.place, event)
+		match event.type:
+			GlobalEnums.event_type.MOVE:
+				_move(event.place[0])	#Move always should have only one element, so its function takes only one
+			GlobalEnums.event_type.ATTACK:
+				_draw_line(event.place, event)
+			GlobalEnums.event_type.HIT:
+				_recieve_hit()
 
+func _recieve_hit() -> void:
+	print("WAAAAGH")
+	sprite.modulate = Color(1,1,1) #doesnt work on black...
+	hpbar.value -=1
+	
 func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		var newArr: Array[Vector2] = []
 		for e in event.place:
