@@ -1,5 +1,6 @@
 class_name BoardEntity
 var coordinates : Coordinates = Coordinates.new(0,0)
+var last_coordinates : Coordinates = null
 	
 var moves  = []
 var last_move : Move = null
@@ -28,12 +29,19 @@ func get_last_move() -> Move:
 		return last_move
 	else:
 		return Move.new(Coordinates.new(0,0),false,0)
+func get_last_coordinates() -> Coordinates:
+	return self.last_coordinates
+func update_coordinates(c: Coordinates) -> void:
+	self.last_coordinates = self.coordinates
+	self.coordinates = c
+
 func pop_move() -> void:
 	last_move = get_current_move()
 	moves.pop_front()
 func moves_left() -> int:
 	return len(moves)
 func turn_setup():
+	last_coordinates = null
 	behavior.turn_setup()
 func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
 	behavior.collide(other)

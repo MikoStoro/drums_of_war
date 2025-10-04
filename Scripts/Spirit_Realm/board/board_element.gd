@@ -1,6 +1,7 @@
 class_name BoardElement
 
 var entities : Array[BoardEntity] = []
+var uncommited_entities : Array[BoardEntity] = []
 var attack_markers : Array[Attack] = []
 var clash_resolved : Array[Attack] = []
 var location: Coordinates

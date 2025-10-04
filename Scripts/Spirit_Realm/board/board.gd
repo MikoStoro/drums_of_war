@@ -75,40 +75,65 @@ func update():
 func perform_movement_phase():
 	if debug_print : ("TURN START")
 	var move_performed = true
-	var entities_moved: Array[BoardEntity] = []
+	var possible_collisions = []
+	var entities_moved  = []
 	var iterations = 0
 	while move_performed: ## will loop until there are no more moves to perform
 		iterations+=1
 		if (iterations > 25):
-			break ##CIRCUIT BREAKER - MIGHT CAUSE PROBLEMS
+			print("CIRCUT BREAKER - STH WRONG")
+			break ##CIRCUIT BREAKER - MIGHT CAUSE PROBLEMS ##Update - causes problems
 		move_performed = false
 		junctions = {}
 		for e in entities: e.turn_setup() ## setup new turn
 		
 		if (len(entities.filter(func(e) : return e.moves_left() > 0)) > 1):
-			pass
+			pass ##DEBUG
 
 		for e in entities: ## perform moves
 			if e.moves_left() > 0:
 				move_performed = true
-				move_entity(e)
-				entities_moved.append(e)
+				var success = move_entity(e)
+				if success: entities_moved.append(e)
+				
+		entities_moved = remove_duplicates(entities_moved)
+		possible_collisions = entities_moved.duplicate()
+		var collisions_detected = 1
+		while(collisions_detected > 0):
+			collisions_detected = 0
+			for j:Junction in junctions.values():
+				if len(j.entities) > 1:
+					for e in j.entities:
+						if possible_collisions.has(e):
+							collisions_detected += 1
+							revert_last_move(e)
+							possible_collisions.erase(e)
 
-		for j in junctions.values():  ##hell yeah
+			for e in possible_collisions:
+				var field_to_inspect = get_field(e.coordinates)
+				if len(field_to_inspect.entities) > 1:
+					for e2 in field_to_inspect.entities:
+						if possible_collisions.has(e2):
+							collisions_detected += 1
+							revert_last_move(e2)
+							possible_collisions.erase(e2)
+
+		
+		'''for j : Junction in junctions.values():  ##hell yeah
 			var events = j.process_collisions() 
-			self.events_this_round += events
+			self.events_this_round += events'''
 
-		for e in entities: ##corect positions after junction collisions
+		'''for e in entities: ##corect positions after junction collisions
 			if e.correction_required and e.moves_left() > 0:
-				move_entity(e) ## to-do: add move events
+				move_entity(e) ## to-do: add move events'''
 
-		var fields_to_resolve = []
+		'''var fields_to_resolve = []
 		for e in entities:
 			fields_to_resolve.append(get_field(e.coordinates))
 		fields_to_resolve = remove_duplicates(fields_to_resolve)
 		for f  in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
 			var events = f.process_collisions() 
-			self.events_this_round += events
+			self.events_this_round += events'''
 	
 	for e in remove_duplicates(entities_moved):
 		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
@@ -232,7 +257,18 @@ func out_of_bounds(coordinates : Coordinates) -> bool:
 		return true
 	return false
 
-func move_entity(entity : BoardEntity) -> void:
+func revert_last_move(entity: BoardEntity) -> void:
+	var last_position = entity.get_last_coordinates()
+	var current_field = get_field(entity.coordinates)
+	var target_field = get_field(last_position)
+	
+	entity.update_coordinates(last_position)
+	current_field.entities.erase(entity)
+	target_field.entities.append(entity)
+	entity.stop()
+
+
+func move_entity(entity : BoardEntity) -> bool:
 	var move = entity.get_current_move()
 	var dir = move.direction
 	var dist = move.distance
@@ -240,11 +276,11 @@ func move_entity(entity : BoardEntity) -> void:
 	
 	if out_of_bounds(new_coords):
 		entity.stop()
-		return
+		return false
 	
 	var old_field = get_field(entity.coordinates)
 	old_field.entities.erase(entity)
-	entity.coordinates = new_coords
+	entity.update_coordinates(new_coords)
 	
 	var new_field = get_field(entity.coordinates)
 	new_field.entities.append(entity)
@@ -254,6 +290,7 @@ func move_entity(entity : BoardEntity) -> void:
 		#var junction_name = get_junction_name(old_field, new_field)
 		#get_junction(junction_name).entities.append(entity)
 		get_junction(old_field, new_field).entities.append(entity)
+	return true
 
 func get_junction(old: Field, new: Field) -> Junction:
 	var name = get_junction_name(old, new)
