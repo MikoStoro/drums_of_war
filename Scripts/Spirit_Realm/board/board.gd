@@ -86,9 +86,6 @@ func perform_movement_phase():
 		move_performed = false
 		junctions = {}
 		for e in entities: e.turn_setup() ## setup new turn
-		
-		if (len(entities.filter(func(e) : return e.moves_left() > 0)) > 1):
-			pass ##DEBUG
 
 		for e in entities: ## perform moves
 			if e.moves_left() > 0:
@@ -98,6 +95,7 @@ func perform_movement_phase():
 				
 		entities_moved = remove_duplicates(entities_moved)
 		possible_collisions = entities_moved.duplicate()
+		var collision_events = []
 		var collisions_detected = 1
 		while(collisions_detected > 0):
 			collisions_detected = 0
@@ -106,6 +104,7 @@ func perform_movement_phase():
 					for e in j.entities:
 						if possible_collisions.has(e):
 							collisions_detected += 1
+							events_this_round.append(BoardEvent.new(GlobalEnums.event_type.COLLISION, e, [j.location.get_vector2()]))
 							revert_last_move(e)
 							possible_collisions.erase(e)
 
@@ -115,8 +114,10 @@ func perform_movement_phase():
 					for e2 in field_to_inspect.entities:
 						if possible_collisions.has(e2):
 							collisions_detected += 1
+							events_this_round.append( BoardEvent.new(GlobalEnums.event_type.COLLISION, e2, [field_to_inspect.location.get_vector2()]))
 							revert_last_move(e2)
 							possible_collisions.erase(e2)
+				entities_moved = possible_collisions.duplicate()
 
 		
 		'''for j : Junction in junctions.values():  ##hell yeah

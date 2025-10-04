@@ -6,6 +6,7 @@ var action_direction : int = -1
 
 #to be overriden
 func _input_window_enter():
+	self.spirit.debug_display = "A"
 	action_direction = AI_utils.get_nearest_player_dir(self.spirit.coordinates.get_vector2())
 	
 #to be overriden
