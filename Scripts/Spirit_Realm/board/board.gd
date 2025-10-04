@@ -51,6 +51,8 @@ func get_affected_entities(events: Array[BoardEvent]):
 		var en = ev.get_affected_entities()
 		if en is Array:
 			ents += en
+		if en == null: 
+			pass
 		else: ents.append(en)
 	return ents
 	
@@ -60,9 +62,10 @@ func update():
 	events_this_round = []
 	perform_movement_phase()
 	perform_attack_phase()
+
 	if len(events_this_round) > 0:
 		print(events_this_round)
-		var temp_entities = get_affected_entities(events_this_round)
+		var temp_entities = remove_duplicates(get_affected_entities(events_this_round))
 		for en in temp_entities:
 			if en != null:	#TODO why is it null
 				var events_for_this_entity : Array[BoardEvent] = []
@@ -138,6 +141,8 @@ func perform_movement_phase():
 			self.events_this_round += events'''
 	entities_moved = entities.filter(func(e:BoardEntity) : return e.moved_this_turn>0)
 	for e in entities_moved:
+		if e.coordinates.x > 10:
+			pass
 		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
 		e.update_attack_targets()
 		

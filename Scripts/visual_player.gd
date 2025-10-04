@@ -28,8 +28,8 @@ func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		for e in event.place:
 			var v := VisualBoardTools.spirit_tile_into_visual(Vector2(e.x,e.y))
 			newArr.append(v)
-		event.place = newArr
-		return event
+		var newEvent = BoardEvent.new(event.type, event.object, newArr)
+		return newEvent
 
 func _draw_line(arr: Array[Vector2], event: BoardEvent):
 	
