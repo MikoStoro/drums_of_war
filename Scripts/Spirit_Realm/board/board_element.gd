@@ -1,17 +1,18 @@
 class_name BoardElement
 
 var entities : Array[BoardEntity] = []
+var uncommited_entities : Array[BoardEntity] = []
 var attack_markers : Array[Attack] = []
 var clash_resolved : Array[Attack] = []
 var location: Coordinates
 
-func _get_collision_events():
+'''func _get_collision_events():
 	var event_list : Array[BoardEvent] = []
 	for e1 in entities:
 		for e2 in entities:
 			if e1 != e2:
-				event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, [e1,e2], [location.get_vector2()]))
-	return event_list
+				event_list.append(BoardEvent.new(GlobalEnums.event_type.COLLISION, [e1,e2], [location.get_vector2()]))
+	return event_list'''
 
 
 func _get_clash_events(attack_pairs : Array) -> Array[BoardEvent]:
@@ -53,11 +54,11 @@ func process_hits():
 				hits.append(hit_event)
 	return hits
 
-func process_collisions():
+'''func process_collisions():
 	if len(entities) > 1:
 		for e in entities:
 			e.collide()
-	return _get_collision_events()
+	return _get_collision_events()'''
 
 func count_entities():
 	return len(entities)

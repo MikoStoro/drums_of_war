@@ -10,16 +10,29 @@ func _init(type: GlobalEnums.event_type, object, place: Array[Vector2]) -> void:
 	self.object = object
 	self.place = place
 
+func _get_type_str(t):
+	if t == GlobalEnums.event_type.MOVE:
+		return "move"
+	if t == GlobalEnums.event_type.COLLISION:
+		return "collision"
+	if t == GlobalEnums.event_type.ATTACK:
+		return "attack"
+	if t == GlobalEnums.event_type.HIT:
+		return "hit"
+	
+
 func _to_string():
-	return "Event: " + str(type) + " Object: " + str(object) + " " + str(place)
+	return "Event: " + _get_type_str(type) + " Object: " + str(object) + " " + str(place)
 
 func affects_entity(entity:BoardEntity) -> bool:
 	if type == GlobalEnums.event_type.ATTACK:
 		return (object as Attack).user == entity
 	if type == GlobalEnums.event_type.MOVE:
 		return object == entity
-	if type == GlobalEnums.event_type.COLLISION or type == GlobalEnums.event_type.HIT:
+	if type == GlobalEnums.event_type.HIT:
 		return (object as Array).has(entity)
+	if type == GlobalEnums.event_type.COLLISION:
+		return  object == entity
 	else: return false
 
 func get_affected_entities():

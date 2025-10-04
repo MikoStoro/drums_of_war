@@ -37,4 +37,4 @@ func get_vector2():
 	return Vector2(self.x, self.y)
 
 func _to_string():
-	return "Coordinates: " + str(x) + " " + str(y)
+	return str(x) + " " + str(y)
