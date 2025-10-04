@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8883cv2ciy2a"]
+[gd_scene load_steps=19 format=3 uid="uid://c8883cv2ciy2a"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_vgqql"]
 [ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Assets/Sprites/druns_of_war_sprite_hi_res.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Assets/Sprites/file-arrow-right-3-3092301021.png" id="2_y6gs3"]
-[ext_resource type="Script" uid="uid://r01osvml610n" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
+[ext_resource type="Script" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://csdl1r0k2mr0s" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_01.png" id="5_f3hw6"]
 [ext_resource type="Texture2D" uid="uid://dry5gnaodclim" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_01.png" id="5_m75ug"]
 [ext_resource type="Texture2D" uid="uid://e8tju37pmsi7" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_02.png" id="6_mcm0q"]
@@ -14,6 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://dg58kqdyku261" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_04.png" id="8_yup71"]
 [ext_resource type="Texture2D" uid="uid://l7g0i8uldhxf" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_05.png" id="9_hevkl"]
 [ext_resource type="Texture2D" uid="uid://yv14gu85l8nj" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_05.png" id="9_pl8g5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m75ug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m75ug"]
+bg_color = Color(0.212305, 0.212305, 0.212305, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcm0q"]
+bg_color = Color(1, 0, 0.6, 1)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m75ug"]
 animations = [{
@@ -70,14 +78,30 @@ animations = [{
 "speed": 14.0
 }]
 
-[node name="VisualCharacter" type="Node2D" node_paths=PackedStringArray("player_animations")]
+[node name="VisualCharacter" type="Node2D" node_paths=PackedStringArray("player_animations", "sprite", "hpbar")]
 script = ExtResource("1_vgqql")
 player_animations = NodePath("PlayerAnimation")
+sprite = NodePath("CharacterSprite")
+hpbar = NodePath("CharacterSprite/Healthbar")
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_m75ug")
 rotation = -3.14159
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_vgqql")
+
+[node name="Healthbar" type="ProgressBar" parent="CharacterSprite"]
+offset_left = -200.0
+offset_top = 160.0
+offset_right = 200.0
+offset_bottom = 187.0
+scale = Vector2(1, 3.4)
+theme_override_styles/background = SubResource("StyleBoxFlat_m75ug")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mcm0q")
+max_value = 3.0
+step = 1.0
+value = 3.0
+show_percentage = false
 
 [node name="DirectionIndicator" type="Node2D" parent="."]
 script = ExtResource("3_fkybt")
