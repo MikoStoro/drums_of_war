@@ -1,6 +1,8 @@
 extends Node2D
 class_name VisualCharacter
 
+signal died
+
 #@export var animation: AnimationPlayer
 #@export var animation_sprite: AnimatedSprite2D
 @export var player_animations: AnimatedSprite2D
@@ -32,6 +34,8 @@ func _recieve_hit() -> void:
 	print("WAAAAGH")
 	sprite.modulate = Color(1,1,1) #doesnt work on black...
 	hpbar.value -=1
+	if hpbar.value == 0:
+		died.emit()
 	
 func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		var newArr: Array[Vector2] = []
