@@ -29,6 +29,8 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 				_draw_line(event.place, event)
 			GlobalEnums.event_type.HIT:
 				_recieve_hit()
+			GlobalEnums.event_type.COLLISION:
+				$CharacterSprite/CollisionSparks.emitting = true
 
 func _recieve_hit() -> void:
 	print("WAAAAGH")

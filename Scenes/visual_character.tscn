@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8883cv2ciy2a"]
+[gd_scene load_steps=20 format=3 uid="uid://c8883cv2ciy2a"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_vgqql"]
 [ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Assets/Sprites/druns_of_war_sprite_hi_res.png" id="2_vgqql"]
@@ -21,7 +21,21 @@
 bg_color = Color(0.212305, 0.212305, 0.212305, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcm0q"]
-bg_color = Color(1, 0, 0.6, 1)
+bg_color = Color(0, 0.73, 0.121667, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m75ug"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 806.0
+spread = 136.698
+initial_velocity_max = 975.54
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.18
+linear_accel_max = 100.0
+radial_accel_min = -2.23517e-06
+radial_accel_max = 92.97
+hue_variation_min = 0.08
+hue_variation_max = 0.55
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m75ug"]
 animations = [{
@@ -102,6 +116,16 @@ max_value = 5.0
 step = 1.0
 value = 5.0
 show_percentage = false
+
+[node name="CollisionSparks" type="GPUParticles2D" parent="CharacterSprite"]
+modulate = Color(0.988235, 0.717647, 0, 1)
+emitting = false
+amount = 20
+lifetime = 0.33
+one_shot = true
+explosiveness = 1.0
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_m75ug")
 
 [node name="DirectionIndicator" type="Node2D" parent="."]
 script = ExtResource("3_fkybt")
