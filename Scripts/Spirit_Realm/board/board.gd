@@ -16,7 +16,7 @@ var events_this_round : Array[BoardEvent] = []
 func remove_duplicates(array: Array) -> Array:
 	var unique: Array = []
 	for item in array:
-		if not unique.has(item):
+		if not unique.has(item) and item != null:
 			unique.append(item)
 	return unique
 
@@ -97,11 +97,24 @@ func perform_movement_phase():
 				var success = move_entity(e)
 				if success: possible_collisions.append(e)
 				
+				
+		for j:Junction in junctions.values(): ## apply junction collision effects
+			if len(j.entities) > 1:
+				for e1 in j.entities:
+					for e2 in j.entities:
+						if e1 != e2:
+							var event : BoardEvent = e1.junction_collide(e2)
+							if event != null: ## nmot all collisions return events
+								events_this_round.append(event)
 		
+		## get fields where collisions are possible
+		## IN THE NAME OF EFFICIENCY
 		possible_collisions = remove_duplicates(possible_collisions)
 		var collision_events = []
 		var collisions_detected = 1
-		while(collisions_detected > 0): ##detect collisions on fields
+		
+		## detect collisions on junctions and revert affected entities' movement
+		while(collisions_detected > 0):
 			collisions_detected = 0
 			for j:Junction in junctions.values():
 				if len(j.entities) > 1:
@@ -112,18 +125,27 @@ func perform_movement_phase():
 							revert_last_move(e)
 							possible_collisions.erase(e)
 
-			for e in possible_collisions: ##detect collisions on junctions
+			## apply collision effects on fields
+			for e1 in possible_collisions:
+				var f = get_field(e1.coordinates)
+				for e2 in f.entities:
+					if e1 != e2:
+						var event : BoardEvent = e1.collide(e2)
+						if event != null: ## not all collisions return events
+							events_this_round.append(event) ## every entity collides each other
+
+
+			## detect collisions on fields and revert movement if necessary 
+			for e in possible_collisions: 
 				var field_to_inspect = get_field(e.coordinates)
 				if len(field_to_inspect.entities) > 1:
-					for e2 in field_to_inspect.entities:
+					for e2 in field_to_inspect.entities: ## moving entities are knocked back
 						if possible_collisions.has(e2):
 							collisions_detected += 1
 							events_this_round.append( BoardEvent.new(GlobalEnums.event_type.COLLISION, e2, [field_to_inspect.location.get_vector2()]))
 							revert_last_move(e2)
 							possible_collisions.erase(e2)
 				
-			
-	
 		'''for j : Junction in junctions.values():  ##hell yeah
 			var events = j.process_collisions() 
 			self.events_this_round += events'''
