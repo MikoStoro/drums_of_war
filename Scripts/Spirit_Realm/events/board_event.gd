@@ -19,10 +19,13 @@ func _get_type_str(t):
 		return "attack"
 	if t == GlobalEnums.event_type.HIT:
 		return "hit"
+	if t == GlobalEnums.event_type.DEATH:
+		return "death"
+	return "Unknown Event"
 	
 
 func _to_string():
-	return "Event: " + _get_type_str(type) + " Object: " + str(object) + " " + str(place)
+	return "Event: " +  _get_type_str(type) + " Object: " + str(object) + " " + str(place)
 
 func affects_entity(entity:BoardEntity) -> bool:
 	if type == GlobalEnums.event_type.ATTACK:
@@ -30,7 +33,7 @@ func affects_entity(entity:BoardEntity) -> bool:
 	if type == GlobalEnums.event_type.MOVE:
 		return object == entity
 	if type == GlobalEnums.event_type.HIT:
-		return (object as Array).has(entity)
+		return object == entity
 	if type == GlobalEnums.event_type.COLLISION:
 		return  object == entity
 	else: return false
@@ -43,7 +46,7 @@ func get_affected_entities():
 	if type == GlobalEnums.event_type.COLLISION:
 		return object
 	if type == GlobalEnums.event_type.HIT:
-		return object[0]
+		return object
 	else: return null
 
 func add_data(data: EventData):

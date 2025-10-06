@@ -73,6 +73,7 @@ func update():
 					if ev.affects_entity(en): events_for_this_entity.append(ev)
 				en.transfer_events(events_for_this_entity)
 				#temp_player.new_orders(events_this_round)
+	remove_corpses()
 
 
 func perform_movement_phase():
@@ -103,9 +104,8 @@ func perform_movement_phase():
 				for e1 in j.entities:
 					for e2 in j.entities:
 						if e1 != e2:
-							var event : BoardEvent = e1.junction_collide(e2)
-							if event != null: ## nmot all collisions return events
-								events_this_round.append(event)
+							var events : Array[BoardEvent] = e1.junction_collide(e2)
+							events_this_round += events
 		
 		## get fields where collisions are possible
 		## IN THE NAME OF EFFICIENCY
@@ -130,9 +130,8 @@ func perform_movement_phase():
 				var f = get_field(e1.coordinates)
 				for e2 in f.entities:
 					if e1 != e2:
-						var event : BoardEvent = e1.collide(e2)
-						if event != null: ## not all collisions return events
-							events_this_round.append(event) ## every entity collides each other
+						var events : Array[BoardEvent] = e1.collide(e2)
+						events_this_round += events ## every entity collides each other
 
 
 			## detect collisions on fields and revert movement if necessary 
@@ -146,21 +145,6 @@ func perform_movement_phase():
 							revert_last_move(e2)
 							possible_collisions.erase(e2)
 				
-		'''for j : Junction in junctions.values():  ##hell yeah
-			var events = j.process_collisions() 
-			self.events_this_round += events'''
-
-		'''for e in entities: ##corect positions after junction collisions
-			if e.correction_required and e.moves_left() > 0:
-				move_entity(e) ## to-do: add move events'''
-
-		'''var fields_to_resolve = []
-		for e in entities:
-			fields_to_resolve.append(get_field(e.coordinates))
-		fields_to_resolve = remove_duplicates(fields_to_resolve)
-		for f  in fields_to_resolve: ## at the end of simulation round, check for collisions (multiple entities on the same field)
-			var events = f.process_collisions() 
-			self.events_this_round += events'''
 	entities_moved = entities.filter(func(e:BoardEntity) : return e.moved_this_turn>0)
 	for e in entities_moved:
 		if e.coordinates.x > 10:
@@ -275,9 +259,6 @@ func remove_attack_from_board(attack: Attack) -> void:
 			var field = get_field(t)
 			field.reset_attack_markers()
 
-
-
-
 func get_field(coordinates: Coordinates) -> Field:
 	return(fields[coordinates.x][coordinates.y])
 
@@ -359,3 +340,12 @@ func reset_board(x:int = 10, y:int=10):
 			row.append(f)
 		fields.append(row)
 	print_board(debug_print)
+
+func remove_corpses():
+	for e in entities:
+		if e.mark_for_removal:
+			remove_entity(e)
+
+func remove_entity(e: BoardEntity):
+	get_field(e.coordinates).entities.erase(e)
+	

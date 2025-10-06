@@ -44,15 +44,13 @@ func reset_attack_markers():
 	self.clash_resolved = []
 
 func process_hits():
-	var hits : Array[BoardEvent] = []
+	var hit_events : Array[BoardEvent] = []
 	if len(entities)>0 and len(attack_markers) > 0:
 		for a in attack_markers:
 			for e in entities:
 				var result = e.hit(a)
-				var hit_event = BoardEvent.new(GlobalEnums.event_type.HIT, [e,a], [location.get_vector2()])
-				hit_event.add_data(result)
-				hits.append(hit_event)
-	return hits
+				hit_events += result
+	return hit_events
 
 '''func process_collisions():
 	if len(entities) > 1:

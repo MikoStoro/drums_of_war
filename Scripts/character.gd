@@ -1,6 +1,6 @@
 extends Node
 class_name Character
-
+signal died
 @onready var visual : VisualCharacter
 @onready var controller : CharacterController
 var spirit : BoardEntity = null
@@ -21,7 +21,7 @@ func initialize():
 	self.controller.link_spirit(self.spirit)
 	self.visual.position = VisualBoardTools.spirit_tile_into_visual(Vector2(x_pos, y_pos))
 	visual.is_keyboard = controller.controls.is_keyboard
-	visual.died.connect(death)
+	spirit.died.connect(death)
 	##initialize and place visual character on board
 
 func death() -> void:

@@ -1,8 +1,6 @@
 extends Node2D
 class_name VisualCharacter
 
-signal died
-
 #@export var animation: AnimationPlayer
 #@export var animation_sprite: AnimatedSprite2D
 @export var player_animations: AnimatedSprite2D
@@ -28,16 +26,15 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 			GlobalEnums.event_type.ATTACK:
 				_draw_line(event.place, event)
 			GlobalEnums.event_type.HIT:
-				_recieve_hit()
+				_recieve_hit(event.extra_data[0].damage_taken)
 			GlobalEnums.event_type.COLLISION:
 				$CharacterSprite/CollisionSparks.emitting = true
 
-func _recieve_hit() -> void:
+func _recieve_hit(dmg : int) -> void:
 	print("WAAAAGH")
 	sprite.modulate = Color(1,1,1) #doesnt work on black...
-	hpbar.value -=1
-	if hpbar.value == 0:
-		died.emit()
+	hpbar.value -= dmg
+
 	
 func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 		var newArr: Array[Vector2] = []
@@ -45,6 +42,8 @@ func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:
 			var v := VisualBoardTools.spirit_tile_into_visual(Vector2(e.x,e.y))
 			newArr.append(v)
 		var newEvent = BoardEvent.new(event.type, event.object, newArr)
+		for d in event.extra_data:
+			newEvent.add_data(d)
 		return newEvent
 
 func _draw_line(arr: Array[Vector2], event: BoardEvent):

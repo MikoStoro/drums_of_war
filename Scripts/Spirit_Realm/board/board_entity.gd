@@ -1,7 +1,10 @@
 class_name BoardEntity
 var coordinates : Coordinates = Coordinates.new(0,0)
 var last_coordinates : Coordinates = null
-	
+signal died
+
+var mark_for_removal: bool = true
+
 var moves  = []
 var last_move : Move = null
 var attack : Attack = null
@@ -54,7 +57,7 @@ func round_setup():
 func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
 	return behavior.collide(other)
 	
-func hit(attack):
+func hit(attack) -> Array[BoardEvent]:
 	var attack_result = behavior.hit(attack)
 	return attack_result
 	
@@ -87,6 +90,8 @@ func _init(s_x:float=0, s_y:float=0):
 func update_attack_targets():
 	if attack != null:
 		attack.apply_blueprint(self)
-		
-func die():
+
+func death():
 	print("DETH: " + debug_display)
+	self.mark_for_removal = true
+	emit_signal("died")

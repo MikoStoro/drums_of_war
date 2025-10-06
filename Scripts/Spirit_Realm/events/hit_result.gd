@@ -1,4 +1,4 @@
-class_name AttackResult
+class_name HitResult
 extends EventData
 
 var damage_taken : int = 1
