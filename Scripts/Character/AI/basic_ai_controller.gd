@@ -1,7 +1,7 @@
 extends CharacterController
 class_name BasicAIController
 
-var action : BaseAction = ShortDashAction.new()
+var action : BaseAction = RamAction.new()
 var action_direction : int = -1
 
 #to be overriden

@@ -40,36 +40,53 @@ func update_coordinates(c: Coordinates) -> void:
 func pop_move() -> void:
 	last_move = get_current_move()
 	moves.pop_front()
+	
 func moves_left() -> int:
 	return len(moves)
+	
 func turn_setup():
 	last_coordinates = null
 	behavior.turn_setup()
+	
 func round_setup():
 	moved_this_turn = 0
+	
 func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
-	behavior.collide(other)
+	return behavior.collide(other)
+	
 func hit(attack):
 	var attack_result = behavior.hit(attack)
 	return attack_result
 	
+func hit_direct(damage: int):
+	var hit_result = behavior.hit_direct(damage)
+	return hit_result
+	
 func stop():
 	behavior.stop()
+	
 func junction_collide(other: BoardEntity = null):
-	behavior.junction_collide(other)
+	return behavior.junction_collide(other)
+	
 func set_attack(attack: Attack):
 	self.attack = attack
 	attack.apply_blueprint(self)
+	
 func reset_attack():
 	self.attack = null
+	
 func _to_string():
 	return self.debug_display
+	
 func transfer_events(events : Array[BoardEvent]):
 	self.controller.transfer_events(events)
+	
 func _init(s_x:float=0, s_y:float=0):
 	self.coordinates = Coordinates.new(s_x,s_y)
+	
 func update_attack_targets():
 	if attack != null:
 		attack.apply_blueprint(self)
+		
 func die():
 	print("DETH: " + debug_display)
