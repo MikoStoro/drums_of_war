@@ -1,9 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://c8883cv2ciy2a"]
+[gd_scene load_steps=23 format=3 uid="uid://c8883cv2ciy2a"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/visual_player.gd" id="1_vgqql"]
 [ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Assets/Sprites/druns_of_war_sprite_hi_res.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Assets/Sprites/file-arrow-right-3-3092301021.png" id="2_y6gs3"]
-[ext_resource type="Script" uid="uid://r01osvml610n" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
+[ext_resource type="Script" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://csdl1r0k2mr0s" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_01.png" id="5_f3hw6"]
 [ext_resource type="Texture2D" uid="uid://dry5gnaodclim" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_01.png" id="5_m75ug"]
 [ext_resource type="Texture2D" uid="uid://e8tju37pmsi7" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_02.png" id="6_mcm0q"]
@@ -36,6 +36,22 @@ radial_accel_min = -2.23517e-06
 radial_accel_max = 92.97
 hue_variation_min = 0.08
 hue_variation_max = 0.55
+
+[sub_resource type="Gradient" id="Gradient_m75ug"]
+offsets = PackedFloat32Array(0.0114068, 0.1673, 0.988593, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.26616, 0.26616, 0.26616, 1, 0.14124, 0.954931, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mcm0q"]
+gradient = SubResource("Gradient_m75ug")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1c3ib"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.3
+color_ramp = SubResource("GradientTexture1D_mcm0q")
+turbulence_noise_strength = 13.61
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m75ug"]
 animations = [{
@@ -126,6 +142,13 @@ one_shot = true
 explosiveness = 1.0
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_m75ug")
+
+[node name="HitSparks" type="GPUParticles2D" parent="CharacterSprite"]
+emitting = false
+lifetime = 0.24
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1c3ib")
 
 [node name="DirectionIndicator" type="Node2D" parent="."]
 script = ExtResource("3_fkybt")

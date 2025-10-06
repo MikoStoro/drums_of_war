@@ -27,6 +27,7 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 				_draw_line(event.place, event)
 			GlobalEnums.event_type.HIT:
 				_recieve_hit(event.extra_data[0].damage_taken)
+				$CharacterSprite/HitSparks.emitting = true	#it most likely should be handled in weapon 
 			GlobalEnums.event_type.COLLISION:
 				$CharacterSprite/CollisionSparks.emitting = true
 
