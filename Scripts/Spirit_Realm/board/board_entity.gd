@@ -3,7 +3,7 @@ var coordinates : Coordinates = Coordinates.new(0,0)
 var last_coordinates : Coordinates = null
 signal died
 
-var mark_for_removal: bool = true
+var mark_for_removal: bool = false
 
 var moves  = []
 var last_move : Move = null
