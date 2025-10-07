@@ -1,10 +1,10 @@
 extends Node
 class_name Character
-signal died
+
 @onready var visual : VisualCharacter
 @onready var controller : CharacterController
 var spirit : BoardEntity = null
-@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), CleaveAction.new(), QuickStabAction.new() ]
+@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), SlowDashAttack.new(), QuickStabAction.new() ]
 var is_ai = false
 
 var debug_display: String = "C"

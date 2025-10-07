@@ -24,6 +24,7 @@ func _init(entity: BoardEntity) -> void:
 	self.e = entity
 
 func take_damage(amount : int) -> Array[BoardEvent]:
+	self.stagger()
 	var events : Array[BoardEvent] = []
 	e.health -= amount
 	var event = BoardEvent.new(GlobalEnums.event_type.HIT, e, [e.coordinates.get_vector2()])
@@ -33,7 +34,9 @@ func take_damage(amount : int) -> Array[BoardEvent]:
 		self.die()
 		events.append(BoardEvent.new(GlobalEnums.event_type.DEATH, e, [e.coordinates.get_vector2()]))
 	return events
-
+func stagger():
+	e.attack = null
+	##TODO some message?
 func heal(amount: int):
 	e.health += amount
 func die():
