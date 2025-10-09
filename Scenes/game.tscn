@@ -58,6 +58,7 @@ controls = null
 [node name="Overworld" parent="." instance=ExtResource("6_1l0tm")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.5, 2.5)
 
 [node name="Arbiter" type="Node" parent="."]
 script = ExtResource("1_ldgsr")
