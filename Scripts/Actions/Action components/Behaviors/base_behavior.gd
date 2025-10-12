@@ -41,3 +41,5 @@ func heal(amount: int):
 	e.health += amount
 func die():
 	e.death()
+func hit_board_border():
+	pass

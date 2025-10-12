@@ -8,9 +8,9 @@ var is_ai = false
 
 @onready var controller : CharacterController
 var spirit : BoardEntity = null
-var debug_display: String = "C"
-var x_pos = 2
-var y_pos = 2
+@export var debug_display: String = "C"
+@export var x_pos = 2
+@export var y_pos = 2
 
 func _init():
 	print(self)
@@ -23,6 +23,7 @@ func initialize():
 	self.visual.position = VisualBoardTools.spirit_tile_into_visual(Vector2(x_pos, y_pos))
 	visual.is_keyboard = controller.controls.is_keyboard
 	spirit.destroyed.connect(death)
+	spirit.new_events.connect(transfer_events)
 	##initialize and place visual character on board
 
 func death() -> void:
@@ -32,12 +33,12 @@ func set_action(index: int, action: BaseAction):
 	self.controller.actions[index] = action
 
 func _ready() -> void:
-	# I have a feeling it should be done through @export, not this (VVV) abomination 
-	var children  = self.get_children()
-	if(len(children)>0):
-		self.controller = children[0] # By the Omnissiah, what caused the sacred sigil of the Dolarius not enact its function?
-		self.visual = children[1]
-		initialize()
+	self.visual = $VisualCharacter
+	self.controller = $PlayerController
+	initialize()
+
+func transfer_events(events):
+	self.visual.new_orders(events)
 
 func get_spirit_position() -> Coordinates:
 	return self.spirit.coordinates

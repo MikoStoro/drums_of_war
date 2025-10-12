@@ -292,6 +292,7 @@ func move_entity(entity : BoardEntity) -> bool:
 	
 	if out_of_bounds(new_coords):
 		entity.stop()
+		entity.hit_board_border()
 		return false
 	
 	var old_field = get_field(entity.coordinates)

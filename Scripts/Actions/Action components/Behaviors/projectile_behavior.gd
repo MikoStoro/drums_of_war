@@ -10,3 +10,6 @@ func collide(other: BoardEntity = null) -> Array[BoardEvent]: ## to-do: make col
 func junction_collide(other: BoardEntity = null) -> Array[BoardEvent]:
 	self.e.death()
 	return other.hit_direct(ram_damage)
+
+func hit_board_border():
+	self.e.death()

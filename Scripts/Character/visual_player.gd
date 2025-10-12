@@ -124,5 +124,8 @@ func rotate_to_direction(new_direction : int = 0):
 
 func _ready():
 	pass
-
 	
+func place(x: int,y: int):
+	var coordinates = VisualBoardTools.spirit_tile_into_visual(Vector2(x,y))
+	self.sprite.position.x = coordinates.x
+	self.sprite.position.y = coordinates.y

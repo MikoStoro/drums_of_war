@@ -2,6 +2,7 @@ extends Node
 class_name Summon
 
 @onready var controller : BaseAIController
+@onready var visual = $VisualProjectile
 var spirit : BoardEntity = null
 var debug_display: String = "S"
 var x_pos
@@ -20,6 +21,13 @@ func setup_entity():
 	GlobalComponents.abstract_board.place_entity(spirit)
 	self.controller.link_spirit(self.spirit)
 	spirit.destroyed.connect(destruction)
+	spirit.new_events.connect(transmit_events)
+
+func setup_visual():
+	self.visual.place(x_pos, y_pos)
+
+func transmit_events(events):
+	self.visual.new_orders(events)
 
 func destruction():
 	queue_free()

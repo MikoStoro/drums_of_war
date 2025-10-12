@@ -16,11 +16,13 @@ var moved_this_turn : int = 0
 var solid : bool = true
 
 var debug_display : String = "A"
-
+signal new_events(events)
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
 var controller : CharacterController = null
+
+
 
 func rotate_moves(direction: int):
 	for m in self.moves:
@@ -82,7 +84,8 @@ func _to_string():
 	return self.debug_display
 	
 func transfer_events(events : Array[BoardEvent]):
-	self.controller.transfer_events(events)
+	new_events.emit(events)
+	#self.controller.transfer_events(events)
 	
 func _init(s_x:float=0, s_y:float=0):
 	self.coordinates = Coordinates.new(s_x,s_y)
@@ -95,3 +98,6 @@ func death():
 	print("DETH: " + debug_display)
 	self.mark_for_removal = true
 	emit_signal("destroyed")
+	
+func hit_board_border():
+	self.behavior.hit_board_border()

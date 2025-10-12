@@ -11,6 +11,7 @@ func _ready():
 	self.y_pos = data["coordinates"].y
 	self.controller.action_direction = data["direction"]
 	self.setup_entity()
+	self.setup_visual()
 
 func setup(data : Dictionary):
 	self.data = data
