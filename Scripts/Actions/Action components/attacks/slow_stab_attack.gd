@@ -7,4 +7,5 @@ func _init(rotation:int = 0) -> void:
 		Coordinates.new(1,0),
 	]
 	self.priority = 2
+	self.damage = 2
 	self.rotate(rotation)

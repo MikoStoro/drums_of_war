@@ -1,22 +1,22 @@
 class_name BoardEntity
 var coordinates : Coordinates = Coordinates.new(0,0)
 var last_coordinates : Coordinates = null
-signal died
+signal destroyed
 
 var mark_for_removal: bool = false
 
 var moves  = []
 var last_move : Move = null
 var attack : Attack = null
+var summon : Dictionary = {}
 
 var health : int = 3
 
-var correction_required : bool = false
-var knockback_immunity : bool = false
-
 var moved_this_turn : int = 0
+var solid : bool = true
 
 var debug_display : String = "A"
+
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
@@ -94,4 +94,4 @@ func update_attack_targets():
 func death():
 	print("DETH: " + debug_display)
 	self.mark_for_removal = true
-	emit_signal("died")
+	emit_signal("destroyed")

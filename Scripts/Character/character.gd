@@ -2,11 +2,12 @@ extends Node
 class_name Character
 
 @onready var visual : VisualCharacter
-@onready var controller : CharacterController
-var spirit : BoardEntity = null
-@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), SlowDashAttack.new(), QuickStabAction.new() ]
+
+@onready var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), SlowDashAttack.new(), SummonProjectileAction.new() ]
 var is_ai = false
 
+@onready var controller : CharacterController
+var spirit : BoardEntity = null
 var debug_display: String = "C"
 var x_pos = 2
 var y_pos = 2
@@ -21,7 +22,7 @@ func initialize():
 	self.controller.link_spirit(self.spirit)
 	self.visual.position = VisualBoardTools.spirit_tile_into_visual(Vector2(x_pos, y_pos))
 	visual.is_keyboard = controller.controls.is_keyboard
-	spirit.died.connect(death)
+	spirit.destroyed.connect(death)
 	##initialize and place visual character on board
 
 func death() -> void:

@@ -1,5 +1,5 @@
-extends CharacterController
-class_name BasicAIController
+extends BaseAIController
+class_name ChargerAIController
 
 var action : BaseAction = RamAction.new()
 var action_direction : int = -1
