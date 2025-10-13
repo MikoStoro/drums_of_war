@@ -3,7 +3,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GlobalComponents.abstract_board.reset_board()
+	pass
+	#GlobalComponents.abstract_board.reset_board()
 	#GlobalComponents.character_manager.add_child(Character.new())
 
 

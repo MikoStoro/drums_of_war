@@ -3,7 +3,6 @@ class_name VisualProjectile
 
 #@export var animation: AnimationPlayer
 #@export var animation_sprite: AnimatedSprite2D
-@export var player_animations: AnimatedSprite2D
 @export var sprite: Sprite2D
 #@export var line_texture: Texture
 # set this somewhere else (maybe when creating player)
@@ -37,6 +36,7 @@ func _move(coords: Vector2) -> void:
 	#coords = Vector2(coords.y,coords.x) 
 	var new_position = coords
 	var tween = create_tween()
+	print(new_position)
 	tween.tween_property(self, "position", new_position, 0.05) 
 
 func get_current_direction():
@@ -66,5 +66,6 @@ func _ready():
 	
 func place(x: int,y: int):
 	var coordinates = VisualBoardTools.spirit_tile_into_visual(Vector2(x,y))
-	self.sprite.position.x = coordinates.x
-	self.sprite.position.y = coordinates.y
+	self.position = Vector2(coordinates.x, coordinates.y)
+	print(self.position)
+	pass

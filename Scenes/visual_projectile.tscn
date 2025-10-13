@@ -1,17 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://jergkehcjewa"]
+[gd_scene load_steps=8 format=3 uid="uid://jergkehcjewa"]
 
 [ext_resource type="Script" uid="uid://bjyj2df378nth" path="res://Scripts/Character/visual_projectile.gd" id="1_y4cwo"]
 [ext_resource type="Texture2D" uid="uid://5astscuin37n" path="res://Assets/Sprites/flaming-hot-fireball-pixel-illustration-png-1812609548.png" id="2_y4cwo"]
-[ext_resource type="Texture2D" uid="uid://csdl1r0k2mr0s" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_01.png" id="5_xoi24"]
-[ext_resource type="Texture2D" uid="uid://dd7nqs07nuoqt" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_02.png" id="6_66334"]
-[ext_resource type="Texture2D" uid="uid://cgd6n0nx2uso6" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_03.png" id="7_hesj2"]
-[ext_resource type="Texture2D" uid="uid://dg58kqdyku261" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_04.png" id="8_10sa6"]
-[ext_resource type="Texture2D" uid="uid://yv14gu85l8nj" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_05.png" id="9_ggrjb"]
-[ext_resource type="Texture2D" uid="uid://dry5gnaodclim" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_01.png" id="10_0ewke"]
-[ext_resource type="Texture2D" uid="uid://e8tju37pmsi7" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_02.png" id="11_qgpns"]
-[ext_resource type="Texture2D" uid="uid://p1ox7gh402a3" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_03.png" id="12_ogfpk"]
-[ext_resource type="Texture2D" uid="uid://ctfmdhquspk7g" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_04.png" id="13_twsv5"]
-[ext_resource type="Texture2D" uid="uid://l7g0i8uldhxf" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_05.png" id="14_vpbiy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m75ug"]
 
@@ -45,61 +35,6 @@ scale_max = 3.3
 color_ramp = SubResource("GradientTexture1D_mcm0q")
 turbulence_noise_strength = 13.61
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_m75ug"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_xoi24")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_66334")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_hesj2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_10sa6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_ggrjb")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"Quick Stab",
-"speed": 14.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_0ewke")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_qgpns")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_ogfpk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_twsv5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_vpbiy")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"thrust",
-"speed": 14.0
-}]
-
 [node name="VisualProjectile" type="Node2D"]
 script = ExtResource("1_y4cwo")
 
@@ -125,10 +60,3 @@ lifetime = 0.24
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_1c3ib")
-
-[node name="PlayerAnimation" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 22.41)
-rotation = 4.71239
-sprite_frames = SubResource("SpriteFrames_m75ug")
-animation = &"Quick Stab"
