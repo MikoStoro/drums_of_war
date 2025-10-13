@@ -30,6 +30,9 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 				$CharacterSprite/HitSparks.emitting = true	#it most likely should be handled in weapon 
 			GlobalEnums.event_type.COLLISION:
 				$CharacterSprite/CollisionSparks.emitting = true
+				var pos = position
+				_move(event.place[0])
+				_move(pos)
 
 func _recieve_hit(dmg : int) -> void:
 	print("WAAAAGH")
