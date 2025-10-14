@@ -1,26 +1,28 @@
 class_name BoardEntity
 var coordinates : Coordinates = Coordinates.new(0,0)
 var last_coordinates : Coordinates = null
-signal died
+signal destroyed
 
 var mark_for_removal: bool = false
 
 var moves  = []
 var last_move : Move = null
 var attack : Attack = null
+var summon : Dictionary = {}
 
 var health : int = 3
 
-var correction_required : bool = false
-var knockback_immunity : bool = false
-
 var moved_this_turn : int = 0
+var solid : bool = true
 
 var debug_display : String = "A"
+signal new_events(events)
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
 var controller : CharacterController = null
+
+
 
 func rotate_moves(direction: int):
 	for m in self.moves:
@@ -82,7 +84,8 @@ func _to_string():
 	return self.debug_display
 	
 func transfer_events(events : Array[BoardEvent]):
-	self.controller.transfer_events(events)
+	new_events.emit(events)
+	#self.controller.transfer_events(events)
 	
 func _init(s_x:float=0, s_y:float=0):
 	self.coordinates = Coordinates.new(s_x,s_y)
@@ -94,4 +97,7 @@ func update_attack_targets():
 func death():
 	print("DETH: " + debug_display)
 	self.mark_for_removal = true
-	emit_signal("died")
+	emit_signal("destroyed")
+	
+func hit_board_border():
+	self.behavior.hit_board_border()

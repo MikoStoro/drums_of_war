@@ -62,7 +62,7 @@ func update():
 	events_this_round = []
 	perform_movement_phase()
 	perform_attack_phase()
-
+	perform_summon_phase()
 	if len(events_this_round) > 0:
 		print(events_this_round)
 		var temp_entities = remove_duplicates(get_affected_entities(events_this_round))
@@ -75,6 +75,11 @@ func update():
 				#temp_player.new_orders(events_this_round)
 	remove_corpses()
 
+func perform_summon_phase():
+	for e in entities:
+		if e.summon != {}:
+			GlobalComponents.character_manager.add_summon(e.summon["type"], e.summon["data"])
+			e.summon = {}
 
 func perform_movement_phase():
 	if debug_print : ("TURN START")
@@ -287,6 +292,7 @@ func move_entity(entity : BoardEntity) -> bool:
 	
 	if out_of_bounds(new_coords):
 		entity.stop()
+		entity.hit_board_border()
 		return false
 	
 	var old_field = get_field(entity.coordinates)
