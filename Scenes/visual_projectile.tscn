@@ -40,7 +40,7 @@ script = ExtResource("1_y4cwo")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_m75ug")
-rotation = -3.14159
+rotation = 4.712389
 scale = Vector2(0.005, 0.005)
 texture = ExtResource("2_y4cwo")
 

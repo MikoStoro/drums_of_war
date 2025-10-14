@@ -7,6 +7,7 @@ var spirit : BoardEntity = null
 var debug_display: String = "S"
 var x_pos
 var y_pos
+var direction
 
 func _init():
 	pass
@@ -25,6 +26,7 @@ func setup_entity():
 
 func setup_visual():
 	self.visual.place(x_pos, y_pos)
+	self.visual.rotate_to_direction(direction)
 
 func transmit_events(events):
 	self.visual.new_orders(events)

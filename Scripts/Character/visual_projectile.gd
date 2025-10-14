@@ -54,7 +54,7 @@ func _process(delta) -> void:
 	pass
 
 func rotate_to_direction(new_direction : int = 0):
-	var rotation_value = -Direction_Tools.get_direction_angle_i(new_direction) + self.base_rotation
+	var rotation_value = -Direction_Tools.get_direction_angle_i(new_direction) 
 	#rotation_value = lerp_angle(rotation, rotation_value, 1)
 	#var t = create_tween()
 	#t.tween_property(self, "rotation", rotation_value, 0.075)

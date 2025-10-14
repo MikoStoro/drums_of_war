@@ -9,6 +9,7 @@ func _ready():
 	var test = get_children()
 	self.x_pos = data["coordinates"].x
 	self.y_pos = data["coordinates"].y
+	self.direction = data["direction"]
 	self.controller.action_direction = data["direction"]
 	self.setup_entity()
 	self.setup_visual()
