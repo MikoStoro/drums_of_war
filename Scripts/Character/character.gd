@@ -35,10 +35,12 @@ func set_action(index: int, action: BaseAction):
 	self.controller.actions[index] = action
 
 func _ready() -> void:
-	self.visual = $VisualCharacter
-	self.controller = $PlayerController
-	setup_entity()
-	setup_visual()
+	pass
+	# moved to setup func
+	#self.visual = $VisualCharacter
+	#self.controller = $PlayerController
+	#setup_entity()
+	#setup_visual()
 
 func transfer_events(events):
 	self.visual.new_orders(events)
@@ -52,3 +54,8 @@ func setup_visual():
 	
 func setup(data : Dictionary):
 	self.data = data
+	
+	self.visual = $VisualCharacter
+	self.controller = $PlayerController
+	setup_entity()
+	setup_visual()
