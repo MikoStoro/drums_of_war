@@ -44,19 +44,26 @@ item_count = 1
 popup/item_0/text = "Krakowiak"
 popup/item_0/id = 0
 
-[node name="Button" type="Button" parent="MarginContainer/GridContainer/Vbox" node_paths=PackedStringArray("x", "y", "is_ai")]
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/Vbox" node_paths=PackedStringArray("x", "y", "is_ai", "input_type")]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "Spawn"
 script = ExtResource("1_srqh7")
 x = NodePath("../X")
 y = NodePath("../Y")
-is_ai = NodePath("../is_ai")
+is_ai = NodePath("../VBoxContainer/is_ai")
+input_type = NodePath("../VBoxContainer/InputType")
 
-[node name="is_ai" type="CheckBox" parent="MarginContainer/GridContainer/Vbox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer/Vbox"]
+layout_mode = 2
+
+[node name="is_ai" type="CheckBox" parent="MarginContainer/GridContainer/Vbox/VBoxContainer"]
 layout_mode = 2
 button_pressed = true
 text = "AI?"
+
+[node name="InputType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox/VBoxContainer"]
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2

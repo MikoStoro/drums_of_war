@@ -23,6 +23,7 @@ func _ready() -> void:
 func add_character(data: Dictionary):
 	var character : Character = character_packed_scene.instantiate() 
 	character.setup(data)
+	character.controller.controls = data.get("InputMode")
 	characters.append(character)
 	add_child(character)
 	
