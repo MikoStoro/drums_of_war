@@ -36,11 +36,11 @@ func set_action(index: int, action: BaseAction):
 
 func _ready() -> void:
 	pass
-	# moved to setup func
-	#self.visual = $VisualCharacter
-	#self.controller = $PlayerController
-	#setup_entity()
-	#setup_visual()
+	# copied to setup func
+	self.visual = $VisualCharacter
+	self.controller = $PlayerController
+	setup_entity()
+	setup_visual()
 
 func transfer_events(events):
 	self.visual.new_orders(events)
