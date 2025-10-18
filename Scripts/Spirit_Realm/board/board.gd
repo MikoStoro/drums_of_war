@@ -3,8 +3,8 @@ class_name Board
 extends Node
 
 
-var width = 10
-var height = 10
+var width = 15
+var height = 15
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
@@ -24,7 +24,7 @@ func remove_duplicates(array: Array) -> Array:
 func _ready() -> void:
 	GlobalComponents.abstract_board = self
 	clock.board_update.connect(update)
-	reset_board()
+	reset_board(self.width, self.height)
 	
 
 
