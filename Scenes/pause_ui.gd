@@ -6,7 +6,7 @@ func _on_resume_pressed() -> void:
 	
 
 func _unhandled_input(event):
-	if Input.is_action_pressed("pause"):
+	if Input.is_action_just_pressed("pause"):
 		if paused:
 			unpause()
 		else:
