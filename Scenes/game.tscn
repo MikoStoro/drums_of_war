@@ -1,18 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxviel6md8neh"]
+[gd_scene load_steps=13 format=3 uid="uid://dxviel6md8neh"]
 
 [ext_resource type="Script" uid="uid://g7ae4ee5hody" path="res://Scripts/Clock/global_clock.gd" id="1_h4fw4"]
 [ext_resource type="Script" uid="uid://b1wohejsgyckp" path="res://Scripts/Global/arbiter.gd" id="1_ldgsr"]
 [ext_resource type="Script" uid="uid://c1i0ovw8a1rrg" path="res://Scripts/Clock/visual_clock.gd" id="2_ldgsr"]
 [ext_resource type="Script" uid="uid://dtnuvnkj8rxor" path="res://Scripts/Drummer/drummer.gd" id="2_o5yvi"]
-[ext_resource type="Texture2D" uid="uid://cpysya6arfcc2" path="res://icon.svg" id="3_o5yvi"]
 [ext_resource type="AudioStream" uid="uid://cpu66ynl1xxu7" path="res://Assets/audio/tribal-drums-tom-4.wav" id="3_rku1e"]
 [ext_resource type="PackedScene" uid="uid://c0whnj5qpvvap" path="res://Sandbox/Lukasz/overworld.tscn" id="6_1l0tm"]
+[ext_resource type="Texture2D" uid="uid://crbfbym1vkr87" path="res://Assets/Sprites/pngtree-golden-gong-with-stand-vector-png-image_6710152.png" id="6_rku1e"]
 [ext_resource type="Script" uid="uid://cye1nkou6ankm" path="res://Scripts/Global/characters_manager.gd" id="7_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://coo1igwacxt1v" path="res://Scenes/character.tscn" id="7_v158k"]
 [ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/board.gd" id="9_ewbju"]
+[ext_resource type="Texture2D" uid="uid://cw0a2wcjbfh0f" path="res://Assets/Sprites/map6KFI4G9NL8DV.jpg" id="12_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://dqu4vnb845aab" path="res://Scenes/pause_ui.tscn" id="13_rfjv2"]
 
 [node name="Game" type="Node2D"]
+position = Vector2(112, 64)
 
 [node name="GlobalClock" type="Node" parent="."]
 script = ExtResource("1_h4fw4")
@@ -31,6 +33,7 @@ stream = ExtResource("3_rku1e")
 script = ExtResource("9_ewbju")
 
 [node name="VisualClock" type="Sprite2D" parent="."]
+position = Vector2(-104, -40)
 script = ExtResource("2_ldgsr")
 
 [node name="beat" type="Timer" parent="VisualClock"]
@@ -38,9 +41,8 @@ wait_time = 0.1
 one_shot = true
 
 [node name="Sprite2D" type="Sprite2D" parent="VisualClock"]
-position = Vector2(-40, -40)
-scale = Vector2(1.42969, 0.296875)
-texture = ExtResource("3_o5yvi")
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("6_rku1e")
 
 [node name="CharacterManager" type="Node" parent="." groups=["CharacterManager"]]
 script = ExtResource("7_ldgsr")
@@ -50,7 +52,7 @@ script = ExtResource("7_ldgsr")
 [node name="Overworld" parent="." instance=ExtResource("6_1l0tm")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(4.385, 4.385)
 
 [node name="Arbiter" type="Node" parent="."]
 script = ExtResource("1_ldgsr")
@@ -59,3 +61,9 @@ script = ExtResource("1_ldgsr")
 
 [node name="PauseUI" parent="CanvasLayer2" instance=ExtResource("13_rfjv2")]
 visible = false
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -3
+position = Vector2(0.755, 8.325)
+scale = Vector2(0.168, 0.168)
+texture = ExtResource("12_rfjv2")
