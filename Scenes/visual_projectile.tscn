@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://jergkehcjewa"]
+
+[ext_resource type="Script" uid="uid://bjyj2df378nth" path="res://Scripts/Character/visual_projectile.gd" id="1_y4cwo"]
+[ext_resource type="Texture2D" uid="uid://5astscuin37n" path="res://Assets/Sprites/flaming-hot-fireball-pixel-illustration-png-1812609548.png" id="2_y4cwo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m75ug"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m75ug"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 806.0
+spread = 136.698
+initial_velocity_max = 975.54
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 1.18
+linear_accel_max = 100.0
+radial_accel_min = -2.23517e-06
+radial_accel_max = 92.97
+hue_variation_min = 0.08
+hue_variation_max = 0.55
+
+[sub_resource type="Gradient" id="Gradient_m75ug"]
+offsets = PackedFloat32Array(0.0114068, 0.1673, 0.988593, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.26616, 0.26616, 0.26616, 1, 0.14124, 0.954931, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mcm0q"]
+gradient = SubResource("Gradient_m75ug")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1c3ib"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 1000.0
+gravity = Vector3(0, 0, 0)
+scale_max = 3.3
+color_ramp = SubResource("GradientTexture1D_mcm0q")
+turbulence_noise_strength = 13.61
+
+[node name="VisualProjectile" type="Node2D"]
+script = ExtResource("1_y4cwo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_m75ug")
+rotation = 4.712389
+scale = Vector2(0.005, 0.005)
+texture = ExtResource("2_y4cwo")
+
+[node name="CollisionSparks" type="GPUParticles2D" parent="Sprite"]
+modulate = Color(0.988235, 0.717647, 0, 1)
+emitting = false
+amount = 20
+lifetime = 0.33
+one_shot = true
+explosiveness = 1.0
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_m75ug")
+
+[node name="HitSparks" type="GPUParticles2D" parent="Sprite"]
+emitting = false
+lifetime = 0.24
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_1c3ib")

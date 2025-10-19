@@ -3,15 +3,14 @@ class_name EntityBehavior
 var e : BoardEntity
 
 func turn_setup():
-	e.knockback_immunity = false
-	e.correction_required = false
+	pass
+
 func collide(other: BoardEntity = null) -> Array[BoardEvent]:
 	return []
 func junction_collide(other: BoardEntity = null) -> Array[BoardEvent]:
 	return []
 func stop():
 	e.moves = []
-	e.knockback_immunity = true
 
 func hit(attack: Attack) -> Array[BoardEvent]:
 	return self.hit_direct(attack.damage)
@@ -36,8 +35,11 @@ func take_damage(amount : int) -> Array[BoardEvent]:
 	return events
 func stagger():
 	e.attack = null
+	e.summon = {}
 	##TODO some message?
 func heal(amount: int):
 	e.health += amount
 func die():
 	e.death()
+func hit_board_border():
+	pass

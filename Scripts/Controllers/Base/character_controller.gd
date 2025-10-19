@@ -36,7 +36,6 @@ var spirit : BoardEntity = null
 
 func _ready() -> void:
 	action_timer = $"ActionTimer"
-	
 	action_timer.wait_time = clock.beat_time * 0.4
 	clock.beat.connect(_on_beat)
 	clock.input_window_enter.connect(_input_window_enter)
@@ -102,7 +101,10 @@ func _physics_process(delta: float) -> void:
 	pass
 	
 func transfer_events(events: Array[BoardEvent]):
-	$"../VisualCharacter".new_orders(events)
+	pass
+	##will be added when projectile gets visual element
+	if $"../VisualCharacter" != null:
+		$"../VisualCharacter".new_orders(events)
 	
 func link_spirit(e: BoardEntity):
 	self.spirit = e

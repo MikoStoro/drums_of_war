@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coubmgqdyatd0"
-path="res://.godot/imported/abstract-fire-desktop-wallpaper-realistic-blazing-flame-image_53876-147448.jpg-2daecd4c4bd291b3bbf2447a2e4602ce.ctex"
+uid="uid://b2i0dtbwq0xm0"
+path="res://.godot/imported/fireball.png-c02e643dfff2314e7e16caae59722a65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/abstract-fire-desktop-wallpaper-realistic-blazing-flame-image_53876-147448.jpg"
-dest_files=["res://.godot/imported/abstract-fire-desktop-wallpaper-realistic-blazing-flame-image_53876-147448.jpg-2daecd4c4bd291b3bbf2447a2e4602ce.ctex"]
+source_file="res://Assets/Sprites/fireball.png"
+dest_files=["res://.godot/imported/fireball.png-c02e643dfff2314e7e16caae59722a65.ctex"]
 
 [params]
 

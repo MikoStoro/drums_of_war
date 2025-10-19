@@ -1,12 +1,11 @@
-extends CharacterController
-class_name BasicAIController
+extends BaseAIController
+class_name ChargerAIController
 
 var action : BaseAction = RamAction.new()
 var action_direction : int = -1
 
 #to be overriden
 func _input_window_enter():
-	self.spirit.debug_display = "A"
 	action_direction = AI_utils.get_nearest_player_dir(self.spirit.coordinates.get_vector2())
 	
 #to be overriden
@@ -25,4 +24,5 @@ func _on_beat():
 func _ready() -> void:
 	self.controls = PlayerControls.new()
 	self.controls.is_keyboard = false
+	self.spirit.debug_display = "A"
 	super._ready()

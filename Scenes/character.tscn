@@ -1,18 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://coo1igwacxt1v"]
 
-[ext_resource type="Script" uid="uid://basn1nkwx2v1h" path="res://Scripts/character.gd" id="1_wa5vi"]
+[ext_resource type="Script" uid="uid://basn1nkwx2v1h" path="res://Scripts/Character/character.gd" id="1_wa5vi"]
 [ext_resource type="PackedScene" uid="uid://c8883cv2ciy2a" path="res://Scenes/visual_character.tscn" id="2_wfnr8"]
 [ext_resource type="Resource" uid="uid://bt6roi0syja4i" path="res://Resources/keyboard_controls.tres" id="3_nytcm"]
-[ext_resource type="Script" uid="uid://dcfxm31su3027" path="res://Scripts/Character/Player/player_controller_instant.gd" id="3_px5sl"]
+[ext_resource type="Script" uid="uid://dcfxm31su3027" path="res://Scripts/Controllers/Player/player_controller_instant.gd" id="3_px5sl"]
 
 [node name="Character" type="Node"]
 script = ExtResource("1_wa5vi")
 
-[node name="PlayerControllerInstant" type="Node" parent="."]
+[node name="PlayerController" type="Node" parent="."]
 script = ExtResource("3_px5sl")
 controls = ExtResource("3_nytcm")
 
-[node name="ActionTimer" type="Timer" parent="PlayerControllerInstant"]
+[node name="ActionTimer" type="Timer" parent="PlayerController"]
 wait_time = 0.1
 one_shot = true
 
