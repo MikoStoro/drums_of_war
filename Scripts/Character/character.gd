@@ -12,33 +12,50 @@ var spirit : BoardEntity = null
 @export var x_pos = 2
 @export var y_pos = 2
 
+var data = null
+
 func _init():
 	print(self)
 
-func initialize():
+func setup_entity():
+	if data != null: ## in case entity was not spawned but existed since the start of the game 
+		self.x_pos = data['x']
+		self.y_pos = data['y']
 	self.spirit = BoardEntity.new(x_pos, y_pos)
 	self.spirit.debug_display = self.debug_display
 	GlobalComponents.abstract_board.place_entity(spirit)
 	self.controller.link_spirit(self.spirit)
-	self.visual.position = VisualBoardTools.spirit_tile_into_visual(Vector2(x_pos, y_pos))
-	visual.is_keyboard = controller.controls.is_keyboard
-	spirit.destroyed.connect(death)
+	spirit.destroyed.connect(destruction)
 	spirit.new_events.connect(transfer_events)
-	##initialize and place visual character on board
 
-func death() -> void:
+func destruction() -> void:
 	queue_free()	
 
 func set_action(index: int, action: BaseAction):
 	self.controller.actions[index] = action
 
 func _ready() -> void:
+	pass
+	# copied to setup func
 	self.visual = $VisualCharacter
 	self.controller = $PlayerController
-	initialize()
+	setup_entity()
+	setup_visual()
 
 func transfer_events(events):
 	self.visual.new_orders(events)
 
 func get_spirit_position() -> Coordinates:
 	return self.spirit.coordinates
+	
+func setup_visual():
+	visual.is_keyboard = controller.controls.is_keyboard
+	self.visual.place(x_pos, y_pos)
+	
+func setup(data : Dictionary):
+	self.data = data
+	
+	self.visual = $VisualCharacter
+	self.controller = $PlayerController
+	setup_entity()
+	setup_visual()

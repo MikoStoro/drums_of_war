@@ -3,8 +3,8 @@ class_name Board
 extends Node
 
 
-var width = 10
-var height = 10
+@export var width = 15
+@export var height = 15
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
@@ -335,13 +335,11 @@ func print_board(debug : bool = true): ##DEBUG
 		print_string += "\n"
 	print(print_string)
 
-func reset_board(x:int = 10, y:int=10):
+func reset_board():
 	fields = []
-	self.width = x
-	self.height = y
-	for j in width:
+	for j in self.width:
 		var row = []
-		for i in height:
+		for i in self.height:
 			var f = Field.new(j,i)
 			row.append(f)
 		fields.append(row)

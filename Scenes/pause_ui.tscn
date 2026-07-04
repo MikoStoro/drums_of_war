@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqu4vnb845aab"]
+
+[ext_resource type="Script" uid="uid://baxtyoblf85c2" path="res://Scenes/pause_ui.gd" id="1_dj8ul"]
+[ext_resource type="Script" uid="uid://dyu1aobt5kl6b" path="res://Scripts/UI/button_spawn.gd" id="1_srqh7"]
+[ext_resource type="Script" uid="uid://b66noetk1vfp4" path="res://Scripts/UI/action_select_button.gd" id="2_dj8ul"]
+
+[node name="PauseUI" type="PanelContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dj8ul")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Vbox" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="X" type="TextEdit" parent="MarginContainer/GridContainer/Vbox" groups=["debug-ui"]]
+layout_mode = 2
+text = "0"
+placeholder_text = "x"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Y" type="TextEdit" parent="MarginContainer/GridContainer/Vbox" groups=["debug-ui"]]
+layout_mode = 2
+text = "0"
+placeholder_text = "y"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="BotType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox"]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "Krakowiak"
+popup/item_0/id = 0
+
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/Vbox" node_paths=PackedStringArray("x", "y", "is_ai", "input_type")]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Spawn"
+script = ExtResource("1_srqh7")
+x = NodePath("../X")
+y = NodePath("../Y")
+is_ai = NodePath("../VBoxContainer/is_ai")
+input_type = NodePath("../VBoxContainer/InputType")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer/Vbox"]
+layout_mode = 2
+
+[node name="is_ai" type="CheckBox" parent="MarginContainer/GridContainer/Vbox/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "AI?"
+
+[node name="InputType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+script = ExtResource("2_dj8ul")
+
+[node name="Action" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action2" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action3" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Action4" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Resume" type="Button" parent="MarginContainer/GridContainer/HBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[connection signal="button_down" from="MarginContainer/GridContainer/Vbox/Button" to="MarginContainer/GridContainer/Vbox/Button" method="_on_button_down"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action2" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_2_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action3" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_3_item_selected"]
+[connection signal="item_selected" from="MarginContainer/GridContainer/VBoxContainer/Action4" to="MarginContainer/GridContainer/VBoxContainer" method="_on_action_4_item_selected"]
+[connection signal="pressed" from="MarginContainer/GridContainer/HBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/HBoxContainer/Resume" to="." method="_on_resume_pressed"]

@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://fdvtj0j8vagj"]
+
+[ext_resource type="FontFile" uid="uid://d05fx0mxnshat" path="res://Resources/Joti_One_font/JotiOne-Regular.ttf" id="1_rpoj5"]
+
+[resource]
+default_font = ExtResource("1_rpoj5")
