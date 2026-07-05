@@ -18,7 +18,7 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 			GlobalEnums.event_type.COLLISION:
 				$CharacterSprite/CollisionSparks.emitting = true
 
-func _recieve_hit(dmg : int) -> void:
+func  _recieve_hit(dmg : int) -> void:
 	pass
 
 func _adapt_event_to_visual_realm(event: BoardEvent) -> BoardEvent:

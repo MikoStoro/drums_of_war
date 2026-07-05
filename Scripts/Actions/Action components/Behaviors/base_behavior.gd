@@ -33,6 +33,7 @@ func take_damage(amount : int) -> Array[BoardEvent]:
 		self.die()
 		events.append(BoardEvent.new(GlobalEnums.event_type.DEATH, e, [e.coordinates.get_vector2()]))
 	return events
+
 func stagger():
 	e.attack = null
 	e.summon = {}

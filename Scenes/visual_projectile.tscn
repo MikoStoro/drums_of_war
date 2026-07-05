@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jergkehcjewa"]
+[gd_scene format=3 uid="uid://jergkehcjewa"]
 
 [ext_resource type="Script" uid="uid://bjyj2df378nth" path="res://Scripts/Character/visual_projectile.gd" id="1_y4cwo"]
 [ext_resource type="Texture2D" uid="uid://5astscuin37n" path="res://Assets/Sprites/flaming-hot-fireball-pixel-illustration-png-1812609548.png" id="2_y4cwo"]
@@ -35,16 +35,16 @@ scale_max = 3.3
 color_ramp = SubResource("GradientTexture1D_mcm0q")
 turbulence_noise_strength = 13.61
 
-[node name="VisualProjectile" type="Node2D"]
+[node name="VisualProjectile" type="Node2D" unique_id=716950490]
 script = ExtResource("1_y4cwo")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=35033028]
 material = SubResource("ShaderMaterial_m75ug")
 rotation = 4.712389
 scale = Vector2(0.005, 0.005)
 texture = ExtResource("2_y4cwo")
 
-[node name="CollisionSparks" type="GPUParticles2D" parent="Sprite"]
+[node name="CollisionSparks" type="GPUParticles2D" parent="Sprite" unique_id=41831058]
 modulate = Color(0.988235, 0.717647, 0, 1)
 emitting = false
 amount = 20
@@ -54,7 +54,7 @@ explosiveness = 1.0
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_m75ug")
 
-[node name="HitSparks" type="GPUParticles2D" parent="Sprite"]
+[node name="HitSparks" type="GPUParticles2D" parent="Sprite" unique_id=1371734033]
 emitting = false
 lifetime = 0.24
 one_shot = true

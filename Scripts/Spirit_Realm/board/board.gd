@@ -100,20 +100,26 @@ func perform_movement_phase():
 		for e in entities: ## perform moves
 			if e.moves_left() > 0:
 				move_performed = true
-				var success = move_entity(e)
-				if success: possible_collisions.append(e)
+				var success = move_entity(e) ## not successful e.g. when moving out of map boundaries
+				if success: possible_collisions.append(e) ##everytime an entity moves, there is a risk of collision 
 				
 				
-		for j:Junction in junctions.values(): ## apply junction collision effects
+		for j:Junction in junctions.values(): ## apply junction collision effects. Note: those 
 			if len(j.entities) > 1:
-				for e1 in j.entities:
+				for e1 in j.entities: ## every entity applies its collision effect to every other
 					for e2 in j.entities:
-						if e1 != e2:
-							var events : Array[BoardEvent] = e1.junction_collide(e2)
+						if e1 != e2: 
+							var events : Array[BoardEvent] = e1.junction_collide(e2) 
 							events_this_round += events
 		
+		## remove entities that got destroyed as a result of collision
+		for e: BoardEntity in entities:
+			if e.mark_for_removal: 
+				entities.erase(e)
+				if possible_collisions.has(e):
+					possible_collisions.erase(e)
+		
 		## get fields where collisions are possible
-		## IN THE NAME OF EFFICIENCY
 		possible_collisions = remove_duplicates(possible_collisions)
 		var collision_events = []
 		var collisions_detected = 1
@@ -140,20 +146,19 @@ func perform_movement_phase():
 
 
 			## detect collisions on fields and revert movement if necessary 
-			for e in possible_collisions: 
+			for e : BoardEntity in possible_collisions: 
 				var field_to_inspect = get_field(e.coordinates)
 				if len(field_to_inspect.entities) > 1:
-					for e2 in field_to_inspect.entities: ## moving entities are knocked back
-						if possible_collisions.has(e2):
+					for e2: BoardEntity in field_to_inspect.entities: ## moving entities are knocked back
+						if e2 != e and possible_collisions.has(e2):
 							collisions_detected += 1
 							events_this_round.append( BoardEvent.new(GlobalEnums.event_type.COLLISION, e2, [field_to_inspect.location.get_vector2()]))
-							revert_last_move(e2)
+							if not e2.mark_for_removal:
+								revert_last_move(e2)
 							possible_collisions.erase(e2)
 				
 	entities_moved = entities.filter(func(e:BoardEntity) : return e.moved_this_turn>0)
 	for e in entities_moved:
-		if e.coordinates.x > 10:
-			pass
 		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
 		e.update_attack_targets()
 		

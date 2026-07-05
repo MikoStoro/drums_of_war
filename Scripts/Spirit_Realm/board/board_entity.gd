@@ -22,8 +22,6 @@ var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
 var controller : CharacterController = null
 
-
-
 func rotate_moves(direction: int):
 	for m in self.moves:
 		m.rotate(direction)
@@ -31,11 +29,13 @@ func get_current_move() -> Move:
 	if len(moves) > 0:
 		return moves[0]
 	else: return null
+
 func get_last_move() -> Move:
 	if last_move != null:
 		return last_move
 	else:
 		return Move.new(Coordinates.new(0,0),false,0)
+
 func get_last_coordinates() -> Coordinates:
 	return self.last_coordinates
 func update_coordinates(c: Coordinates) -> void:
