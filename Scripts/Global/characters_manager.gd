@@ -3,7 +3,7 @@ class_name Character_Manager
 static var character_packed_scene = preload("res://Scenes/character.tscn")
 static var characters : Array[Character] = []
 static var summons : Array[Summon] = []
-static var character : Character ##By the Omnissiah! Not very multiplayer-friendly
+static var character : Character ##TODO By the Omnissiah! Not very multiplayer-friendly
 
 static var summon_lookup : Dictionary ={
 	GlobalEnums.summon_type.basic_projectile : preload("res://Scenes/projectile.tscn")

@@ -10,10 +10,9 @@ func perform_action(character : CharacterController, entity : BoardEntity,  dire
 	var v = Coordinates.new(1,0)
 	v.rotate(direction)
 	var c = entity.coordinates
-	var starting_pos = Coordinates.new(c.x + v.x, c.y+v.y)
-	var summon_data = { "coordinates" : starting_pos, "direction" : direction}
+	var starting_pos = Coordinates.new(c.x + v.x, c.y + v.y)
+	var summon_data = { "coordinates" : starting_pos, "direction" : direction }
 	entity.summon = { "type": GlobalEnums.summon_type.basic_projectile, "data" : summon_data }
-
 
 func _init() -> void:
 	self.action_name = "Summon Projectile"

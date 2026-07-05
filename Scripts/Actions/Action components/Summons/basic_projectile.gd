@@ -6,7 +6,6 @@ var data : Dictionary
 
 func _ready():
 	self.controller = $ProjectileController
-	var test = get_children()
 	self.x_pos = data["coordinates"].x
 	self.y_pos = data["coordinates"].y
 	self.direction = data["direction"]
