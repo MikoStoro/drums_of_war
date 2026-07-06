@@ -16,7 +16,7 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 			GlobalEnums.event_type.MOVE:
 				_move(event.place[0])	#Move always should have only one element, so its function takes only one
 			GlobalEnums.event_type.COLLISION:
-				$CharacterSprite/CollisionSparks.emitting = true
+				$Sprite/CollisionSparks.emitting = true
 
 func  _recieve_hit(dmg : int) -> void:
 	pass
