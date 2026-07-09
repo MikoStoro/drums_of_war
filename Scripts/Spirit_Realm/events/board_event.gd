@@ -1,13 +1,13 @@
 class_name BoardEvent
 
-var object : Variant = null
+var target_id : String
 var type: GlobalEnums.event_type
 var place : Array[Vector2]
 var extra_data : Array[EventData] = []
 
-func _init(type: GlobalEnums.event_type, object, place: Array[Vector2]) -> void:
+func _init(type: GlobalEnums.event_type, target: String, place: Array[Vector2]) -> void:
 	self.type = type
-	self.object = object
+	self.target_id = target
 	self.place = place
 
 func _get_type_str(t):
@@ -25,9 +25,9 @@ func _get_type_str(t):
 	
 
 func _to_string():
-	return "Event: " +  _get_type_str(type) + " Object: " + str(object) + " " + str(place)
+	return "Event: " +  _get_type_str(type) + " Target: " + target_id + " " + str(place)
 
-func affects_entity(entity:BoardEntity) -> bool:
+func affects_target_with_id(entity:BoardEntity) -> bool:
 	if type == GlobalEnums.event_type.ATTACK:
 		return (object as Attack).user == entity
 	if type == GlobalEnums.event_type.MOVE:

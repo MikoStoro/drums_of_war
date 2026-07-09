@@ -1,6 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlw11hgotu42n"]
+[gd_scene format=3 uid="uid://dlw11hgotu42n"]
 
-[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/board.gd" id="1_p0ybc"]
+[ext_resource type="Script" uid="uid://cye1nkou6ankm" path="res://Scripts/Global/characters_manager.gd" id="1_bcqom"]
+[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/abstract_board.gd" id="2_ku5vs"]
+[ext_resource type="Script" uid="uid://58ra2w14y55t" path="res://Scripts/Messaging/backend_herald.gd" id="3_iuuoc"]
+[ext_resource type="Script" uid="uid://otn8chbijmeu" path="res://Scripts/Clock/backend_clock.gd" id="4_ku5vs"]
+[ext_resource type="Script" uid="uid://cjd35pq27by3x" path="res://Scenes/input_processor.gd" id="5_iuuoc"]
 
-[node name="Board" type="Node"]
-script = ExtResource("1_p0ybc")
+[node name="SpiritRealm" type="Node2D" unique_id=1367413283]
+
+[node name="BackendClock" type="Node" parent="." unique_id=848359985 node_paths=PackedStringArray("clock")]
+script = ExtResource("4_ku5vs")
+clock = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="BackendClock" unique_id=1171766548]
+wait_time = 0.75
+
+[node name="CharacterManager" type="Node" parent="." unique_id=67145888]
+script = ExtResource("1_bcqom")
+
+[node name="AbstactBoard" type="Node" parent="." unique_id=586047919]
+script = ExtResource("2_ku5vs")
+width = null
+height = null
+
+[node name="BackendHerald" type="Node" parent="." unique_id=1616872279]
+script = ExtResource("3_iuuoc")
+
+[node name="InputProcessor" type="Node" parent="." unique_id=945612843]
+script = ExtResource("5_iuuoc")
+
+[node name="BogusInputMessageGenerator" type="Node" parent="." unique_id=696000336]

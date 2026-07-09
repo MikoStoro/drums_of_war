@@ -1,5 +1,5 @@
 ##SPIRIT REALM
-class_name Board
+class_name AbstractBoard
 extends Node
 
 
@@ -8,7 +8,8 @@ extends Node
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
-@onready var clock = GlobalComponents.clock
+@export var clock: BackendClock
+@export var character_manger : CharacterManager
 
 var debug_print = true
 var events_this_round : Array[BoardEvent] = []
@@ -22,7 +23,6 @@ func remove_duplicates(array: Array) -> Array:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GlobalComponents.abstract_board = self
 	clock.board_update.connect(update)
 	reset_board()
 	
@@ -78,7 +78,7 @@ func update():
 func perform_summon_phase():
 	for e in entities:
 		if e.summon != {}:
-			GlobalComponents.character_manager.add_summon(e.summon["type"], e.summon["data"])
+			##  TODO - add summon GlobalComponents.character_manager.add_summon(e.summon["type"], e.summon["data"])
 			e.summon = {}
 
 func perform_movement_phase():

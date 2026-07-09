@@ -31,7 +31,7 @@ var last_state : State = states["BLOCKED"]
 
 var current_action: BaseAction = null
 
-@onready var board : Board = GlobalComponents.abstract_board
+@onready var board : AbstractBoard = GlobalComponents.abstract_board
 var spirit : BoardEntity = null
 
 func _ready() -> void:

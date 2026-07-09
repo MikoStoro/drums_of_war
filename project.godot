@@ -21,8 +21,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GlobalComponents="*res://Scripts/Utils/Global_Components.gd"
 GameManager="*res://Scripts/Utils/game_manager.gd"
+GlobalMessenger="*uid://myt8tv3cwbai"
 
 [display]
 
