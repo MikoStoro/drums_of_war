@@ -1,6 +1,6 @@
 extends Node2D
 class_name VisualCharacter
-
+# MARKED FOR DEATH
 #@export var animation: AnimationPlayer
 #@export var animation_sprite: AnimatedSprite2D
 @export var player_animations: AnimatedSprite2D

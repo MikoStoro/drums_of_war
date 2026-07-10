@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8883cv2ciy2a"]
+[gd_scene format=3 uid="uid://c8883cv2ciy2a"]
 
 [ext_resource type="Script" uid="uid://m1w0v5m8nydn" path="res://Scripts/Character/visual_player.gd" id="1_vgqql"]
 [ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Assets/Sprites/druns_of_war_sprite_hi_res.png" id="2_vgqql"]
 [ext_resource type="Texture2D" uid="uid://jq6ug8xgk54h" path="res://Assets/Sprites/file-arrow-right-3-3092301021.png" id="2_y6gs3"]
-[ext_resource type="Script" path="res://Scripts/direction_indicator.gd" id="3_fkybt"]
 [ext_resource type="Script" uid="uid://r01osvml610n" path="res://Scripts/Character/direction_indicator.gd" id="3_fkybt"]
 [ext_resource type="Texture2D" uid="uid://csdl1r0k2mr0s" path="res://Assets/Sprites/AnimationSprites/throw_blue/SP402_01.png" id="5_f3hw6"]
 [ext_resource type="Texture2D" uid="uid://dry5gnaodclim" path="res://Assets/Sprites/AnimationSprites/throw_white/SP401_01.png" id="5_m75ug"]
@@ -78,7 +77,7 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"Quick Stab",
 "speed": 14.0
 }, {
@@ -104,24 +103,24 @@ animations = [{
 "duration": 1.0,
 "texture": null
 }],
-"loop": false,
+"loop": 0,
 "name": &"thrust",
 "speed": 14.0
 }]
 
-[node name="VisualCharacter" type="Node2D" node_paths=PackedStringArray("player_animations", "sprite", "hpbar")]
+[node name="VisualCharacter" type="Node2D" unique_id=1317433529 node_paths=PackedStringArray("player_animations", "sprite", "hpbar")]
 script = ExtResource("1_vgqql")
 player_animations = NodePath("PlayerAnimation")
 sprite = NodePath("CharacterSprite")
 hpbar = NodePath("CharacterSprite/Healthbar")
 
-[node name="CharacterSprite" type="Sprite2D" parent="."]
+[node name="CharacterSprite" type="Sprite2D" parent="." unique_id=1592145096]
 material = SubResource("ShaderMaterial_m75ug")
 rotation = -3.14159
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("2_vgqql")
 
-[node name="Healthbar" type="ProgressBar" parent="CharacterSprite"]
+[node name="Healthbar" type="ProgressBar" parent="CharacterSprite" unique_id=1513671725]
 offset_left = -200.0
 offset_top = 160.0
 offset_right = 200.0
@@ -134,7 +133,7 @@ step = 1.0
 value = 5.0
 show_percentage = false
 
-[node name="CollisionSparks" type="GPUParticles2D" parent="CharacterSprite"]
+[node name="CollisionSparks" type="GPUParticles2D" parent="CharacterSprite" unique_id=1649771588]
 modulate = Color(0.988235, 0.717647, 0, 1)
 emitting = false
 amount = 20
@@ -144,23 +143,23 @@ explosiveness = 1.0
 trail_enabled = true
 process_material = SubResource("ParticleProcessMaterial_m75ug")
 
-[node name="HitSparks" type="GPUParticles2D" parent="CharacterSprite"]
+[node name="HitSparks" type="GPUParticles2D" parent="CharacterSprite" unique_id=1926407062]
 emitting = false
 lifetime = 0.24
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_1c3ib")
 
-[node name="DirectionIndicator" type="Node2D" parent="."]
+[node name="DirectionIndicator" type="Node2D" parent="." unique_id=1500864101]
 script = ExtResource("3_fkybt")
 
-[node name="IndivatorSprite" type="Sprite2D" parent="DirectionIndicator"]
+[node name="IndivatorSprite" type="Sprite2D" parent="DirectionIndicator" unique_id=1190677628]
 rotation = 1.5708
 scale = Vector2(0.005, 0.005)
 texture = ExtResource("2_y6gs3")
 offset = Vector2(20, 0)
 
-[node name="PlayerAnimation" type="AnimatedSprite2D" parent="."]
+[node name="PlayerAnimation" type="AnimatedSprite2D" parent="." unique_id=1059403833]
 texture_filter = 1
 position = Vector2(0, 22.41)
 rotation = 4.71239

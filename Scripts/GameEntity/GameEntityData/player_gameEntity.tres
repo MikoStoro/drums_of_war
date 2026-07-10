@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameEntityData" format=3 uid="uid://iwsma2fqjyil"]
+
+[ext_resource type="Script" uid="uid://cb6qolaf3imdy" path="res://Scripts/GameEntity/game_entity_data.gd" id="1_qc4av"]
+[ext_resource type="Texture2D" uid="uid://ck3ifytee3oi" path="res://Assets/Sprites/druns_of_war_sprite_hi_res.png" id="2_s53ks"]
+
+[resource]
+script = ExtResource("1_qc4av")
+sprite = ExtResource("2_s53ks")
+metadata/_custom_type_script = "uid://cb6qolaf3imdy"

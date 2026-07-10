@@ -22,7 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalComponents="*res://Scripts/Utils/Global_Components.gd"
-GameManager="*res://Scripts/Utils/game_manager.gd"
+GameEntityManager="*uid://fi8g1yfb626u"
 
 [display]
 

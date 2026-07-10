@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameEntityData" format=3 uid="uid://y7xef5diab22"]
+
+[ext_resource type="Script" uid="uid://cb6qolaf3imdy" path="res://Scripts/GameEntity/game_entity_data.gd" id="1_ylfqi"]
+[ext_resource type="Texture2D" uid="uid://5astscuin37n" path="res://Assets/Sprites/flaming-hot-fireball-pixel-illustration-png-1812609548.png" id="2_dl6q3"]
+
+[resource]
+script = ExtResource("1_ylfqi")
+sprite = ExtResource("2_dl6q3")
+metadata/_custom_type_script = "uid://cb6qolaf3imdy"
