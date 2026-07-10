@@ -7,8 +7,8 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 		
 		match event.type:
 			GlobalEnums.event_type.HIT:
-				var e : GameEntity = GameEntityManager.get_entity(id)
-				
+				var e : GameEntity = GameEntityManager.get_entity(0)
+				e.recieve_hit(5)
 				pass
 				#_recieve_hit(event.extra_data[0].damage_taken)
 				#$CharacterSprite/HitSparks.emitting = true	#it most likely should be handled in weapon 
