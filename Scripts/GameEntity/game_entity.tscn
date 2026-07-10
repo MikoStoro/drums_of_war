@@ -1,3 +1,9 @@
 [gd_scene format=3 uid="uid://bprbrrfx1dnpo"]
 
-[node name="GameEntity" type="Node2D" unique_id=1508672875]
+[ext_resource type="Script" uid="uid://bwd1mjr6ixdvs" path="res://Scripts/GameEntity/game_entity.gd" id="1_5v5u7"]
+
+[node name="GameEntity" type="Node2D" unique_id=1508672875 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_5v5u7")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=713631954]
