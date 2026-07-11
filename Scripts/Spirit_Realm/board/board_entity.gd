@@ -22,9 +22,12 @@ var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
 var controller : CharacterController = null
 
+var character_id : int
+
 func rotate_moves(direction: int):
 	for m in self.moves:
 		m.rotate(direction)
+
 func get_current_move() -> Move:
 	if len(moves) > 0:
 		return moves[0]
@@ -38,6 +41,7 @@ func get_last_move() -> Move:
 
 func get_last_coordinates() -> Coordinates:
 	return self.last_coordinates
+
 func update_coordinates(c: Coordinates) -> void:
 	self.last_coordinates = self.coordinates
 	self.coordinates = c
@@ -76,19 +80,21 @@ func junction_collide(other: BoardEntity = null):
 func set_attack(attack: Attack):
 	self.attack = attack
 	attack.apply_blueprint(self)
-	
+
 func reset_attack():
 	self.attack = null
-	
+
 func _to_string():
 	return self.debug_display
 	
 func transfer_events(events : Array[BoardEvent]):
 	new_events.emit(events)
-	#self.controller.transfer_events(events)
 	
-func _init(s_x:float=0, s_y:float=0):
-	self.coordinates = Coordinates.new(s_x,s_y)
+func _init(character_id : int, display_symbol : String ):
+	display_symbol = display_symbol[0] ## symbol must be 1 character long or it will fuck up the board
+	self.character_id = character_id
+	self.coordinates = Coordinates.new(-1,-1)
+	self.debug_display = display_symbol
 	
 func update_attack_targets():
 	if attack != null:

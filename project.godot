@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://Scripts/Utils/game_manager.gd"
 GlobalMessenger="*uid://myt8tv3cwbai"
+BackendGlobalComponents="*uid://dn2jr8rfl2u3f"
 
 [display]
 

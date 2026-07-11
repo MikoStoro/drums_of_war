@@ -23,10 +23,9 @@ func remove_duplicates(array: Array) -> Array:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	BackendGlobalComponents.abstract_board = self
 	clock.board_update.connect(update)
 	reset_board()
-	
-
 
 func get_junction_name(field1:Field, field2:Field) -> String:
 	var x1 = field1.x()
@@ -324,9 +323,10 @@ func get_junction(old: Field, new: Field) -> Junction:
 	else:
 		junction = junctions[name]
 	return junction
-		
 
-func place_entity(entity: BoardEntity) -> void:
+func place_character(character: AbstractCharacter, x: int, y: int) -> void:
+	var entity: BoardEntity = character.spirit
+	entity.coordinates = Coordinates.new(x,y)
 	get_field(entity.coordinates).entities.append(entity)
 	entities.append(entity)
 	print_board(debug_print)
@@ -357,4 +357,5 @@ func remove_corpses():
 
 func remove_entity(e: BoardEntity):
 	get_field(e.coordinates).entities.erase(e)
+	character_manger.ge
 	

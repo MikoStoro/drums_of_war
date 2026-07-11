@@ -22,10 +22,10 @@ func _get_type_str(t):
 	if t == GlobalEnums.event_type.DEATH:
 		return "death"
 	return "Unknown Event"
-	
+
 
 func _to_string():
-	return "Event: " +  _get_type_str(type) + " Target: " + target_id + " " + str(place)
+	return "Event: " +  _get_type_str(type) + " Target: " + target_id + " place " + str(place)
 
 func affects_target_with_id(entity:BoardEntity) -> bool:
 	if type == GlobalEnums.event_type.ATTACK:

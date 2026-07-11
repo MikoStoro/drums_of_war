@@ -1,14 +1,5 @@
 extends Node
 ## It would be funny if we used internet protocol for that
 
-signal send_message_to_backend()
-signal send_message_to_frontend
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+signal send_message_to_backend(event_list : Array[BaseEvent])
+signal send_message_to_frontend(event_list : Array[BaseEvent])

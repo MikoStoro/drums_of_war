@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://dlw11hgotu42n"]
 
 [ext_resource type="Script" uid="uid://cye1nkou6ankm" path="res://Scripts/Global/characters_manager.gd" id="1_bcqom"]
+[ext_resource type="Script" uid="uid://tndtu6iv0u55" path="res://Scenes/attack_manager.gd" id="2_20vfk"]
 [ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/abstract_board.gd" id="2_ku5vs"]
 [ext_resource type="Script" uid="uid://58ra2w14y55t" path="res://Scripts/Messaging/backend_herald.gd" id="3_iuuoc"]
 [ext_resource type="Script" uid="uid://otn8chbijmeu" path="res://Scripts/Clock/backend_clock.gd" id="4_ku5vs"]
 [ext_resource type="Script" uid="uid://cjd35pq27by3x" path="res://Scenes/input_processor.gd" id="5_iuuoc"]
+[ext_resource type="Script" uid="uid://drxmfso0ygqv0" path="res://Scenes/bogus_input_message_generator.gd" id="7_sqgu8"]
 
 [node name="SpiritRealm" type="Node2D" unique_id=1367413283]
 
@@ -15,18 +17,24 @@ clock = NodePath("Timer")
 [node name="Timer" type="Timer" parent="BackendClock" unique_id=1171766548]
 wait_time = 0.75
 
-[node name="CharacterManager" type="Node" parent="." unique_id=67145888]
+[node name="AttackManager" type="Node" parent="." unique_id=784997510]
+script = ExtResource("2_20vfk")
+
+[node name="CharacterManager" type="Node" parent="." unique_id=67145888 node_paths=PackedStringArray("board")]
 script = ExtResource("1_bcqom")
+board = NodePath("../AbstactBoard")
 
 [node name="AbstactBoard" type="Node" parent="." unique_id=586047919]
 script = ExtResource("2_ku5vs")
 width = null
 height = null
 
-[node name="BackendHerald" type="Node" parent="." unique_id=1616872279]
+[node name="BackendMessenger" type="Node" parent="." unique_id=1616872279]
 script = ExtResource("3_iuuoc")
 
 [node name="InputProcessor" type="Node" parent="." unique_id=945612843]
 script = ExtResource("5_iuuoc")
 
-[node name="BogusInputMessageGenerator" type="Node" parent="." unique_id=696000336]
+[node name="BogusInputMessageGenerator" type="Node" parent="." unique_id=696000336 node_paths=PackedStringArray("messenger")]
+script = ExtResource("7_sqgu8")
+messenger = NodePath("../BackendMessenger")
