@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqu4vnb845aab"]
+[gd_scene format=3 uid="uid://dqu4vnb845aab"]
 
 [ext_resource type="Script" uid="uid://baxtyoblf85c2" path="res://Scenes/pause_ui.gd" id="1_dj8ul"]
 [ext_resource type="Script" uid="uid://dyu1aobt5kl6b" path="res://Scripts/UI/button_spawn.gd" id="1_srqh7"]
 [ext_resource type="Script" uid="uid://b66noetk1vfp4" path="res://Scripts/UI/action_select_button.gd" id="2_dj8ul"]
 
-[node name="PauseUI" type="PanelContainer"]
+[node name="PauseUI" type="PanelContainer" unique_id=1108574386]
 process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,41 +13,41 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dj8ul")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1685469301]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=2034889095]
 layout_mode = 2
 columns = 2
 
-[node name="Vbox" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+[node name="Vbox" type="HBoxContainer" parent="MarginContainer/GridContainer" unique_id=1706495528]
 layout_mode = 2
 
-[node name="X" type="TextEdit" parent="MarginContainer/GridContainer/Vbox" groups=["debug-ui"]]
+[node name="X" type="TextEdit" parent="MarginContainer/GridContainer/Vbox" unique_id=1020582877 groups=["debug-ui"]]
 layout_mode = 2
 text = "0"
 placeholder_text = "x"
 scroll_fit_content_height = true
 scroll_fit_content_width = true
 
-[node name="Y" type="TextEdit" parent="MarginContainer/GridContainer/Vbox" groups=["debug-ui"]]
+[node name="Y" type="TextEdit" parent="MarginContainer/GridContainer/Vbox" unique_id=1673697157 groups=["debug-ui"]]
 layout_mode = 2
 text = "0"
 placeholder_text = "y"
 scroll_fit_content_height = true
 scroll_fit_content_width = true
 
-[node name="BotType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox"]
+[node name="BotType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox" unique_id=1330980992]
 layout_mode = 2
 item_count = 1
 popup/item_0/text = "Krakowiak"
 popup/item_0/id = 0
 
-[node name="Button" type="Button" parent="MarginContainer/GridContainer/Vbox" node_paths=PackedStringArray("x", "y", "is_ai", "input_type")]
+[node name="Button" type="Button" parent="MarginContainer/GridContainer/Vbox" unique_id=478371946 node_paths=PackedStringArray("x", "y", "is_ai", "input_type")]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "Spawn"
@@ -57,41 +57,41 @@ y = NodePath("../Y")
 is_ai = NodePath("../VBoxContainer/is_ai")
 input_type = NodePath("../VBoxContainer/InputType")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer/Vbox"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer/Vbox" unique_id=841138229]
 layout_mode = 2
 
-[node name="is_ai" type="CheckBox" parent="MarginContainer/GridContainer/Vbox/VBoxContainer"]
+[node name="is_ai" type="CheckBox" parent="MarginContainer/GridContainer/Vbox/VBoxContainer" unique_id=1628403973]
 layout_mode = 2
 button_pressed = true
 text = "AI?"
 
-[node name="InputType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox/VBoxContainer"]
+[node name="InputType" type="OptionButton" parent="MarginContainer/GridContainer/Vbox/VBoxContainer" unique_id=1897486222]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer" unique_id=1064155972]
 layout_mode = 2
 script = ExtResource("2_dj8ul")
 
-[node name="Action" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+[node name="Action" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer" unique_id=2005220184]
 layout_mode = 2
 
-[node name="Action2" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+[node name="Action2" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer" unique_id=1654053611]
 layout_mode = 2
 
-[node name="Action3" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+[node name="Action3" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer" unique_id=338919678]
 layout_mode = 2
 
-[node name="Action4" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer"]
+[node name="Action4" type="OptionButton" parent="MarginContainer/GridContainer/VBoxContainer" unique_id=1292333496]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/GridContainer" unique_id=1051349429]
 layout_mode = 2
 
-[node name="Exit" type="Button" parent="MarginContainer/GridContainer/HBoxContainer"]
+[node name="Exit" type="Button" parent="MarginContainer/GridContainer/HBoxContainer" unique_id=786684830]
 layout_mode = 2
 text = "Exit"
 
-[node name="Resume" type="Button" parent="MarginContainer/GridContainer/HBoxContainer"]
+[node name="Resume" type="Button" parent="MarginContainer/GridContainer/HBoxContainer" unique_id=400366851]
 layout_mode = 2
 text = "Resume"
 

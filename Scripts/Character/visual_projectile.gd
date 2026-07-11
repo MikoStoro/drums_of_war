@@ -1,6 +1,8 @@
 extends Node2D
 class_name VisualProjectile
 
+# MARKED FOR DEATH
+
 #@export var animation: AnimationPlayer
 #@export var animation_sprite: AnimatedSprite2D
 @export var sprite: Sprite2D
