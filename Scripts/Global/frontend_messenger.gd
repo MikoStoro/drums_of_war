@@ -12,15 +12,3 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 				var e : GameEntity = GameEntityManager.get_entity(0)
 				e.recieve_hit(5)
 				pass
-				#_recieve_hit(event.extra_data[0].damage_taken)
-				#$CharacterSprite/HitSparks.emitting = true	#it most likely should be handled in weapon 
-
-			#GlobalEnums.event_type.MOVE:
-				#_move(event.place[0])	#Move always should have only one element, so its function takes only one
-			#GlobalEnums.event_type.ATTACK:
-				#_draw_line(event.place, event)
-			#GlobalEnums.event_type.COLLISION:
-				#$CharacterSprite/CollisionSparks.emitting = true
-				#var pos = position
-				#_move(event.place[0])
-				#_move(pos)
