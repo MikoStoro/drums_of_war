@@ -20,8 +20,6 @@ signal new_events(events)
 
 var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
 
-var controller : CharacterController = null
-
 var character_id : int
 
 func rotate_moves(direction: int):
@@ -63,11 +61,11 @@ func round_setup():
 func collide(other : BoardEntity = null): ## to-do: make colliding entities able to interact
 	return behavior.collide(other)
 	
-func hit(attack) -> Array[BoardEvent]:
+func hit(attack) -> Array[BaseEvent]:
 	var attack_result = behavior.hit(attack)
 	return attack_result
 	
-func hit_direct(damage: int):
+func hit_direct(damage: int) -> Array[BaseEvent]:
 	var hit_result = behavior.hit_direct(damage)
 	return hit_result
 	
@@ -87,9 +85,7 @@ func reset_attack():
 func _to_string():
 	return self.debug_display
 	
-func transfer_events(events : Array[BoardEvent]):
-	new_events.emit(events)
-	
+
 func _init(character_id : int, display_symbol : String ):
 	display_symbol = display_symbol[0] ## symbol must be 1 character long or it will fuck up the board
 	self.character_id = character_id

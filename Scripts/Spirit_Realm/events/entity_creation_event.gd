@@ -1,4 +1,5 @@
 extends BaseEvent
+class_name EntityCreationEvent
 
 var entity_id : int
 var entiity_display_id : int

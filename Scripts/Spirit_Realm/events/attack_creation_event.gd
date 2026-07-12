@@ -1,4 +1,5 @@
 extends BaseEvent
+class_name AttackCreationEvent
 
 var attack_id : int #the id of created attack
 var attack_type_id : int # lookup value for the attack - so you know what to display

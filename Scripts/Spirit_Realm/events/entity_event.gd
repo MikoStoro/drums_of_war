@@ -1,12 +1,13 @@
 extends BaseEvent
+class_name EntityEvent
 
 var entity_id : int
 var place : Array[Vector2]
 var extra_data : Array[EventData] = []
 
-func _init(event_type: GlobalEnums.event_type, target: String, place: Array[Vector2]) -> void:
+func _init(event_type: GlobalEnums.event_type, entity: int, place: Array[Vector2]) -> void:
 	self.event_type = event_type
-	self.target_id = target
+	self.entity_id = entity
 	self.place = place
 
 func _get_type_str(t):

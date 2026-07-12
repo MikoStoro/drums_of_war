@@ -1,13 +1,14 @@
 class_name AbstractCharacter
 
-var actions : Array[BaseAction] = [ DashAction.new(), ThrustAction.new(), SlowDashAttack.new(), SummonProjectileAction.new() ]
+
 var is_ai = false
 
 var spirit : BoardEntity = null
+var display_id : int = -1 # this links abstract character to visual skin
 @export var debug_display: String = "C"
-var controller : AbstractCharacterBaseController
-
 var id: int
+var current_action : BaseAction = null
+var current_action_direction : int = 0
 
 func _init(custom_id = null):
 	if custom_id != null and typeof(custom_id) == TYPE_INT:
@@ -20,11 +21,11 @@ func _init(custom_id = null):
 func destruction() -> void:
 	ResourceUID.remove_id(self.id)
 
-func set_action(index: int, action: BaseAction):
-	self.controller.actions[index] = action
-
 func get_spirit_position() -> Coordinates:
 	return self.spirit.coordinates
+	
+func perform_action():
+	self.current_action.perform_action(self.spirit, self.current_action_direction)
 
-func perform_action(index: int):
-	self.spirit.act
+func reset_action():
+	self.current_action = null

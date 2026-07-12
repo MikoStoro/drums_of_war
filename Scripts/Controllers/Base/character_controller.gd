@@ -1,4 +1,4 @@
-class_name CharacterController
+#class_name CharacterController
 extends Node
 
 class State:
