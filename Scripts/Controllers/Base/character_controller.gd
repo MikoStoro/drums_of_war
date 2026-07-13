@@ -100,12 +100,6 @@ func _physics_process(delta: float) -> void:
 	#move_and_slide()
 	pass
 	
-func transfer_events(events: Array[BoardEvent]):
-	pass
-	##will be added when projectile gets visual element
-	if $"../VisualCharacter" != null:
-		$"../VisualCharacter".new_orders(events)
-	
 func link_spirit(e: BoardEntity):
 	self.spirit = e
 	e.controller = self
