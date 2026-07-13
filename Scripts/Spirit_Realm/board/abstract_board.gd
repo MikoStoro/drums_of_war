@@ -1,5 +1,5 @@
 ##SPIRIT REALM
-class_name Board
+class_name AbstractBoard
 extends Node
 
 
@@ -8,10 +8,11 @@ extends Node
 var fields = Array()
 var entities : Array[BoardEntity] = []
 var junctions : Dictionary[String, Junction] = {}
-@onready var clock = GlobalComponents.clock
+@export var clock: BackendClock
+@export var character_manger : CharacterManager
 
 var debug_print = true
-var events_this_round : Array[BoardEvent] = []
+var events_this_round : Array[BaseEvent] = []
 
 func remove_duplicates(array: Array) -> Array:
 	var unique: Array = []
@@ -22,11 +23,8 @@ func remove_duplicates(array: Array) -> Array:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GlobalComponents.abstract_board = self
 	clock.board_update.connect(update)
 	reset_board()
-	
-
 
 func get_junction_name(field1:Field, field2:Field) -> String:
 	var x1 = field1.x()
@@ -45,7 +43,7 @@ func get_junction_name(field1:Field, field2:Field) -> String:
 	return strx + " " + stry
 	## this could have been avoided, if only gdscript implemented sets...
 
-func get_affected_entities(events: Array[BoardEvent]):
+func get_affected_entities(events: Array[BaseEvent]):
 	var ents:Array[BoardEntity] = []
 	for ev in events:
 		var en = ev.get_affected_entities()
@@ -68,17 +66,17 @@ func update():
 		var temp_entities = remove_duplicates(get_affected_entities(events_this_round))
 		for en in temp_entities:
 			if en != null:	#TODO why is it null
-				var events_for_this_entity : Array[BoardEvent] = []
+				var events_for_this_entity : Array[BaseEvent] = []
 				for ev in events_this_round:
 					if ev.affects_entity(en): events_for_this_entity.append(ev)
 				en.transfer_events(events_for_this_entity)
-				#temp_player.new_orders(events_this_round)
 	remove_corpses()
 
 func perform_summon_phase():
 	for e in entities:
 		if e.summon != {}:
-			GlobalComponents.character_manager.add_summon(e.summon["type"], e.summon["data"])
+			##  TODO - add summon
+			character_manger.add_summon(e.summon["type"], e.summon["data"]) # manager generates spawn events
 			e.summon = {}
 
 func perform_movement_phase():
@@ -109,7 +107,7 @@ func perform_movement_phase():
 				for e1 in j.entities: ## every entity applies its collision effect to every other
 					for e2 in j.entities:
 						if e1 != e2: 
-							var events : Array[BoardEvent] = e1.junction_collide(e2) 
+							var events : Array[BaseEvent] = e1.junction_collide(e2) 
 							events_this_round += events
 		
 		## remove entities that got destroyed as a result of collision
@@ -132,17 +130,17 @@ func perform_movement_phase():
 					for e in j.entities:
 						if possible_collisions.has(e):
 							collisions_detected += 1
-							events_this_round.append(BoardEvent.new(GlobalEnums.event_type.COLLISION, e, [j.location.get_vector2()]))
+							events_this_round.append(EntityEvent.new(GlobalEnums.event_type.COLLISION, e.character_id, [j.location.get_vector2()]))
 							revert_last_move(e)
 							possible_collisions.erase(e)
 
 			## apply collision effects on fields
-			for e1 in possible_collisions:
+			for e1 : BoardEntity in possible_collisions:
 				var f = get_field(e1.coordinates)
-				for e2 in f.entities:
+				for e2 : BoardEntity in f.entities:
 					if e1 != e2:
-						var events : Array[BoardEvent] = e1.collide(e2)
-						events_this_round += events ## every entity collides each other
+						var events : Array[BaseEvent] = e1.collide(e2)
+						events_this_round.append_array(events) ## every entity collides each other
 
 
 			## detect collisions on fields and revert movement if necessary 
@@ -152,21 +150,21 @@ func perform_movement_phase():
 					for e2: BoardEntity in field_to_inspect.entities: ## moving entities are knocked back
 						if e2 != e and possible_collisions.has(e2):
 							collisions_detected += 1
-							events_this_round.append( BoardEvent.new(GlobalEnums.event_type.COLLISION, e2, [field_to_inspect.location.get_vector2()]))
+							events_this_round.append( EntityEvent.new(GlobalEnums.event_type.COLLISION, e2.character_id, [field_to_inspect.location.get_vector2()]))
 							if not e2.mark_for_removal:
 								revert_last_move(e2)
 							possible_collisions.erase(e2)
 				
 	entities_moved = entities.filter(func(e:BoardEntity) : return e.moved_this_turn>0)
-	for e in entities_moved:
-		events_this_round.append(BoardEvent.new(GlobalEnums.event_type.MOVE, e, [e.coordinates.get_vector2()]))
+	for e : BoardEntity in entities_moved:
+		events_this_round.append(EntityEvent.new(GlobalEnums.event_type.MOVE, e.character_id, [e.coordinates.get_vector2()]))
 		e.update_attack_targets()
 		
 	print_board(debug_print)
 
 func get_attacks_by_priority(priority: int) -> Array[Attack]:
 	var result : Array[Attack] = []
-	for e in entities:
+	for e : BoardEntity in entities:
 		if e.attack != null && e.attack.priority == priority:
 			result.append(e.attack)
 	return result
@@ -230,8 +228,8 @@ func perform_attack_phase():
 		resolved_attacks = []
 		junctions = {}
 
-func get_attack_events(attacks : Array[Attack]) -> Array[BoardEvent]:
-	var events : Array[BoardEvent] = []
+func get_attack_events(attacks : Array[Attack]) -> Array[AttackEvent]:
+	var events : Array[AttackEvent] = []
 	for a in attacks:
 		var location_list : Array[Vector2] = []
 		for i in range(len(a.targets)):
@@ -241,7 +239,7 @@ func get_attack_events(attacks : Array[Attack]) -> Array[BoardEvent]:
 			location_list.append(t.get_vector2())
 		if len(location_list) > 0:
 			location_list.push_front(a.user_coordinates.get_vector2())
-			var event = BoardEvent.new(GlobalEnums.event_type.ATTACK, a, location_list)
+			var event = AttackEvent.new(GlobalEnums.event_type.ATTACK_PROGRESS, a.attack_id, location_list)
 			events.append(event)
 	return events
 	
@@ -324,9 +322,10 @@ func get_junction(old: Field, new: Field) -> Junction:
 	else:
 		junction = junctions[name]
 	return junction
-		
 
-func place_entity(entity: BoardEntity) -> void:
+func place_character(character: AbstractCharacter, x: int, y: int) -> void:
+	var entity: BoardEntity = character.spirit
+	entity.coordinates = Coordinates.new(x,y)
 	get_field(entity.coordinates).entities.append(entity)
 	entities.append(entity)
 	print_board(debug_print)
@@ -357,4 +356,5 @@ func remove_corpses():
 
 func remove_entity(e: BoardEntity):
 	get_field(e.coordinates).entities.erase(e)
+	character_manger.remove_character_by_id(e.character_id)
 	

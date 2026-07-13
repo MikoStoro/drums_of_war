@@ -1,4 +1,4 @@
-class_name CharacterController
+#class_name CharacterController
 extends Node
 
 class State:
@@ -31,7 +31,7 @@ var last_state : State = states["BLOCKED"]
 
 var current_action: BaseAction = null
 
-@onready var board : Board = GlobalComponents.abstract_board
+@onready var board : AbstractBoard = GlobalComponents.abstract_board
 var spirit : BoardEntity = null
 
 func _ready() -> void:
@@ -99,12 +99,6 @@ func get_direction() -> int:
 func _physics_process(delta: float) -> void:
 	#move_and_slide()
 	pass
-	
-func transfer_events(events: Array[BoardEvent]):
-	pass
-	##will be added when projectile gets visual element
-	if $"../VisualCharacter" != null:
-		$"../VisualCharacter".new_orders(events)
 	
 func link_spirit(e: BoardEntity):
 	self.spirit = e

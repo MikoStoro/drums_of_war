@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://crbfbym1vkr87" path="res://Assets/Sprites/pngtree-golden-gong-with-stand-vector-png-image_6710152.png" id="6_rku1e"]
 [ext_resource type="Script" uid="uid://cye1nkou6ankm" path="res://Scripts/Global/characters_manager.gd" id="7_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://coo1igwacxt1v" path="res://Scenes/character.tscn" id="7_v158k"]
-[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/abstract_board.gd" id="9_ewbju"]
+[ext_resource type="Script" uid="uid://crp2wv4tpu3uf" path="res://Scripts/Spirit_Realm/board/board.gd" id="9_ewbju"]
 [ext_resource type="Texture2D" uid="uid://cw0a2wcjbfh0f" path="res://Assets/Sprites/map6KFI4G9NL8DV.jpg" id="12_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://dqu4vnb845aab" path="res://Scenes/pause_ui.tscn" id="13_rfjv2"]
 
@@ -31,8 +31,6 @@ stream = ExtResource("3_rku1e")
 
 [node name="Board" type="Node" parent="." unique_id=1643013112]
 script = ExtResource("9_ewbju")
-width = null
-height = null
 
 [node name="VisualClock" type="Sprite2D" parent="." unique_id=1068676607]
 position = Vector2(-104, -40)

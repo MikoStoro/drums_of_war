@@ -5,33 +5,33 @@ var e : BoardEntity
 func turn_setup():
 	pass
 
-func collide(other: BoardEntity = null) -> Array[BoardEvent]:
+func collide(other: BoardEntity = null) -> Array[BaseEvent]:
 	return []
-func junction_collide(other: BoardEntity = null) -> Array[BoardEvent]:
+func junction_collide(other: BoardEntity = null) -> Array[BaseEvent]:
 	return []
 func stop():
 	e.moves = []
 
-func hit(attack: Attack) -> Array[BoardEvent]:
+func hit(attack: Attack) -> Array[BaseEvent]:
 	return self.hit_direct(attack.damage)
 
-func hit_direct(damage: int) -> Array[BoardEvent]:
+func hit_direct(damage: int) -> Array[BaseEvent]:
 	print(e.debug_display + " has been hit for " + str(damage) + " damage!")
 	return self.take_damage(damage)
 
 func _init(entity: BoardEntity) -> void:
 	self.e = entity
 
-func take_damage(amount : int) -> Array[BoardEvent]:
+func take_damage(amount : int) -> Array[BaseEvent]:
 	self.stagger()
-	var events : Array[BoardEvent] = []
+	var events : Array[BaseEvent] = []
 	e.health -= amount
-	var event = BoardEvent.new(GlobalEnums.event_type.HIT, e, [e.coordinates.get_vector2()])
+	var event = EntityEvent.new(GlobalEnums.event_type.HIT, e.character_id, [e.coordinates.get_vector2()])
 	event.add_data(HitResult.new(amount))
 	events.append(event)
 	if e.health <= 0:
 		self.die()
-		events.append(BoardEvent.new(GlobalEnums.event_type.DEATH, e, [e.coordinates.get_vector2()]))
+		events.append(EntityEvent.new(GlobalEnums.event_type.DEATH, e.character_id, [e.coordinates.get_vector2()]))
 	return events
 
 func stagger():

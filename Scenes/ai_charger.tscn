@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bm1yvadud1tv1"]
+[gd_scene format=3 uid="uid://bm1yvadud1tv1"]
 
-[ext_resource type="Script" uid="uid://basn1nkwx2v1h" path="res://Scripts/Character/character.gd" id="1_82cvo"]
+[ext_resource type="Script" uid="uid://basn1nkwx2v1h" path="res://Scripts/Character/abstract_character.gd" id="1_82cvo"]
 [ext_resource type="Script" uid="uid://bk52nnxf3jaxp" path="res://Scripts/Controllers/AI/charger_ai_controller.gd" id="2_fqsgy"]
 [ext_resource type="Resource" uid="uid://bt6roi0syja4i" path="res://Resources/keyboard_controls.tres" id="3_377o7"]
 [ext_resource type="PackedScene" uid="uid://c8883cv2ciy2a" path="res://Scenes/visual_character.tscn" id="4_kwl3c"]

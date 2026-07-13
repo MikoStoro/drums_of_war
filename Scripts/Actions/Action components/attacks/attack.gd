@@ -1,5 +1,7 @@
 class_name Attack
 
+var attack_id : int
+
 var priority : int = 1 #from 0 (fast) to 2 (slow)
 var damage : int = 1
 var targets : Array[Coordinates] = [] # an array of coordinates
@@ -11,6 +13,9 @@ var finished = false
 var correction_required = false
 var debug_display = 'o'
 var name : String = "attack_name"
+
+func _init():
+	attack_id = ResourceUID.create_id()
 
 func count_remaining_targets() -> int:
 	var remaining = len(targets) - current_target
@@ -57,6 +62,3 @@ func apply_blueprint(entity):
 
 func _to_string():
 	return debug_display
-	
-		
-	
