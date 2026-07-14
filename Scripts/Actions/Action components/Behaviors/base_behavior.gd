@@ -26,12 +26,12 @@ func take_damage(amount : int) -> Array[BaseEvent]:
 	self.stagger()
 	var events : Array[BaseEvent] = []
 	e.health -= amount
-	var event = EntityEvent.new(GlobalEnums.event_type.HIT, e.character_id, [e.coordinates.get_vector2()])
+	var event = EntityEvent.new(EventTypes.HIT, e.character_id, [e.coordinates.get_vector2()])
 	event.add_data(HitResult.new(amount))
 	events.append(event)
 	if e.health <= 0:
 		self.die()
-		events.append(EntityEvent.new(GlobalEnums.event_type.DEATH, e.character_id, [e.coordinates.get_vector2()]))
+		events.append(EntityEvent.new(EventTypes.DEATH, e.character_id, [e.coordinates.get_vector2()]))
 	return events
 
 func stagger():

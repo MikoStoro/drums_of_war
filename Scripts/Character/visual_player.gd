@@ -21,14 +21,14 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 		event = _adapt_event_to_visual_realm(event)
 		
 		match event.type:
-			GlobalEnums.event_type.MOVE:
+			EventTypes.MOVE:
 				_move(event.place[0])	#Move always should have only one element, so its function takes only one
-			GlobalEnums.event_type.ATTACK:
+			EventTypes.ATTACK:
 				_draw_line(event.place, event)
-			GlobalEnums.event_type.HIT:
+			EventTypes.HIT:
 				_recieve_hit(event.extra_data[0].damage_taken)
 				$CharacterSprite/HitSparks.emitting = true	#it most likely should be handled in weapon 
-			GlobalEnums.event_type.COLLISION:
+			EventTypes.COLLISION:
 				$CharacterSprite/CollisionSparks.emitting = true
 				var pos = position
 				_move(event.place[0])

@@ -13,9 +13,9 @@ func new_orders(arr: Array[BoardEvent]) -> void:
 		event = _adapt_event_to_visual_realm(event)
 		
 		match event.type:
-			GlobalEnums.event_type.MOVE:
+			EventTypes.MOVE:
 				_move(event.place[0])	#Move always should have only one element, so its function takes only one
-			GlobalEnums.event_type.COLLISION:
+			EventTypes.COLLISION:
 				$Sprite/CollisionSparks.emitting = true
 
 func  _recieve_hit(dmg : int) -> void:

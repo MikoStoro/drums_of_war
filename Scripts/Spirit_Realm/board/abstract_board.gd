@@ -130,7 +130,7 @@ func perform_movement_phase():
 					for e in j.entities:
 						if possible_collisions.has(e):
 							collisions_detected += 1
-							events_this_round.append(EntityEvent.new(GlobalEnums.event_type.COLLISION, e.character_id, [j.location.get_vector2()]))
+							events_this_round.append(EntityEvent.new(EventTypes.COLLISION, e.character_id, [j.location.get_vector2()]))
 							revert_last_move(e)
 							possible_collisions.erase(e)
 
@@ -150,14 +150,14 @@ func perform_movement_phase():
 					for e2: BoardEntity in field_to_inspect.entities: ## moving entities are knocked back
 						if e2 != e and possible_collisions.has(e2):
 							collisions_detected += 1
-							events_this_round.append( EntityEvent.new(GlobalEnums.event_type.COLLISION, e2.character_id, [field_to_inspect.location.get_vector2()]))
+							events_this_round.append( EntityEvent.new(EventTypes.COLLISION, e2.character_id, [field_to_inspect.location.get_vector2()]))
 							if not e2.mark_for_removal:
 								revert_last_move(e2)
 							possible_collisions.erase(e2)
 				
 	entities_moved = entities.filter(func(e:BoardEntity) : return e.moved_this_turn>0)
 	for e : BoardEntity in entities_moved:
-		events_this_round.append(EntityEvent.new(GlobalEnums.event_type.MOVE, e.character_id, [e.coordinates.get_vector2()]))
+		events_this_round.append(EntityEvent.new(EventTypes.MOVE, e.character_id, [e.coordinates.get_vector2()]))
 		e.update_attack_targets()
 		
 	print_board(debug_print)
@@ -239,7 +239,7 @@ func get_attack_events(attacks : Array[Attack]) -> Array[AttackEvent]:
 			location_list.append(t.get_vector2())
 		if len(location_list) > 0:
 			location_list.push_front(a.user_coordinates.get_vector2())
-			var event = AttackEvent.new(GlobalEnums.event_type.ATTACK_PROGRESS, a.attack_id, location_list)
+			var event = AttackEvent.new(EventTypes.ATTACK_PROGRESS, a.attack_id, location_list)
 			events.append(event)
 	return events
 	

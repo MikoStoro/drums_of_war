@@ -1,9 +1,7 @@
 class_name BaseEvent
 
-var event_type : GlobalEnums.event_type = GlobalEnums.event_type.BASE
+var event_type : String = EventTypes.BASE
 
-func get_type() -> GlobalEnums.event_type:
+func get_type() -> String:
 	return event_type
 	
-func get_type_as_str() -> String:
-	return "Base"

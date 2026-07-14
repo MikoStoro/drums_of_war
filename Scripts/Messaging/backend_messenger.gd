@@ -14,7 +14,7 @@ func receive_events(events: Array[BaseEvent]):
 	handle_input_events(events)
 
 func handle_input_events(events: Array[BaseEvent]):
-	var input_events = get_events_by_type(events, GlobalEnums.event_type.INPUT)
+	var input_events = get_events_by_type(events, EventTypes.INPUT)
 	for event : PlayerInputEvent in (input_events as Array[PlayerInputEvent]):
 		action_manager.apply_player_input(event)
 
@@ -29,5 +29,5 @@ func add_events(events: Array[BaseEvent]):
 	events_this_turn.append_array(events)
 
 
-func get_events_by_type(events: Array[BaseEvent], event_type: GlobalEnums.event_type) -> Array[BaseEvent]:
+func get_events_by_type(events: Array[BaseEvent], event_type: String) -> Array[BaseEvent]:
 	return events.filter( func (ev : BaseEvent): return ev.event_type == event_type )

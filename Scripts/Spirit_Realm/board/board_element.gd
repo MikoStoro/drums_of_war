@@ -11,14 +11,14 @@ var location: Coordinates
 	for e1 in entities:
 		for e2 in entities:
 			if e1 != e2:
-				event_list.append(BoardEvent.new(GlobalEnums.event_type.COLLISION, [e1,e2], [location.get_vector2()]))
+				event_list.append(BoardEvent.new(EventTypes.COLLISION, [e1,e2], [location.get_vector2()]))
 	return event_list'''
 
 
 func _get_clash_events(attack_pairs : Array) -> Array[BoardEvent]:
 	var event_list : Array[BoardEvent] = []
 	for a in attack_pairs:
-		event_list.append(BoardEvent.new(GlobalEnums.event_type.CLASH, a, [location.get_vector2()]))
+		event_list.append(BoardEvent.new(EventTypes.CLASH, a, [location.get_vector2()]))
 	return event_list
 
 func perform_clash(a1: Attack, a2: Attack):

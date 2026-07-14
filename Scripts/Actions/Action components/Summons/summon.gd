@@ -19,17 +19,13 @@ func _ready() -> void:
 func setup_entity():
 	self.spirit = BoardEntity.new(x_pos, y_pos)
 	self.spirit.debug_display = self.debug_display
-	GlobalComponents.abstract_board.place_entity(spirit)
 	self.controller.link_spirit(self.spirit)
 	spirit.destroyed.connect(destruction)
-	spirit.new_events.connect(transmit_events)
 
 func setup_visual():
 	self.visual.place(x_pos, y_pos)
 	self.visual.rotate_to_direction(direction)
 
-func transmit_events(events):
-	self.visual.new_orders(events)
 
 func destruction():
 	queue_free()
