@@ -10,20 +10,8 @@ func _init(event_type: String, entity: int, place: Array[Vector2]) -> void:
 	self.entity_id = entity
 	self.place = place
 
-func _get_type_str(t):
-	if t == EventTypes.MOVE:
-		return "move"
-	if t == EventTypes.COLLISION:
-		return "collision"
-	if t == EventTypes.HIT:
-		return "hit"
-	if t == EventTypes.DEATH:
-		return "death"
-	return "Unknown Event"
-
-
 func _to_string():
-	return "Event: " +  event_type + " Target: " + str(entity_id) + " place " + str(place)
+	return "Event: " +  event_type + " Target: " + str(entity_id) + " Place " + str(place)
 
 func affects_target_with_id(entity:BoardEntity) -> bool:
 	return entity_id == entity.character_id

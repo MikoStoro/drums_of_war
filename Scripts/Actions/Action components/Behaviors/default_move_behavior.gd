@@ -1,2 +1,2 @@
 class_name DefaultMoveBehavior
-extends EntityBehavior
+extends BaseEntityBehaviour

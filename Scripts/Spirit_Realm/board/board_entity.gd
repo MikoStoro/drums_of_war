@@ -18,7 +18,7 @@ var solid : bool = true
 var debug_display : String = "A"
 signal new_events(events)
 
-var behavior : EntityBehavior = DefaultMoveBehavior.new(self)
+var behavior : BaseEntityBehaviour = DefaultMoveBehavior.new(self)
 
 var character_id : int
 

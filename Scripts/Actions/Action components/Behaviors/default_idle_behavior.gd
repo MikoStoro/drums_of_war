@@ -1,11 +1,12 @@
-extends EntityBehavior
+extends BaseEntityBehaviour
 class_name DefaultIdleBehavior
 
 func turn_setup():
 	pass
-	#e.knockback_immunity = true
-	#e.correction_required = false
+
 func collide(other: BoardEntity = null): ## to-do: make colliding entities able to interact
 	return []
+	
 func junction_collide(other: BoardEntity = null):
 	return []
+	

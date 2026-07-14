@@ -3,10 +3,10 @@ extends BaseAction
 
 var summon_scene = preload("res://Scenes/projectile.tscn")
 
-func perform_action(character : CharacterController, entity : BoardEntity,  direction:int = 0):
+func perform_action(entity : BoardEntity,  direction:int = 0):
 	entity.attack = null
 	entity.moves = [ ]
-	entity.behavior = EntityBehavior.new(entity)
+	entity.behavior = BaseEntityBehaviour.new(entity)
 	var v = Coordinates.new(1,0)
 	v.rotate(direction)
 	var c = entity.coordinates
@@ -16,3 +16,4 @@ func perform_action(character : CharacterController, entity : BoardEntity,  dire
 
 func _init() -> void:
 	self.action_name = "Summon Projectile"
+	self.

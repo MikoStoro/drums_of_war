@@ -11,3 +11,6 @@ func _init(dir: Coordinates,tp: bool = false, dist : int = 1) -> void:
 
 func rotate(rotation: int):
 	self.direction.rotate(rotation)
+
+static func fwd() -> Move:
+	return Move.new(Coordinates.new(1,0))

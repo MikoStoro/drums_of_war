@@ -1,5 +1,5 @@
 class_name DefaultAttackBehavior
-extends EntityBehavior
+extends BaseEntityBehaviour
 
 
 func turn_setup():

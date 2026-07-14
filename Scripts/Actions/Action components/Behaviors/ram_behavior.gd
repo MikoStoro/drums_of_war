@@ -3,8 +3,8 @@ class_name RamBehavior
 
 var ram_damage = 1
 
-func collide(other: BoardEntity = null) -> Array[BoardEvent]: ## to-do: make colliding entities able to interact
+func collide(other: BoardEntity = null) -> Array[BaseEvent]: ## to-do: make colliding entities able to interact
 	return other.hit_direct(ram_damage)
 
-func junction_collide(other: BoardEntity = null) -> Array[BoardEvent]:
+func junction_collide(other: BoardEntity = null) -> Array[BaseEvent]:
 	return other.hit_direct(ram_damage)
