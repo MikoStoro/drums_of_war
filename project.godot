@@ -25,7 +25,6 @@ GlobalComponents="*res://Scripts/Utils/Global_Components.gd"
 GameEntityManager="*uid://fi8g1yfb626u"
 GlobalMessenger="*uid://myt8tv3cwbai"
 
-
 [display]
 
 window/size/viewport_width=1920

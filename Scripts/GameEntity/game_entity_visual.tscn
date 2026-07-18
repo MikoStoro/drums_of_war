@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d03oypt7xgxhr"]
+
+[ext_resource type="Script" uid="uid://n2prvrew5718" path="res://Scripts/GameEntity/game_entity_visual.gd" id="1_2sgr7"]
+
+[node name="GameEntityVisual" type="Sprite2D" unique_id=1029687307]
+script = ExtResource("1_2sgr7")

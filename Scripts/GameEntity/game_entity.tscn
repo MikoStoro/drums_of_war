@@ -2,8 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bwd1mjr6ixdvs" path="res://Scripts/GameEntity/game_entity.gd" id="1_5v5u7"]
 
-[node name="GameEntity" type="Node2D" unique_id=1508672875 node_paths=PackedStringArray("sprite")]
+[node name="GameEntity" type="Node2D" unique_id=1508672875]
 script = ExtResource("1_5v5u7")
-sprite = NodePath("Sprite2D")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=713631954]
