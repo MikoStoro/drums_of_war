@@ -23,13 +23,20 @@ func _ready():
 
 
 func _on_button_down() -> void:
-	EntityCreationEventToBackend e 
-	GlobalMessenger.send_message_to_backend()
 	var data = {"x" = int(x.text), "y" = int(y.text)}
+	var e = EntityCreationEventToBackend.new(data)
+	GlobalMessenger.emit.send_message_to_backend(e)
+	
+	var gev = GameEntityVisual.new()
+	var ged = GameEntityData.new()
+	ged.sprite = "res://Assets/Sprites/druns_of_war_sprite_hi_res.png"
+	gev.entity_data = ged
+	add_child(gev)
+	
 	var mode
-	if is_ai.button_pressed:
-		z.add_npc(GlobalEnums.npc_type.charger, data)
-		return
+	#if is_ai.button_pressed:
+		#z.add_npc(GlobalEnums.npc_type.charger, data)
+		#return
 	print(input_type.selected)
 	match(input_type.selected):
 		InputMode.KEYBOARD:
@@ -37,4 +44,4 @@ func _on_button_down() -> void:
 		InputMode.CONTROLLER:
 			mode = GAMEPAD_CONTROLS
 	data.set("InputMode", mode)
-	z.add_character(data)
+	#z.add_character(data)
