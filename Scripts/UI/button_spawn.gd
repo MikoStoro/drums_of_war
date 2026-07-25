@@ -23,7 +23,8 @@ func _ready():
 
 
 func _on_button_down() -> void:
-	var z: Character_Manager = get_tree().get_first_node_in_group("CharacterManager")
+	EntityCreationEventToBackend e 
+	GlobalMessenger.send_message_to_backend()
 	var data = {"x" = int(x.text), "y" = int(y.text)}
 	var mode
 	if is_ai.button_pressed:
